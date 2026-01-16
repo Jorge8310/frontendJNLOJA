@@ -186,7 +186,7 @@ async function carregarFutebol() {
 }
 
 carregarFutebol();
-setInterval(carregarFutebol, 1200000); // Atualiza a cada 20 min
+setInterval(carregarFutebol, 900000); // Atualiza a cada 20 min
 
 // ==========================================
 // 5. COMPRA DE DIAMANTES E PIX
