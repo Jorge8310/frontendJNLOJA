@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JNLOJA | Classificação e Tabelas 🏆</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Kanit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-wallpaper"></div>
+    <div class="color-overlay"></div>
+
+    <header>
+        <div class="container-header">
+            <div class="logo">JN<span>LOJA</span></div>
+            <nav>
+                <a href="index.html">VOLTAR À LOJA</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container standings-page">
+        <h1 class="title-glow">CLASSIFICAÇÃO GERAL 🏆</h1>
+        
+        <div class="standings-menu">
+            <button onclick="mudarTabela(71)" class="btn-league active" id="btn-71">BRASILEIRÃO 🇧🇷</button>
+            <button onclick="mudarTabela(39)" class="btn-league" id="btn-39">PREMIER LEAGUE 🏴󠁧󠁢󠁥󠁮󠁧󠁿</button>
+            <button onclick="mudarTabela(140)" class="btn-league" id="btn-140">LA LIGA 🇪🇸</button>
+            <button onclick="mudarTabela(135)" class="btn-league" id="btn-135">SERIE A 🇮🇹</button>
+            <button onclick="mudarTabela(1)" class="btn-league" id="btn-1">COPA DO MUNDO 🏆</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>POS</th>
+                        <th>TIME</th>
+                        <th>PTS</th>
+                        <th>J</th>
+                        <th>V</th>
+                        <th>SG</th>
+                    </tr>
+                </thead>
+                <tbody id="standingsBody">
+                    <tr><td colspan="6">Selecione uma liga para ver a tabela...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>JNLOJA &copy; 2026 - Resultados em tempo real.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Quando abrir a página, já carrega o Brasileirão
+        window.onload = () => mudarTabela(71);
+    </script>
+</body>
+</html>

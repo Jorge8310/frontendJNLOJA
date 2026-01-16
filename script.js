@@ -185,6 +185,44 @@ async function carregarFutebol() {
     }
 }
 
+//MUDAR TABELAS
+async function mudarTabela(leagueId) {
+    const body = document.getElementById('standingsBody');
+    if (!body) return;
+
+    body.innerHTML = '<tr><td colspan="6">Carregando dados da API...</td></tr>';
+
+    // Estilo dos botões
+    document.querySelectorAll('.btn-league').forEach(btn => btn.classList.remove('active'));
+    const btnAtivo = document.getElementById('btn-' + leagueId);
+    if (btnAtivo) btnAtivo.classList.add('active');
+
+    try {
+        const res = await fetch(API_URL + "/standings/" + leagueId);
+        const data = await res.json();
+
+        if (data && data.length > 0) {
+            body.innerHTML = data.map(team => `
+                <tr>
+                    <td><b style="color:var(--secondary)">${team.rank}º</b></td>
+                    <td style="text-align:left; display:flex; align-items:center; gap:10px;">
+                        <img src="${team.team.logo}" width="25"> ${team.team.name}
+                    </td>
+                    <td><b>${team.points}</b></td>
+                    <td>${team.all.played}</td>
+                    <td>${team.all.win}</td>
+                    <td style="color:${team.goalsDiff >= 0 ? '#00ff88' : '#ff4757'}">${team.goalsDiff}</td>
+                </tr>
+            `).join('');
+        } else {
+            body.innerHTML = '<tr><td colspan="6">Dados não disponíveis para esta temporada.</td></tr>';
+        }
+    } catch (e) {
+        body.innerHTML = '<tr><td colspan="6">Erro ao conectar com o servidor.</td></tr>';
+    }
+}
+
+
 carregarFutebol();
 setInterval(carregarFutebol, 900000); // Atualiza a cada 20 min
 
