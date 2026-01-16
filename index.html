@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <!-- Fundo de partida (Controlado pelo JS para trocar as fotos) -->
+    <!-- Fundo de partida dinâmico -->
     <div class="game-wallpaper"></div>
     <div class="color-overlay"></div>
 
@@ -26,28 +26,29 @@
         <div class="container-header">
             <div class="logo">JN<span>LOJA</span></div>
             <nav>
+                <!-- Botão de Minha Conta -->
+                <a href="javascript:void(0)" onclick="abrirAreaCliente()" class="btn-account">
+                    <i class="fas fa-user"></i> MINHA CONTA
+                </a>
                 <a href="#diamantes">RECARGAS</a>
                 <a href="#phones">CELULARES</a>
                 <a href="#ofertas">OFERTAS</a>
-                <!-- Link direto para seu WhatsApp -->
-                <a href="https://wa.me/5554996689157" class="btn-live">WHATSAPP VENDAS</a>
+                <!-- WhatsApp Atualizado -->
+                <a href="https://wa.me/5554996689157" target="_blank" class="btn-live">WHATSAPP VENDAS</a>
             </nav>
         </div>
     </header>
 
     <div class="main-wrapper">
-        <!-- COLUNA ESQUERDA (AMAZON DEALS) -->
+        <!-- COLUNA ESQUERDA (AMAZON) -->
         <aside class="sidebar-promo" id="phones">
             <h3 class="side-title">AMAZON DEALS 📱</h3>
-            
             <div class="glass-mini-card">
                 <span class="badge-store amazon">AMAZON</span>
                 <img src="https://m.media-amazon.com/images/I/817WWpa970L._AC_SX679_.jpg" alt="iPhone">
                 <p class="s-price">R$ 7.999</p>
                 <a href="SEU_LINK_AMAZON" target="_blank" class="btn-side-buy amazon-btn">Ver na Amazon</a>
             </div>
-
-            <!-- Adicionado mais um card Amazon -->
             <div class="glass-mini-card">
                 <span class="badge-store amazon">AMAZON</span>
                 <img src="https://m.media-amazon.com/images/I/61I4S+mNC9L._AC_SX679_.jpg" alt="Mouse">
@@ -85,11 +86,9 @@
             </div>
         </section>
 
-        <!-- COLUNA DIREITA (SHOPEE, MERCADO LIVRE & SUPORTE) -->
+        <!-- COLUNA DIREITA (SHOPEE / ML / QR CODE) -->
         <aside class="sidebar-promo">
             <h3 class="side-title">OFERTAS ELITE 🛒</h3>
-
-            <!-- Card Shopee -->
             <div class="glass-mini-card">
                 <span class="badge-store shopee">SHOPEE</span>
                 <img src="https://cf.shopee.com.br/file/4879104033b0067664c399a9a3f2d22b" alt="Redmi">
@@ -97,90 +96,39 @@
                 <p class="s-price">R$ 1.299</p>
                 <a href="SEU_LINK_SHOPEE" target="_blank" class="btn-side-buy shopee-btn">Ver na Shopee</a>
             </div>
-
-            <!-- Card Mercado Livre -->
-            <div class="glass-mini-card">
-                <span class="badge-store ml">M. LIVRE</span>
-                <img src="https://http2.mlstatic.com/D_NQ_NP_660940-MLA52316374944_112022-O.webp" alt="Poco">
-                <h4>Poco F5 Pro Gamer</h4>
-                <p class="s-price">R$ 2.850</p>
-                <a href="SEU_LINK_ML" target="_blank" class="btn-side-buy ml-btn">Ver no M. Livre</a>
-            </div>
-            
             <div class="glass-mini-card qr-card">
                 <h4 style="color: #25d366; margin-bottom: 5px;">DÚVIDAS? ESCANEIE!</h4>
-                <img src="qr-whatsapp.png" alt="WhatsApp QR" class="qr-code-img">
+                <img src="qr-whatsapp.jpg" alt="WhatsApp QR" class="qr-code-img">
                 <a href="https://wa.me/5554996689157" target="_blank" class="btn-side-buy" style="background:#25d366; color:white;">ABRIR CHAT</a>
             </div>
         </aside>
     </div>
 
-    <!-- SEÇÃO DE OFERTAS DE ELITE (ROUPAS, ZAPATOS E MAIS) -->
-<section class="container money-section" id="ofertas">
-    <h2 class="title-glow">OFERTAS DE ELITE 💎🔥</h2>
-    <div class="money-grid">
-        
-        <!-- CARD 1: CAMISAS DE TIME -->
-        <div class="money-card jersey-card">
-            <div class="hot-tag">MAIS VENDIDO</div>
-            <img src="https://m.media-amazon.com/images/I/51p6W8O723L._AC_SX679_.jpg" alt="Camisas de Time">
-            <h3>CAMISAS DE TIME 2024</h3>
-            <p class="money-price">A partir de R$ 89,90</p>
-            <a href="SEU_LINK_SHOPEE" target="_blank" class="btn-money shopee-btn">VER NA SHOPEE</a>
+    <!-- SEÇÃO AFILIADOS -->
+    <section class="container money-section" id="ofertas">
+        <h2 class="title-glow">OFERTAS DE ELITE 💎🔥</h2>
+        <div class="money-grid">
+            <div class="money-card">
+                <div class="hot-tag">MAIS VENDIDO</div>
+                <img src="https://m.media-amazon.com/images/I/51p6W8O723L._AC_SX679_.jpg">
+                <h3>CAMISAS DE TIME 2024</h3>
+                <a href="SEU_LINK_SHOPEE" target="_blank" class="btn-money shopee-btn">VER NA SHOPEE</a>
+            </div>
+            <div class="money-card">
+                <img src="https://m.media-amazon.com/images/I/61rS-y79S5L._AC_SX679_.jpg">
+                <h3>KIT PRO PLAYER FF</h3>
+                <a href="SEU_LINK_AMAZON" target="_blank" class="btn-money amazon-btn">VER NA AMAZON</a>
+            </div>
         </div>
-
-        <!-- CARD 2: CHUTEIRAS / ZAPATOS -->
-        <div class="money-card shoes-card">
-            <img src="https://m.media-amazon.com/images/I/51Wp8H8E4LL._AC_SX679_.jpg" alt="Chuteiras">
-            <h3>CHUTEIRAS PROFISSIONAIS</h3>
-            <p class="money-price">A partir de R$ 159,00</p>
-            <a href="SEU_LINK_AMAZON" target="_blank" class="btn-money amazon-btn">VER NA AMAZON</a>
-        </div>
-
-        <!-- CARD 3: KIT PRO PLAYER FF -->
-        <div class="money-card gamer-card">
-            <img src="https://m.media-amazon.com/images/I/61rS-y79S5L._AC_SX679_.jpg" alt="Cooler">
-            <h3>KIT PRO PLAYER FF</h3>
-            <p class="money-price">O combo dos mestres</p>
-            <a href="SEU_LINK_AMAZON" target="_blank" class="btn-money amazon-btn">VER NA AMAZON</a>
-        </div>
-
-        <!-- CARD 4: GANHE CRÉDITOS -->
-        <div class="money-card bonus-card">
-            <div class="cash-tag">BÔNUS R$ 10</div>
-            <img src="https://logodownload.org/wp-content/uploads/2018/09/recargapay-logo.png" alt="RecargaPay">
-            <h3>GANHE CRÉDITOS GRÁTIS</h3>
-            <p class="money-price">Indique e Ganhe</p>
-            <a href="SEU_LINK_INDICACAO" target="_blank" class="btn-money bonus-btn">RESGATAR AGORA</a>
-        </div>
-
-    </div>
-</section>
+    </section>
 
     <!-- ZONA GAMER & LIVES -->
     <section class="container entertainment-section">
         <h2 class="title-glow">ZONA GAMER & LIVES 🎮⚽</h2>
         <div class="ent-grid">
-            <div class="ent-card ff-web">
-                <div class="ent-icon"><i class="fas fa-gamepad"></i></div>
-                <h3>FREE FIRE WEB</h3>
-                <a href="https://now.gg/apps/garena-international-i-private-limited/4432/free-fire.html" target="_blank" class="btn-ent">JOGAR AGORA</a>
-            </div>
-            <div class="ent-card ff-live">
-                <div class="ent-icon"><i class="fas fa-headset"></i></div>
-                <h3>FF ESPORTS BRASIL</h3>
-                <a href="https://www.youtube.com/@FreeFireEsportsBrasil/streams" target="_blank" class="btn-ent">VER TORNEIOS</a>
-            </div>
-            <div class="ent-card football-live">
-                <div class="ent-icon"><i class="fas fa-tv"></i></div>
-                <h3>FUTEBOL AO VIVO</h3>
-                <a href="https://www.youtube.com/@CazeTV/streams" target="_blank" class="btn-ent">ASSISTIR GRÁTIS</a>
-            </div>
-            <div class="ent-card sports-plus">
-                <div class="ent-icon"><i class="fas fa-basketball-ball"></i></div>
-                <h3>NBA AO VIVO</h3>
-                <a href="https://www.youtube.com/@NBA/streams" target="_blank" class="btn-ent">VER BASQUETE</a>
-            </div>
+            <div class="ent-card ff-web"><h3>FREE FIRE WEB</h3><a href="https://now.gg/apps/garena-international-i-private-limited/4432/free-fire.html" target="_blank" class="btn-ent">JOGAR AGORA</a></div>
+            <div class="ent-card football-live"><h3>FUTEBOL AO VIVO</h3><a href="https://www.youtube.com/@CazeTV/streams" target="_blank" class="btn-ent">ASSISTIR GRÁTIS</a></div>
+            <div class="ent-card sports-plus"><h3>NBA AO VIVO</h3><a href="https://www.youtube.com/@NBA/streams" target="_blank" class="btn-ent">VER BASQUETE</a></div>
         </div>
     </section>
 
@@ -189,30 +137,72 @@
             <div class="footer-football">
                 <h4>⚽ PLACAR GERAL</h4>
                 <div id="footer-ticker" class="mini-ticker">
-                    <span>Carregando...</span>
+                    <span>Carregando placares...</span>
                 </div>
             </div>
             <div class="footer-info">
-                <p>JNLOJA&copy; <span id="ano">2026</span>O melhor suporte para Pro Players.</p>
+                <p>JNLOJA &copy; <span id="ano">2026</span> - O melhor suporte para Pro Players.</p>
                 <a href="https://wa.me/5554996689157" class="footer-social"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
     </footer>
 
+    <!-- MODAIS DE CONTA -->
+    <div id="accountModal" class="pix-modal">
+        <div class="pix-modal-content">
+            <div id="loginForm">
+                <h2>🔐 ACESSAR CONTA</h2>
+                <input type="email" id="logEmail" placeholder="E-mail" class="input-form">
+                <input type="password" id="logPass" placeholder="Senha" class="input-form">
+                <button onclick="loginCliente()" class="btn-main-buy">ENTRAR</button>
+                <p onclick="toggleForm()" style="cursor:pointer; margin-top:15px; color:var(--secondary)">Não tem conta? Cadastre-se</p>
+            </div>
+            <div id="registerForm" style="display:none">
+                <h2>📝 CRIAR CONTA</h2>
+                <input type="text" id="regName" placeholder="Nome" class="input-form">
+                <input type="email" id="regEmail" placeholder="E-mail" class="input-form">
+                <input type="text" id="regWhatsapp" placeholder="WhatsApp" class="input-form">
+                <input type="password" id="regPass" placeholder="Senha" class="input-form">
+                <button onclick="registrarCliente()" class="btn-main-buy">CADASTRAR</button>
+                <p onclick="toggleForm()" style="cursor:pointer; margin-top:15px; color:var(--secondary)">Já tem conta? Login</p>
+            </div>
+            <button onclick="closeModal('accountModal')" class="btn-close">FECHAR</button>
+        </div>
+    </div>
+
+    <div id="profileModal" class="pix-modal">
+        <div class="pix-modal-content">
+            <h2>👤 MEUS CÓDIGOS</h2>
+            <div id="orderList" style="margin:20px 0; text-align:left;"></div>
+            <button onclick="logout()" class="btn-close" style="color:red; margin-bottom: 10px; display: block; width: 100%;">SAIR DA CONTA</button>
+            <button onclick="closeModal('profileModal')" class="btn-copy">FECHAR</button>
+        </div>
+    </div>
+
     <!-- MODAL PIX -->
     <div id="pixModal" class="pix-modal">
         <div class="pix-modal-content">
             <h2>✅ PIX GERADO!</h2>
-            <p>Pague agora para receber seus diamantes.</p>
+            <p>Pague para receber os diamantes.</p>
             <textarea id="pixCodeDisplay" readonly></textarea>
             <button onclick="copyToClipboard()" class="btn-copy">📋 COPIAR CÓDIGO PIX</button>
             <button class="btn-whatsapp-send">
                 <i class="fab fa-whatsapp"></i> ENVIAR PARA MEU WHATSAPP
             </button>
-            <button onclick="closeModal()" class="btn-close">FECHAR</button>
+            <button onclick="closeModal('pixModal')" class="btn-close">FECHAR</button>
         </div>
     </div>
-
+<!-- ESTE BLOCO É OBRIGATÓRIO PARA O CLIQUE FUNCIONAR -->
+<div id="avisoModal" class="pix-modal">
+    <div class="pix-modal-content aviso-content">
+        <i class="fas fa-exclamation-triangle" style="font-size: 50px; color: var(--yellow); margin-bottom: 20px;"></i>
+        <h2 style="color: var(--yellow);">ACESSO RESTRITO!</h2>
+        <p style="margin: 20px 0; font-size: 18px;">Você precisa estar logado para realizar uma compra.</p>
+        
+        <button onclick="irParaLogin()" class="btn-main-buy">FAZER LOGIN AGORA</button>
+        <button onclick="closeModal('avisoModal')" class="btn-close">DEPOIS</button>
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
