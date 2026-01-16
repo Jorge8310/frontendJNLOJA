@@ -64,45 +64,61 @@ if (elCountdown) {
 // 3. SISTEMA DE USUÁRIO (CADASTRO / LOGIN / CONTA)
 // ==========================================
 async function registrarCliente() {
-    const name = document.getElementById('regName').value;
-    const email = document.getElementById('regEmail').value;
-    const whatsapp = document.getElementById('regWhatsapp').value;
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const whatsapp = document.getElementById('regWhatsapp').value.trim();
     const password = document.getElementById('regPass').value;
 
-    if (!name || !email || !whatsapp || !password) return alert("Preencha todos os campos!");
+    // --- VALIDAÇÕES ---
 
+    // 1. Validar Nome: Apenas letras e espaços (não aceita números ou símbolos)
+    const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+    if (!name || name.length < 3 || !regexNome.test(name)) {
+        alert("❌ Por favor, digite um nome válido (apenas letras, mínimo 3 caracteres).");
+        return;
+    }
+
+    // 2. Validar E-mail: Formato padrão (texto@texto.com)
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !regexEmail.test(email)) {
+        alert("❌ Por favor, digite um e-mail válido.");
+        return;
+    }
+
+    // 3. Validar WhatsApp: Apenas números e tamanho certo (10 ou 11 dígitos)
+    // Remove qualquer traço ou parênteses que o cliente digitar por engano
+    const apenasNumeros = whatsapp.replace(/\D/g, ''); 
+    if (apenasNumeros.length < 10 || apenasNumeros.length > 11) {
+        alert("❌ Digite o WhatsApp com DDD (apenas números, ex: 54996689157).");
+        return;
+    }
+
+    // 4. Validar Senha: Mínimo 6 caracteres
+    if (password.length < 6) {
+        alert("❌ A senha deve ter pelo menos 6 caracteres.");
+        return;
+    }
+
+    // --- SE PASSAR POR TUDO, ENVIA PARA O SERVIDOR ---
     try {
         const res = await fetch(`${API_URL}/register`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ name, email, whatsapp, password })
+            body: JSON.stringify({ 
+                name: name, 
+                email: email, 
+                whatsapp: apenasNumeros, // enviamos apenas os números limpos
+                password: password 
+            })
         });
         const data = await res.json();
         if (data.success) {
-            alert("Cadastro realizado! Agora faça login.");
+            alert("✅ Cadastro realizado! Agora faça login.");
             toggleForm();
         } else {
-            alert(data.error || "Erro ao cadastrar.");
+            alert("⚠️ " + (data.error || "Erro ao cadastrar."));
         }
-    } catch (e) { alert("Erro de conexão."); }
-}
-
-async function loginCliente() {
-    const email = document.getElementById('logEmail').value;
-    const password = document.getElementById('logPass').value;
-
-    try {
-        const res = await fetch(`${API_URL}/login`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ email, password })
-        });
-        const data = await res.json();
-        if (data.error) return alert(data.error);
-
-        localStorage.setItem('jnloja_user', JSON.stringify(data));
-        location.reload();
-    } catch (e) { alert("Erro de conexão."); }
+    } catch (e) { alert("❌ Erro de conexão com o servidor."); }
 }
 
 async function abrirAreaCliente() {
@@ -234,18 +250,31 @@ async function verificarStatus(id) {
             const modalContent = document.querySelector('.pix-modal-content');
             if (modalContent) {
                 modalContent.innerHTML = `
-                    <h2 style="color:#00ff88;">💎 PAGAMENTO APROVADO!</h2>
-                    <p style="margin-top:15px;">Seu código de resgate é:</p>
-                    <div style="background:#000; padding:20px; color:#00f2ff; font-size:22px; font-weight:bold; margin:20px 0; border:2px solid #00f2ff; border-radius:10px;">
-                        ${data.pin}
-                    </div>
-                    <button onclick="copyPin('${data.pin}')" class="btn-copy">📋 COPIAR CÓDIGO</button>
-                    <p style="font-size:12px; color:#888; margin-top:15px;">O código também foi salvo em sua conta.</p>
-                    <button onclick="location.reload()" class="btn-close" style="margin-top:20px; display:block; width:100%;">FECHAR</button>
+                   // Montamos o visual de sucesso com o seu código de diamante
+                modalContent.innerHTML = 
+                    '<h2 style="color:#00ff88;">💎 PAGAMENTO APROVADO!</h2>' +
+                    '<p style="margin-top:15px;">Obrigado pela compra! Seu código é:</p>' +
+                    '<div style="background:#000; padding:20px; color:#00f2ff; font-size:24px; font-weight:bold; margin:20px 0; border:2px solid #00f2ff; border-radius:10px; box-shadow: 0 0 15px rgba(0,242,255,0.3);">' +
+                        data.pin +
+                    '</div>' +
+                    '<button onclick="copyPin(\'' + data.pin + '\')" class="btn-copy">📋 COPIAR CÓDIGO</button>' +
+                    '<button onclick="enviarPinWhats(\'' + data.pin + '\')" class="btn-whatsapp-send" style="margin-top:10px;">' +
+                        '<i class="fab fa-whatsapp"></i> ENVIAR PARA MEU WHATSAPP' +
+                    '</button>' +
+                    '<p style="font-size:12px; color:#888; margin-top:15px;">O código também foi enviado para seu e-mail e salvo na aba MINHA CONTA.</p>' +
+                    '<button onclick="location.reload()" class="btn-close" style="background:#333; margin-top:20px;">FECHAR</button>';
                 `;
             }
         }
     } catch (e) { console.log("Aguardando aprovação..."); }
+}
+
+function enviarPinWhats(pin) {
+    // Cria a mensagem para o cliente enviar para você
+    const msg = encodeURIComponent("💎 *JNLOJA* 💎\n\nMeu código de Diamante é: *" + pin + "*\n\n_Vou resgatar agora no site Recarga Jogo!_");
+    
+    // Abre o seu número oficial
+    window.open("https://wa.me/5554996689157?text=" + msg, "_blank");
 }
 
 function copyPin(pin) {
@@ -258,6 +287,22 @@ function copyToClipboard() {
     box.select();
     navigator.clipboard.writeText(box.value);
     alert("✅ Código Pix Copiado!");
+}
+
+// FUNÇÃO PARA MANDAR O CÓDIGO DO DIAMANTE PARA O WHATSAPP
+function enviarPinWhats(pin) {
+    // 1. Criamos a mensagem que o cliente vai enviar
+    const texto = "💎 *JNLOJA* 💎\n\n" +
+                  "Meu código de Diamante é: *" + pin + "*\n\n" +
+                  "_Vou resgatar agora no site Recarga Jogo!_";
+    
+    // 2. Transformamos o texto em um link que o WhatsApp entende
+    const mensagemUrl = encodeURIComponent(texto);
+    
+    // 3. Abrimos o WhatsApp com o seu número oficial
+    const linkFinal = "https://wa.me/5554996689157?text=" + mensagemUrl;
+    
+    window.open(linkFinal, '_blank');
 }
 
 console.log("✅ Script JNLOJA v2.0 carregado com sucesso!");

@@ -8,6 +8,7 @@
     <!-- Fontes e Ícones -->
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Kanit:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
 </head>
 <body>
 
@@ -42,6 +43,22 @@
     <div class="main-wrapper">
         <!-- COLUNA ESQUERDA (AMAZON) -->
         <aside class="sidebar-promo" id="phones">
+            <!-- ADICIONE ESTES DENTRO DO ASIDE ESQUERDO -->
+<div class="glass-mini-card">
+    <span class="badge-store amazon">AMAZON</span>
+    <img src="https://m.media-amazon.com/images/I/61I4S+mNC9L._AC_SL1500_.jpg" alt="Mouse">
+    <h4>Mouse Gamer RGB</h4>
+    <p class="s-price">R$ 189,00</p>
+    <a href="SEU_LINK" target="_blank" class="btn-side-buy amazon-btn">Ver na Amazon</a>
+</div>
+
+<div class="glass-mini-card">
+    <span class="badge-store amazon">AMAZON</span>
+    <img src="https://m.media-amazon.com/images/I/613A8X+WfDL._AC_SY450_.jpg" alt="Headset">
+    <h4>Headset Pro 7.1</h4>
+    <p class="s-price">R$ 259,00</p>
+    <a href="SEU_LINK" target="_blank" class="btn-side-buy amazon-btn">Ver na Amazon</a>
+</div>
             <h3 class="side-title">AMAZON DEALS 📱</h3>
             <div class="glass-mini-card">
                 <span class="badge-store amazon">AMAZON</span>
@@ -88,6 +105,22 @@
 
         <!-- COLUNA DIREITA (SHOPEE / ML / QR CODE) -->
         <aside class="sidebar-promo">
+            <!-- ADICIONE ESTES DENTRO DO ASIDE DIREITO -->
+<div class="glass-mini-card">
+    <span class="badge-store shopee">SHOPEE</span>
+    <img src="https://cf.shopee.com.br/file/4879104033b0067664c399a9a3f2d22b" alt="Redmi">
+    <h4>Xiaomi Redmi Note 13</h4>
+    <p class="s-price">R$ 1.299</p>
+    <a href="SEU_LINK" target="_blank" class="btn-side-buy shopee-btn">Ver na Shopee</a>
+</div>
+
+<div class="glass-mini-card">
+    <span class="badge-store ml">M. LIVRE</span>
+    <img src="https://http2.mlstatic.com/D_NQ_NP_660940-MLA52316374944_112022-O.webp" alt="Poco">
+    <h4>Poco F5 Pro Gamer</h4>
+    <p class="s-price">R$ 2.850</p>
+    <a href="SEU_LINK" target="_blank" class="btn-side-buy ml-btn">Ver no M. Livre</a>
+</div>
             <h3 class="side-title">OFERTAS ELITE 🛒</h3>
             <div class="glass-mini-card">
                 <span class="badge-store shopee">SHOPEE</span>
@@ -159,14 +192,17 @@
             </div>
             <div id="registerForm" style="display:none">
                 <h2>📝 CRIAR CONTA</h2>
-                <input type="text" id="regName" placeholder="Nome" class="input-form">
-                <input type="email" id="regEmail" placeholder="E-mail" class="input-form">
-                <input type="text" id="regWhatsapp" placeholder="WhatsApp" class="input-form">
+                <input type="text" id="regName" placeholder="Nome" class="input-form" 
+       onkeypress="return /[a-zA-ZÀ-ÿ\s]/.test(event.key)">
+                <input type="email" id="regEmail" placeholder="Seu melhor E-mail" class="input-form" required>
+                <input type="text" id="regWhatsapp" placeholder="WhatsApp (somente números)" class="input-form" 
+       onkeypress="return /[0-9]/.test(event.key)" maxlength="11">
                 <input type="password" id="regPass" placeholder="Senha" class="input-form">
                 <button onclick="registrarCliente()" class="btn-main-buy">CADASTRAR</button>
                 <p onclick="toggleForm()" style="cursor:pointer; margin-top:15px; color:var(--secondary)">Já tem conta? Login</p>
             </div>
             <button onclick="closeModal('accountModal')" class="btn-close">FECHAR</button>
+            
         </div>
     </div>
 
