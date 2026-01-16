@@ -24,6 +24,7 @@
     <main class="container standings-page">
         <h1 class="title-glow">CLASSIFICAÇÃO GERAL 🏆</h1>
         
+        <!-- Menu de Ligas -->
         <div class="standings-menu">
             <button onclick="mudarTabela(71)" class="btn-league active" id="btn-71">BRASILEIRÃO 🇧🇷</button>
             <button onclick="mudarTabela(39)" class="btn-league" id="btn-39">PREMIER LEAGUE 🏴󠁧󠁢󠁥󠁮󠁧󠁿</button>
@@ -31,6 +32,20 @@
             <button onclick="mudarTabela(135)" class="btn-league" id="btn-135">SERIE A 🇮🇹</button>
             <button onclick="mudarTabela(1)" class="btn-league" id="btn-1">COPA DO MUNDO 🏆</button>
         </div>
+
+        <!-- ADICIONADO: Seletor de Temporada (Anos) -->
+        <div class="year-selector" style="text-align: center; margin-bottom: 30px;">
+            <label for="anoTemporada" style="color: var(--secondary); font-weight: bold; margin-right: 10px;">TEMPORADA:</label>
+            <select id="anoTemporada" onchange="atualizarAno()" style="background: #222; color: #fff; border: 1px solid var(--secondary); padding: 10px; border-radius: 5px; cursor: pointer; outline: none;">
+                <option value="2026" selected>2026 (Atual)</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+            </select>
+        </div>
+        
 
         <div class="table-container">
             <table>
@@ -57,8 +72,20 @@
 
     <script src="script.js"></script>
     <script>
-        // Quando abrir a página, já carrega o Brasileirão
-        window.onload = () => mudarTabela(71);
+        // Função para detectar a mudança no seletor de anos
+        function atualizarAno() {
+            const anoSelecionado = document.getElementById('anoTemporada').value;
+            // Chama a função mudarTabela passando a liga ativa (que o script.js já controla) e o ano novo
+            if (typeof ligaAtiva !== 'undefined') {
+                mudarTabela(ligaAtiva, anoSelecionado);
+            } else {
+                // Caso a variável global ainda não exista, usa o Brasileirão (71) como padrão
+                mudarTabela(71, anoSelecionado);
+            }
+        }
+
+        // Quando abrir a página, já carrega o Brasileirão 2026
+        window.onload = () => mudarTabela(71, "2026");
     </script>
 </body>
 </html>

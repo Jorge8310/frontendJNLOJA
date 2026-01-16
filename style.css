@@ -199,13 +199,124 @@ footer { background: #000; padding: 40px 15px; border-top: 3px solid var(--prima
 .pix-modal-content { background: #111; margin: 10% auto; padding: 35px; border: 2px solid var(--primary); border-radius: 20px; box-shadow: 0 0 40px rgba(255, 76, 0, 0.4); width: 90%; max-width: 450px; text-align: center; position: relative; }
 #pixCodeDisplay { width: 100%; height: 90px; background: #000; color: var(--secondary); padding: 10px; margin: 10px 0; border: 1px solid #333; resize: none; font-size: 11px; }
 
-/*TABELA*/
-.standings-page { padding-top: 40px; }
-.standings-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
-.table-container { background: rgba(0,0,0,0.8); border-radius: 15px; border: 1px solid #333; overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; color: #fff; }
-th { background: #111; padding: 15px; color: var(--yellow); font-size: 12px; }
-td { padding: 15px; border-bottom: 1px solid #222; text-align: center; }
-tr:hover { background: rgba(255,255,255,0.05); }
-.btn-league { background: #222; color: #fff; border: 1px solid #444; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-.btn-league.active { border-color: var(--secondary); color: var(--secondary); box-shadow: 0 0 10px var(--secondary); }
+/* ==========================================
+   ESTILO EXCLUSIVO DA PÁGINA DE TABELAS
+   ========================================== */
+
+/* Espaçamento da página */
+.standings-page {
+    padding: 40px 10px;
+    text-align: center;
+}
+
+/* Menu de Ligas (Botões) */
+.standings-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.btn-league {
+    background: #1a1a1a;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 13px;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-league:hover {
+    border-color: var(--secondary);
+    background: rgba(0, 210, 255, 0.1);
+}
+
+.btn-league.active {
+    border-color: var(--secondary);
+    color: var(--secondary);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    background: rgba(0, 242, 255, 0.05);
+}
+
+/* Seletor de Anos (Dropdown) */
+.year-selector {
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+#anoTemporada {
+    background: #000;
+    color: var(--secondary);
+    border: 2px solid var(--secondary);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-family: 'Kanit', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+}
+
+/* Estilo da Tabela */
+.table-container {
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #222;
+    border-radius: 20px;
+    overflow-x: auto; /* Permite rolar a tabela no celular */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Evita que os nomes fiquem esmagados */
+}
+
+th {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--yellow);
+    padding: 20px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #111;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* Destaque para a posição */
+td:first-child {
+    font-family: 'Black Ops One', cursive;
+    color: var(--secondary);
+    font-size: 18px;
+}
+
+/* Efeito de linha ao passar o mouse */
+tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Estilo para celulares na página de tabelas */
+@media (max-width: 768px) {
+    .btn-league {
+        flex: 1 1 45%; /* 2 botões por linha no celular */
+        font-size: 11px;
+        padding: 12px 5px;
+    }
+    
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+}

@@ -184,6 +184,9 @@ async function carregarFutebol() {
         console.error("Erro ao carregar futebol:", e); 
     }
 }
+carregarFutebol();
+setInterval(carregarFutebol, 900000); // Atualiza a cada 20 min
+
 
 //MUDAR TABELAS
 async function mudarTabela(leagueId) {
@@ -222,9 +225,56 @@ async function mudarTabela(leagueId) {
     }
 }
 
+// Variável global para saber qual liga o usuário está vendo agora
+let ligaAtiva = 71; 
 
-carregarFutebol();
-setInterval(carregarFutebol, 900000); // Atualiza a cada 20 min
+// Função que o Select chama quando muda o ano
+function atualizarAno() {
+    const anoSelecionado = document.getElementById('anoTemporada').value;
+    mudarTabela(ligaAtiva, anoSelecionado);
+}
+
+// Função principal de busca atualizada
+async function mudarTabela(leagueId, season = null) {
+    ligaAtiva = leagueId; // Salva a liga para quando mudar o ano saber qual buscar
+    
+    // Se não passou o ano no clique do botão, pega o que está selecionado no Dropdown
+    if (!season) {
+        season = document.getElementById('anoTemporada').value;
+    }
+
+    const body = document.getElementById('standingsBody');
+    if (!body) return;
+
+    body.innerHTML = '<tr><td colspan="6" style="padding:40px;">Buscando classificação de ' + season + '... ⏳</td></tr>';
+
+    try {
+        // Faz a chamada para a nova rota do Backend que aceita o Ano
+        const res = await fetch(API_URL + "/standings/" + leagueId + "/" + season);
+        const data = await res.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+            body.innerHTML = data.map(team => `
+                <tr>
+                    <td><b style="color:var(--secondary)">${team.rank}º</b></td>
+                    <td style="text-align:left; display:flex; align-items:center; gap:10px;">
+                        <img src="${team.team.logo}" width="25"> ${team.team.name}
+                    </td>
+                    <td><b>${team.points}</b></td>
+                    <td>${team.all.played}</td>
+                    <td>${team.all.win}</td>
+                    <td style="color:${team.goalsDiff >= 0 ? '#00ff88' : '#ff4757'}">${team.goalsDiff}</td>
+                </tr>
+            `).join('');
+        } else {
+            body.innerHTML = '<tr><td colspan="6" style="padding:40px; color:var(--yellow);">⚠️ Nenhum dado encontrado para a temporada ' + season + '. Verifique se o campeonato já começou!</td></tr>';
+        }
+    } catch (e) {
+        body.innerHTML = '<tr><td colspan="6" style="padding:40px; color:red;">❌ Erro ao conectar com o servidor JNLOJA.</td></tr>';
+    }
+}
+
+
 
 // ==========================================
 // 5. COMPRA DE DIAMANTES E PIX
