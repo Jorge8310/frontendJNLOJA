@@ -434,4 +434,26 @@ function enviarPinWhats(pin) {
     window.open(linkFinal, '_blank');
 }
 
+function mudarCanal(id, titulo, botao) {
+    const player = document.getElementById('arenaPlayer');
+    const headerTitle = document.getElementById('current-channel-title');
+
+    // Se o ID começar com "UC", o script entende que é um CANAL (Live)
+    // Se não, ele entende que é um VÍDEO direto
+    if (id.startsWith('UC')) {
+        player.src = "https://www.youtube.com/embed/live_stream?channel=" + id;
+    } else {
+        player.src = "https://www.youtube.com/embed/" + id;
+    }
+
+    // Atualiza o texto que o cliente vê em cima do vídeo
+    if (headerTitle) {
+        headerTitle.innerHTML = '<i class="fas fa-play-circle"></i> ' + titulo;
+    }
+
+    // Muda a cor do botão para mostrar qual está selecionado
+    document.querySelectorAll('.btn-channel').forEach(btn => btn.classList.remove('active'));
+    botao.classList.add('active');
+}
+
 console.log("✅ Script JNLOJA v2.0 carregado com sucesso!");

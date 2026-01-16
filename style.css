@@ -320,3 +320,138 @@ tbody tr:hover {
         font-size: 2.2rem;
     }
 }
+
+/* --- ESTILO DA PÁGINA LIVE.HTML --- */
+.live-page {
+    padding-top: 40px;
+    text-align: center;
+}
+
+.live-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 colunas no PC */
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.live-box {
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid #333;
+    transition: 0.3s;
+}
+
+/* Bordas Coloridas */
+.ff-live-border { border-color: var(--primary); box-shadow: 0 0 15px rgba(255, 76, 0, 0.2); }
+.football-live-border { border-color: var(--secondary); box-shadow: 0 0 15px rgba(0, 242, 255, 0.2); }
+.nba-live-border { border-color: #1d428a; box-shadow: 0 0 15px rgba(29, 66, 138, 0.2); }
+
+.live-header {
+    padding: 12px;
+    font-weight: 900;
+    font-size: 13px;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Proporção de vídeo 16:9 */
+    height: 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+}
+
+.live-status {
+    color: #ff4757;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.live-status i { animation: blink 1s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* RESPONSIVIDADE PARA A PÁGINA LIVE */
+@media (max-width: 1200px) {
+    .live-grid-container { grid-template-columns: 1fr 1fr; } /* 2 colunas no tablet */
+}
+
+@media (max-width: 800px) {
+    .live-grid-container { grid-template-columns: 1fr; } /* 1 coluna no celular */
+}
+
+/* --- ESTILO JN ARENA TV (TELA ÚNICA) --- */
+.main-player-container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #111;
+    border: 3px solid var(--secondary); /* Borda Neon Azul */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
+}
+
+.live-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Seletor de Canais */
+.channel-selector {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.btn-channel {
+    background: #1a1a1a;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-channel:hover {
+    border-color: var(--secondary);
+    background: rgba(0, 210, 255, 0.1);
+}
+
+.btn-channel.active {
+    background: var(--secondary);
+    color: #000;
+    border-color: var(--secondary);
+    box-shadow: 0 0 15px var(--secondary);
+}
+
+/* Ajuste do vídeo no celular */
+@media (max-width: 768px) {
+    .btn-channel {
+        flex: 1 1 45%; /* 2 botões por linha no celular */
+        justify-content: center;
+    }
+}
