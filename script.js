@@ -434,6 +434,33 @@ function enviarPinWhats(pin) {
     window.open(linkFinal, '_blank');
 }
 
+function mudarCanal(idOuLink, titulo, botao) {
+    const player = document.getElementById('arenaPlayer');
+    const headerTitle = document.getElementById('current-channel-title');
+
+    // Se o texto começar com "http", ele usa o link direto (como o da Pluto TV)
+    if (idOuLink.startsWith('http')) {
+        player.src = idOuLink;
+    } 
+    // Se começar com "UC", ele entende que é um canal do YouTube
+    else if (idOuLink.startsWith('UC')) {
+        player.src = "https://www.youtube.com/embed/live_stream?channel=" + idOuLink;
+    } 
+    // Se for só um código curto, ele entende que é um vídeo do YouTube
+    else {
+        player.src = "https://www.youtube.com/embed/" + idOuLink;
+    }
+
+    if (headerTitle) {
+        headerTitle.innerHTML = '<i class="fas fa-play-circle"></i> ' + titulo;
+    }
+
+    document.querySelectorAll('.btn-channel').forEach(btn => btn.classList.remove('active'));
+    botao.classList.add('active');
+}
+
+
+/*
 function mudarCanal(id, titulo, botao) {
     const player = document.getElementById('arenaPlayer');
     const headerTitle = document.getElementById('current-channel-title');
@@ -455,5 +482,6 @@ function mudarCanal(id, titulo, botao) {
     document.querySelectorAll('.btn-channel').forEach(btn => btn.classList.remove('active'));
     botao.classList.add('active');
 }
+    */
 
 console.log("✅ Script JNLOJA v2.0 carregado com sucesso!");
