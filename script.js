@@ -171,28 +171,34 @@ async function mudarTabela(leagueId, season = null) {
 }
 
 // ==========================================
-// 5. FUTEBOL E BASQUETE
+// 3. FUTEBOL (TOPO E RODAPÉ)
 // ==========================================
 async function carregarFutebol() {
     try {
         const res = await fetch(API_URL + "/football");
         const data = await res.json();
-        const tSup = document.getElementById('ticker');
-        const tRod = document.getElementById('footer-ticker');
+        
+        const tSuperior = document.getElementById('ticker');
+        const tRodape = document.getElementById('footer-ticker');
 
-        const jogos = data.jogos || data; // Lida com formatos diferentes da API
-
-        if (jogos && jogos.length > 0) {
-            const html = jogos.map(j => 
+        if (data && data.length > 0) {
+            // Cria os itens de futebol
+            const html = data.map(j => 
                 '<span class="ticker-item-style">' + j.teams.home.name + ' ' + j.goals.home + ' x ' + j.goals.away + ' ' + j.teams.away.name + '</span>' +
-                '<i class="fas fa-futbol" style="color:#fff; margin:0 10px"></i>'
+                '<i class="fas fa-futbol" style="color:#fff; margin: 0 10px;"></i>'
             ).join('');
 
-            if (tSup) tSup.innerHTML = '<div class="header-animacao">' + html + html + '</div>';
-            if (tRod) tRod.innerHTML = '<div class="footer-ticker-wrapper">' + html + html + '</div>';
+            // Injeta no topo
+            if (tSuperior) tSuperior.innerHTML = '<div class="header-animacao">' + html + html + '</div>';
+            
+            // Injeta no rodapé (Agora com futebol também!)
+            if (tRodape) tRodape.innerHTML = '<div class="footer-ticker-wrapper">' + html + html + '</div>';
         }
-    } catch (e) { console.log("Erro futebol"); }
+    } catch (e) { console.log("Erro ao carregar futebol"); }
 }
+
+// Inicia e agenda a cada 15 minutos
+
 carregarFutebol();
 setInterval(carregarFutebol, 900000); // 15 min
 
