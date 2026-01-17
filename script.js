@@ -146,59 +146,25 @@ function logout() {
     location.reload();
 }
 
+// ==========================================
+// CONTROLE DE TABELAS DE CLASSIFICAÇÃO
+// ==========================================
 
-
-//MUDAR TABELAS
-async function mudarTabela(leagueId) {
-    const body = document.getElementById('standingsBody');
-    if (!body) return;
-
-    body.innerHTML = '<tr><td colspan="6">Carregando dados da API...</td></tr>';
-
-    // Estilo dos botões
-    document.querySelectorAll('.btn-league').forEach(btn => btn.classList.remove('active'));
-    const btnAtivo = document.getElementById('btn-' + leagueId);
-    if (btnAtivo) btnAtivo.classList.add('active');
-
-    try {
-        const res = await fetch(API_URL + "/standings/" + leagueId);
-        const data = await res.json();
-
-        if (data && data.length > 0) {
-            body.innerHTML = data.map(team => `
-                <tr>
-                    <td><b style="color:var(--secondary)">${team.rank}º</b></td>
-                    <td style="text-align:left; display:flex; align-items:center; gap:10px;">
-                        <img src="${team.team.logo}" width="25"> ${team.team.name}
-                    </td>
-                    <td><b>${team.points}</b></td>
-                    <td>${team.all.played}</td>
-                    <td>${team.all.win}</td>
-                    <td style="color:${team.goalsDiff >= 0 ? '#00ff88' : '#ff4757'}">${team.goalsDiff}</td>
-                </tr>
-            `).join('');
-        } else {
-            body.innerHTML = '<tr><td colspan="6">Dados não disponíveis para esta temporada.</td></tr>';
-        }
-    } catch (e) {
-        body.innerHTML = '<tr><td colspan="6">Erro ao conectar com o servidor.</td></tr>';
-    }
-}
-
-// Variável global para saber qual liga o usuário está vendo agora
+// Variável para o sistema saber qual liga está selecionada no momento
 let ligaAtiva = 71; 
 
-// Função que o Select chama quando muda o ano
+// 1. Função chamada pelo menu de ANOS (Select)
 function atualizarAno() {
     const anoSelecionado = document.getElementById('anoTemporada').value;
     mudarTabela(ligaAtiva, anoSelecionado);
 }
 
-// Função principal de busca atualizada
+// 2. Função Principal (Unificada)
 async function mudarTabela(leagueId, season = null) {
-    ligaAtiva = leagueId; // Salva a liga para quando mudar o ano saber qual buscar
+    // Guarda a liga que foi clicada para usar depois no seletor de anos
+    ligaAtiva = leagueId; 
     
-    // Se não passou o ano no clique do botão, pega o que está selecionado no Dropdown
+    // Se não informou o ano no clique, busca o valor que está no seletor (Select)
     if (!season) {
         season = document.getElementById('anoTemporada').value;
     }
@@ -206,31 +172,51 @@ async function mudarTabela(leagueId, season = null) {
     const body = document.getElementById('standingsBody');
     if (!body) return;
 
+    // Mostra mensagem de carregamento
     body.innerHTML = '<tr><td colspan="6" style="padding:40px;">Buscando classificação de ' + season + '... ⏳</td></tr>';
 
+    // Atualiza o visual dos botões das ligas (fica azul o que foi clicado)
+    document.querySelectorAll('.btn-league').forEach(btn => btn.classList.remove('active'));
+    const btnSelecionado = document.getElementById('btn-' + leagueId);
+    if (btnSelecionado) btnSelecionado.classList.add('active');
+
     try {
-        // Faz a chamada para a nova rota do Backend que aceita o Ano
+        // Faz a chamada ao seu servidor na nuvem (Render)
         const res = await fetch(API_URL + "/standings/" + leagueId + "/" + season);
         const data = await res.json();
 
+        // Se o servidor retornar a lista de times
         if (Array.isArray(data) && data.length > 0) {
             body.innerHTML = data.map(team => `
                 <tr>
                     <td><b style="color:var(--secondary)">${team.rank}º</b></td>
                     <td style="text-align:left; display:flex; align-items:center; gap:10px;">
-                        <img src="${team.team.logo}" width="25"> ${team.team.name}
+                        <img src="${team.team.logo}" width="25" loading="lazy"> 
+                        <span class="team-name-row">${team.team.name}</span>
                     </td>
                     <td><b>${team.points}</b></td>
                     <td>${team.all.played}</td>
                     <td>${team.all.win}</td>
-                    <td style="color:${team.goalsDiff >= 0 ? '#00ff88' : '#ff4757'}">${team.goalsDiff}</td>
+                    <td style="color:${team.goalsDiff >= 0 ? '#00ff88' : '#ff4757'}">
+                        ${team.goalsDiff > 0 ? '+' + team.goalsDiff : team.goalsDiff}
+                    </td>
                 </tr>
             `).join('');
+            console.log("✅ Tabela " + leagueId + " (" + season + ") carregada.");
         } else {
-            body.innerHTML = '<tr><td colspan="6" style="padding:40px; color:var(--yellow);">⚠️ Nenhum dado encontrado para a temporada ' + season + '. Verifique se o campeonato já começou!</td></tr>';
+            // Se a API não tiver dados para aquele ano específico
+            body.innerHTML = `
+                <tr>
+                    <td colspan="6" style="padding:40px; color:var(--yellow);">
+                        ⚠️ Nenhum dado encontrado para a temporada ${season}.<br>
+                        <small>Verifique se o campeonato já havia começado neste ano.</small>
+                    </td>
+                </tr>`;
         }
     } catch (e) {
-        body.innerHTML = '<tr><td colspan="6" style="padding:40px; color:red;">❌ Erro ao conectar com o servidor JNLOJA.</td></tr>';
+        // Se o servidor JNLOJA estiver fora do ar
+        body.innerHTML = '<tr><td colspan="6" style="padding:40px; color:red;">❌ Erro ao conectar com o servidor da JNLOJA.</td></tr>';
+        console.error("Erro Fetch Standings:", e);
     }
 }
 
@@ -447,43 +433,135 @@ function mudarCanal(id, titulo, botao) {
 // ==========================================
 // 4. FUTEBOL (TOPO E RODAPÉ)
 // ==========================================
+
 async function carregarFutebol() {
     try {
-        console.log("Buscando dados de futebol...");
+        console.log("⚽ Buscando dados de futebol...");
+        console.log("📍 Chamando:", `${API_URL}/football`);
+        
         const res = await fetch(`${API_URL}/football`);
+        
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        
         const data = await res.json();
+        console.log("📦 Dados recebidos:", data);
         
         const tSuperior = document.getElementById('ticker');
         const tRodape = document.getElementById('footer-ticker');
 
-        // Se a API retornou jogos
-        if (data && data.length > 0) {
-            // Criamos a lista básica de jogos com a bolinha
-            const html = data.map(j => `
-                <span class="ticker-item-style">${j.teams.home.name} ${j.goals.home} x ${j.goals.away} ${j.teams.away.name}</span>
-                <i class="fas fa-futbol" style="color:#fff; margin: 0 10px;"></i>
-            `).join('');
+        if (data && data.jogos && data.jogos.length > 0) {
+            console.log(`✅ ${data.total} jogos encontrados de ${data.data}`);
+            
+            const html = data.jogos.map(j => {
+                let statusIcon = '⚽';
+                if (j.status === 'Ao Vivo') statusIcon = '🔴';
+                if (j.status === 'Finalizado') statusIcon = '✅';
+                if (j.status === 'Intervalo') statusIcon = '⏸️';
+                
+                return `
+                    <span class="ticker-item-style">
+                        ${statusIcon} ${j.teams.home.name} ${j.goals.home} x ${j.goals.away} ${j.teams.away.name}
+                    </span>
+                    <i class="fas fa-futbol" style="color:#fff; margin: 0 10px;"></i>
+                `;
+            }).join('');
 
-            // Inserimos no TOPO (Header)
             if (tSuperior) {
-                // Duplicamos ${html}${html} para o loop ser infinito e sem saltos
                 tSuperior.innerHTML = `<div class="header-animacao">${html}${html}</div>`;
+                console.log("🎯 Ticker superior atualizado");
             }
 
-            // Inserimos no RODAPÉ (Footer)
             if (tRodape) {
-                // Usamos a classe de animação do rodapé
                 tRodape.innerHTML = `<div class="footer-ticker-wrapper">${html}${html}</div>`;
+                console.log("🎯 Ticker rodapé atualizado");
             }
             
-            console.log("Futebol atualizado com sucesso!");
+            console.log("✅ Futebol atualizado com sucesso!");
+            
+        } else {
+            console.warn("⚠️ Nenhum jogo disponível ou usando backup");
+            
+            if (data && data.fonte === 'backup' && data.jogos) {
+                const htmlBackup = data.jogos.map(j => `
+                    <span class="ticker-item-style">
+                        ${j.teams.home.name} ${j.goals.home} x ${j.goals.away} ${j.teams.away.name}
+                    </span>
+                    <i class="fas fa-futbol" style="color:#fff; margin: 0 10px;"></i>
+                `).join('');
+                
+                if (tSuperior) {
+                    tSuperior.innerHTML = `<div class="header-animacao">${htmlBackup}${htmlBackup}</div>`;
+                }
+                if (tRodape) {
+                    tRodape.innerHTML = `<div class="footer-ticker-wrapper">${htmlBackup}${htmlBackup}</div>`;
+                }
+                
+                console.log("💎 Exibindo promoções da loja");
+            }
         }
+        
     } catch (e) { 
-        console.error("Erro ao carregar futebol:", e); 
+        console.error("❌ Erro ao carregar futebol:", e);
+        console.error("Stack completo:", e.stack);
+        
+        const mensagemErro = `
+            <span class="ticker-item-style">
+                ⚠️ Carregando jogos...
+            </span>
+            <i class="fas fa-futbol" style="color:#fff; margin: 0 10px;"></i>
+        `;
+        
+        const tSuperior = document.getElementById('ticker');
+        const tRodape = document.getElementById('footer-ticker');
+        
+        if (tSuperior) {
+            tSuperior.innerHTML = `<div class="header-animacao">${mensagemErro}${mensagemErro}</div>`;
+        }
+        if (tRodape) {
+            tRodape.innerHTML = `<div class="footer-ticker-wrapper">${mensagemErro}${mensagemErro}</div>`;
+        }
     }
 }
-carregarFutebol();
-setInterval(carregarFutebol, 900000); // Atualiza a cada 20 min
 
+carregarFutebol();
+setInterval(carregarFutebol, 900000);
+
+let intervaloRapido = null;
+
+async function verificarJogosAoVivo() {
+    try {
+        const res = await fetch(`${API_URL}/football`);
+        const data = await res.json();
+        
+        if (data && data.jogos) {
+            const temJogoAoVivo = data.jogos.some(j => 
+                j.status === 'Ao Vivo' || j.statusOriginal === 'IN_PLAY'
+            );
+            
+            if (temJogoAoVivo) {
+                console.log("🔴 Jogo AO VIVO detectado! Atualizando a cada 2 minutos...");
+                
+                if (!intervaloRapido) {
+                    intervaloRapido = setInterval(carregarFutebol, 120000);
+                }
+            } else {
+                if (intervaloRapido) {
+                    console.log("✅ Nenhum jogo ao vivo. Voltando ao intervalo normal.");
+                    clearInterval(intervaloRapido);
+                    intervaloRapido = null;
+                }
+            }
+        }
+    } catch (e) {
+        console.error("Erro ao verificar jogos ao vivo:", e);
+    }
+}
+
+setInterval(verificarJogosAoVivo, 300000);
+
+
+https://jnloja.onrender.com/api/football
 
 console.log("✅ Script JNLOJA v2.0 carregado com sucesso!");
