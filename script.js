@@ -146,46 +146,6 @@ function logout() {
     location.reload();
 }
 
-// ==========================================
-// 4. FUTEBOL (TOPO E RODAPÉ)
-// ==========================================
-async function carregarFutebol() {
-    try {
-        console.log("Buscando dados de futebol...");
-        const res = await fetch(`${API_URL}/football`);
-        const data = await res.json();
-        
-        const tSuperior = document.getElementById('ticker');
-        const tRodape = document.getElementById('footer-ticker');
-
-        // Se a API retornou jogos
-        if (data && data.length > 0) {
-            // Criamos a lista básica de jogos com a bolinha
-            const html = data.map(j => `
-                <span class="ticker-item-style">${j.teams.home.name} ${j.goals.home} x ${j.goals.away} ${j.teams.away.name}</span>
-                <i class="fas fa-futbol" style="color:#fff; margin: 0 10px;"></i>
-            `).join('');
-
-            // Inserimos no TOPO (Header)
-            if (tSuperior) {
-                // Duplicamos ${html}${html} para o loop ser infinito e sem saltos
-                tSuperior.innerHTML = `<div class="header-animacao">${html}${html}</div>`;
-            }
-
-            // Inserimos no RODAPÉ (Footer)
-            if (tRodape) {
-                // Usamos a classe de animação do rodapé
-                tRodape.innerHTML = `<div class="footer-ticker-wrapper">${html}${html}</div>`;
-            }
-            
-            console.log("Futebol atualizado com sucesso!");
-        }
-    } catch (e) { 
-        console.error("Erro ao carregar futebol:", e); 
-    }
-}
-carregarFutebol();
-setInterval(carregarFutebol, 900000); // Atualiza a cada 20 min
 
 
 //MUDAR TABELAS
@@ -483,5 +443,47 @@ function mudarCanal(id, titulo, botao) {
     botao.classList.add('active');
 }
     */
+
+// ==========================================
+// 4. FUTEBOL (TOPO E RODAPÉ)
+// ==========================================
+async function carregarFutebol() {
+    try {
+        console.log("Buscando dados de futebol...");
+        const res = await fetch(`${API_URL}/football`);
+        const data = await res.json();
+        
+        const tSuperior = document.getElementById('ticker');
+        const tRodape = document.getElementById('footer-ticker');
+
+        // Se a API retornou jogos
+        if (data && data.length > 0) {
+            // Criamos a lista básica de jogos com a bolinha
+            const html = data.map(j => `
+                <span class="ticker-item-style">${j.teams.home.name} ${j.goals.home} x ${j.goals.away} ${j.teams.away.name}</span>
+                <i class="fas fa-futbol" style="color:#fff; margin: 0 10px;"></i>
+            `).join('');
+
+            // Inserimos no TOPO (Header)
+            if (tSuperior) {
+                // Duplicamos ${html}${html} para o loop ser infinito e sem saltos
+                tSuperior.innerHTML = `<div class="header-animacao">${html}${html}</div>`;
+            }
+
+            // Inserimos no RODAPÉ (Footer)
+            if (tRodape) {
+                // Usamos a classe de animação do rodapé
+                tRodape.innerHTML = `<div class="footer-ticker-wrapper">${html}${html}</div>`;
+            }
+            
+            console.log("Futebol atualizado com sucesso!");
+        }
+    } catch (e) { 
+        console.error("Erro ao carregar futebol:", e); 
+    }
+}
+carregarFutebol();
+setInterval(carregarFutebol, 900000); // Atualiza a cada 20 min
+
 
 console.log("✅ Script JNLOJA v2.0 carregado com sucesso!");
