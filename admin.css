@@ -1,0 +1,154 @@
+:root {
+    --primary: #ff4c00;
+    --secondary: #00f2ff;
+    --dark: #0a0a0a;
+    --card-bg: #1a1a1a;
+    --text: #ffffff;
+    --success: #00ff88;
+    --danger: #ff4757;
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 15px;
+    border-bottom: 3px solid var(--primary);
+    margin-bottom: 20px;
+}
+
+.header-info h1 { margin: 0; font-size: 24px; color: var(--primary); }
+.header-actions { display: flex; gap: 10px; }
+
+/* Stats Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.stat-card i { font-size: 40px; color: var(--secondary); }
+.stat-info span { font-size: 28px; font-weight: bold; }
+.stat-info p { margin: 0; color: #888; }
+
+/* Tabs */
+.admin-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.admin-tab {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.admin-tab.active { background: var(--primary); }
+
+/* Table */
+.table-container { overflow-x: auto; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    border-radius: 10px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+th { background: #252525; color: var(--secondary); }
+
+/* Badges */
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.status-usado { background: var(--danger); }
+.status-disponivel { background: var(--success); color: #000; }
+
+/* Buttons */
+button { cursor: pointer; border: none; border-radius: 5px; font-weight: bold; }
+.btn-success { background: var(--success); padding: 12px 25px; }
+.btn-danger { background: var(--danger); padding: 10px 15px; color: white; }
+.btn-secondary { background: var(--secondary); padding: 10px 15px; color: #000; }
+
+/* Form */
+.form-container {
+    max-width: 400px;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+}
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; }
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    background: #000;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Botão de Excluir */
+.btn-delete {
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.btn-delete:hover {
+    background-color: #ff0000;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+}
+
+/* Ajuste para alinhar os itens da tabela */
+.admin-table td {
+    vertical-align: middle;
+}

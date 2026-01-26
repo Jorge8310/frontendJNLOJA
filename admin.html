@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - JNSHOP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- HEADER DO ADMIN -->
+        <header class="admin-header">
+            <div class="header-info">
+                <h1><i class="fas fa-user-shield"></i> PAINEL ADMIN</h1>
+                <p>Bem-vindo, <span id="adminName">Admin</span></p>
+            </div>
+            <div class="header-actions">
+                <!-- BOTÃO PARA VOLTAR AO SITE COMO CLIENTE -->
+                <button onclick="voltarAoSite()" class="btn-secondary">
+                    <i class="fas fa-shopping-cart"></i> VOLTAR AO SITE
+                </button>
+                <!-- BOTÃO PARA SAIR DA CONTA -->
+                <button onclick="sairAdmin()" class="btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> SAIR
+                </button>
+            </div>
+        </header>
+
+        <!-- CARDS DE ESTATÍSTICAS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <div class="stat-info">
+                    <span id="totalClientes">0</span>
+                    <p>Clientes</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-gem"></i>
+                <div class="stat-info">
+                    <span id="codigosDisponiveis">0</span>
+                    <p>Pins em Estoque</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-check-circle"></i>
+                <div class="stat-info">
+                    <span id="codigosUsados">0</span>
+                    <p>Pins Vendidos</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABAS DE NAVEGAÇÃO -->
+        <nav class="admin-tabs">
+            <button class="admin-tab active" onclick="mostrarAba('clientes', event)">👥 CLIENTES</button>
+            <button class="admin-tab" onclick="mostrarAba('codigos', event)">💎 ESTOQUE</button>
+            <button class="admin-tab" onclick="mostrarAba('pagamentos', event)">💳 VENDAS</button>
+            <button class="admin-tab" onclick="mostrarAba('adicionar', event)">➕ NOVO PIN</button>
+        </nav>
+
+        <!-- CONTEÚDO DAS ABAS -->
+        <main class="admin-content">
+            <section id="aba-clientes" class="admin-section">
+                <h2>Gerenciar Clientes</h2>
+                <div id="lista-clientes" class="table-container">Carregando...</div>
+            </section>
+
+            <section id="aba-codigos" class="admin-section" style="display:none;">
+                <h2>Códigos no Sistema</h2>
+                <div id="lista-codigos" class="table-container">Carregando...</div>
+            </section>
+
+            <section id="aba-pagamentos" class="admin-section" style="display:none;">
+                <h2>Histórico de Pagamentos</h2>
+                <div id="lista-pagamentos" class="table-container">Carregando...</div>
+            </section>
+
+            <section id="aba-adicionar" class="admin-section" style="display:none;">
+                <div class="form-container">
+                    <h2>Adicionar Novo Código</h2>
+                    <div class="form-group">
+                        <label>Código do Pin</label>
+                        <input type="text" id="newCode" placeholder="Ex: ABCD-1234-EFGH">
+                    </div>
+                    <div class="form-group">
+                        <label>Valor em R$</label>
+                        <input type="number" id="newAmount" placeholder="Ex: 10">
+                    </div>
+                    <button onclick="adicionarCodigo()" class="btn-success">SALVAR NO ESTOQUE</button>
+                    <div id="resultado-add"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

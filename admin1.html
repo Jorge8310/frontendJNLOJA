@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN - JNSHOP</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #0a0a0a; padding: 20px; }
+        .admin-container { max-width: 1400px; margin: 0 auto; }
+        .admin-header { background: linear-gradient(135deg, #ff4c00, #ffcc00); padding: 20px; border-radius: 15px; margin-bottom: 30px; }
+        .admin-section { background: rgba(255,255,255,0.05); border: 2px solid var(--secondary); border-radius: 15px; padding: 20px; margin-bottom: 20px; }
+        .admin-tabs { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        .admin-tab { background: rgba(0,0,0,0.8); color: #fff; padding: 15px 25px; border: 2px solid #333; border-radius: 10px; cursor: pointer; font-weight: 900; transition: 0.3s; }
+        .admin-tab.active { background: linear-gradient(135deg, var(--primary), var(--yellow)); border-color: var(--primary); color: #000; }
+        .admin-table { width: 100%; border-collapse: collapse; }
+        .admin-table th { background: rgba(255,76,0,0.3); padding: 15px; text-align: left; }
+        .admin-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .btn-aprovar { background: #00ff88; color: #000; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: 900; }
+        .btn-recusar { background: #ff4757; color: #fff; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: 900; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1 style="margin:0; color:#000;">🔐 PAINEL ADMIN - JNSHOP</h1>
+            <p style="margin:5px 0 0 0; color:#000;">Bem-vindo, <b id="adminName"></b></p>
+            <button onclick="location.href='index.html'" style="background:#000; color:#fff; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; margin-top:10px;">VOLTAR PARA O SITE</button>
+        </div>
+
+        <div class="admin-tabs">
+            <div class="admin-tab active" onclick="mostrarAba('clientes')">👥 CLIENTES</div>
+            <div class="admin-tab" onclick="mostrarAba('codigos')">💎 CÓDIGOS</div>
+            <div class="admin-tab" onclick="mostrarAba('pagamentos')">💳 PAGAMENTOS</div>
+            <div class="admin-tab" onclick="mostrarAba('adicionar')">➕ ADICIONAR CÓDIGO</div>
+        </div>
+
+        <div id="aba-clientes" class="admin-section">
+            <h2>👥 CLIENTES CADASTRADOS</h2>
+            <div id="lista-clientes">Carregando...</div>
+        </div>
+
+        <div id="aba-codigos" class="admin-section" style="display:none;">
+            <h2>💎 TODOS OS CÓDIGOS</h2>
+            <div id="lista-codigos">Carregando...</div>
+        </div>
+
+        <div id="aba-pagamentos" class="admin-section" style="display:none;">
+            <h2>💳 PAGAMENTOS PENDENTES</h2>
+            <div id="lista-pagamentos">Carregando...</div>
+        </div>
+
+        <div id="aba-adicionar" class="admin-section" style="display:none;">
+            <h2>➕ ADICIONAR NOVO CÓDIGO</h2>
+            <input type="text" id="newCode" placeholder="Código" style="width:300px; padding:10px; margin-right:10px; border-radius:5px; border:1px solid #333; background:#000; color:#fff;">
+            <input type="number" id="newAmount" placeholder="Valor (R$)" style="width:150px; padding:10px; margin-right:10px; border-radius:5px; border:1px solid #333; background:#000; color:#fff;">
+            <button onclick="adicionarCodigo()" class="btn-aprovar">ADICIONAR</button>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
