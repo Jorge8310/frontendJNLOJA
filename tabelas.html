@@ -1,12 +1,14 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNSHOP - Arena de Resultados</title>
+    <title>JNSHOP - Arena Sports</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700;900&family=Black+Ops+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="stylefootball.css">
+    <link rel="stylesheet" href="sports.css">
 </head>
 <body>
     <div class="game-wallpaper"></div>
@@ -14,128 +16,44 @@
 
     <header class="navbar">
         <div class="container-header">
-            <div class="logo"><span>JN</span>SHOP</div>
+            <div class="logo"><span>JN</span>SPORTS</div>
             <nav>
-                <a href="index.html"><i class="fa fa-home"></i>VOLTAR À LOJA</a>
-                <a href="live.html"><i class="fa fa-tv"></i>AO VIVO</a>
-                <a href="manga.html"><i class="fa fa-download"></i>LER LIVROS</a>
+                <a href="index.html"><i class="fa fa-home"></i> LOJA</a>
+                <a href="live.html"><i class="fa fa-tv"></i> AO VIVO</a>
+                <a href="mangas.html" class="btn-manga-header"><i class="fas fa-book-open"></i> LER LIVRO</a>
             </nav>
         </div>
     </header>
 
-    <div class="main-wrapper">
-        <!-- SIDEBAR ESQUERDA: LIGAS POPULARES -->
-        <aside class="sidebar-promo">
-            <h3 class="side-title">🏆 LIGAS POPULARES</h3>
-            <div class="glass-mini-card">
-                <ul id="lista-ligas" class="side-list"></ul>
-            </div>
-        </aside>
+    <main class="main-content">
+        <!-- SELETOR DE ESPORTE (Adicionado 'this') -->
+        <div class="sports-nav">
+            <button class="btn-sport active" onclick="setSport('football', this)"><i class="fas fa-futbol"></i> FUTEBOL</button>
+            <button class="btn-sport" onclick="setSport('basketball', this)"><i class="fas fa-basketball-ball"></i> BASQUETE</button>
+            <button class="btn-sport" onclick="setSport('volleyball', this)"><i class="fas fa-volleyball-ball"></i> VÔLEI</button>
+            <button class="btn-sport" onclick="setSport('f1', this)"><i class="fas fa-flag-checkered"></i> FÓRMULA 1</button>
+        </div>
 
-        <!-- CONTEÚDO CENTRAL -->
-        <main class="main-content">
-            <div class="hero-text">
-                <h1 class="title-glow">ARENA DE RESULTADOS</h1>
-            </div>
+  <!-- FILTROS DE TEMPO -->
+<div class="standings-menu">
+    <button class="btn-filter active" id="filter-live" onclick="setFilter('live', this)">
+        <i class="fas fa-circle"></i> AO VIVO
+    </button>
+    <button class="btn-filter" onclick="setFilter('today', this)">
+        <i class="far fa-calendar-alt"></i> HOJE
+    </button>
+    <button class="btn-filter" onclick="setFilter('tomorrow', this)">
+        <i class="fas fa-step-forward"></i> AMANHÃ
+    </button>
+</div>
+        <h2 id="display-title" class="title-glow">SPORTS AO VIVO</h2>
 
-            <!-- MENU PRINCIPAL -->
-            <div class="standings-menu">
-                <button class="btn-league active" id="btn-live" onclick="tratarFiltro('live', this)">⚽ AO VIVO</button>
-                <button class="btn-league" onclick="tratarFiltro('hoje', this)">📅 HOJE</button>
-                <button class="btn-league" onclick="tratarFiltro('amanha', this)">🔜 AMANHÃ</button>
-                <button class="btn-league" onclick="abrirHistorico()">🏆 HISTÓRICO</button>
-                <button class="btn-league" id="btn-mostrar-copa">🏆 COPAS DO MUNDO</button>
-            </div>
+        <!-- CONTAINER DE RESULTADOS (A ID deve ser 'jogos-container' para o JS funcionar) -->
+        <div id="jogos-container" class="games-grid">
+            <!-- Os jogos entram aqui via JS -->
+        </div>
+    </main>
 
-            <!-- CONTAINER DE JOGOS -->
-            <div id="jogos-container"></div>
-
-            <!-- SEÇÃO DE HISTÓRICO -->
-            <div id="secao-historico" style="display:none;">
-                <h2 class="title-glow" style="font-size:1.8rem;">CLASSIFICAÇÕES HISTÓRICAS 🏆</h2>
-                
-                <!-- Seletor de Ano -->
-                <div class="year-selector">
-                    <label for="anoHistorico">TEMPORADA:</label>
-                    <select id="anoHistorico">
-                        <option value="2026" selected>2026</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <option value="2020">2020</option>
-                    </select>
-                </div>
-
-                <!-- Botões de Ligas -->
-                <div class="standings-menu">
-                    <button onclick="verTabelaCompleta(71, 'Brasileirão Série A', 'anoHistorico')" class="btn-league">BRASILEIRÃO</button>
-                    <button onclick="verTabelaCompleta(39, 'Premier League', 'anoHistorico')" class="btn-league">PREMIER LEAGUE</button>
-                    <button onclick="verTabelaCompleta(140, 'La Liga', 'anoHistorico')" class="btn-league">LA LIGA</button>
-                    <button onclick="verTabelaCompleta(135, 'Serie A', 'anoHistorico')" class="btn-league">SERIE A (ITA)</button>
-                    <button onclick="verTabelaCompleta(78, 'Bundesliga', 'anoHistorico')" class="btn-league">BUNDESLIGA</button>
-                    <button onclick="verTabelaCompleta(61, 'Ligue 1', 'anoHistorico')" class="btn-league">LIGUE 1</button>
-                    <button onclick="verTabelaCompleta(2, 'Champions League', 'anoHistorico')" class="btn-league">CHAMPIONS</button>
-                    <button onclick="verTabelaCompleta(13, 'Libertadores', 'anoHistorico')" class="btn-league">LIBERTADORES</button>
-                    <button onclick="verTabelaCompleta(72, 'Brasileirão Série B', 'anoHistorico')" class="btn-league">SÉRIE B</button>
-                    <button onclick="verTabelaCompleta(128, 'Argentino', 'anoHistorico')" class="btn-league">ARGENTINA</button>
-                </div>
-
-                <!-- Resultado -->
-                <div id="resultado-campeao"></div>
-            </div>
-
-            <!-- SEÇÃO DA COPA DO MUNDO -->
-            <section id="secao-copa-mundo" style="display: none; margin-top: 40px;">
-                
-                <h1 class="title-glow">🏆 COPA DO MUNDO FIFA 🏆</h1>
-
-                <!-- SELETOR DE ANO -->
-                <div class="year-selector">
-                    <label for="anoCopa">SELECIONE O ANO:</label>
-                    <select id="anoCopa">
-                        <option value="2022">2022 - Qatar</option>
-                        <option value="2018">2018 - Rússia</option>
-                        <option value="2014">2014 - Brasil</option>
-                        <option value="2010">2010 - África do Sul</option>
-                        <option value="2006">2006 - Alemanha</option>
-                        <option value="2002">2002 - Coreia/Japão</option>
-                    </select>
-                </div>
-
-                <!-- LOADING -->
-                <div id="loading-copa" class="loading-state" style="display: none;">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <p>Carregando dados da Copa do Mundo...</p>
-                </div>
-
-                <!-- RESULTADO DO CAMPEÃO -->
-                <div id="resultado-campeao-copa"></div>
-
-                <!-- FASE DE GRUPOS -->
-                <div id="fase-grupos" style="margin-top: 40px;"></div>
-
-                <!-- BOTÃO PARA VOLTAR -->
-                <div style="text-align: center; margin-top: 50px;">
-                    <button class="btn-league" id="btn-voltar-tabelas">
-                        ⬅️ VOLTAR PARA JOGOS
-                    </button>
-                </div>
-
-            </section>
-
-        </main>
-
-        <!-- SIDEBAR DIREITA: EQUIPES PRINCIPAIS -->
-        <aside class="sidebar-promo">
-            <h3 class="side-title">⚽ EQUIPES PRINCIPAIS</h3>
-            <div class="glass-mini-card">
-                <ul id="lista-equipes" class="side-list"></ul>
-            </div>
-        </aside>
-    </div>
-
-    <script src="scriptfootball.js"></script>
+    <script src="sports.js"></script>
 </body>
 </html>

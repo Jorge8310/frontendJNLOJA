@@ -1,0 +1,755 @@
+/* ==========================================
+   JNSPORTS - CSS MODERNO E ESTILOSO
+   ========================================== */
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+:root {
+    --primary: #ff4c00;
+    --secondary: #00f2ff;
+    --yellow: #ffcc00;
+    --glass: rgba(0, 0, 0, 0.8);
+    --purple: #9333ea;
+    --green: #10b981;
+}
+
+body { 
+    font-family: 'Kanit', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #000; 
+    color: #fff; 
+    overflow-x: hidden; 
+    line-height: 1.6;
+}
+
+/* ==========================================
+   FUNDO DINÂMICO
+   ========================================== */
+.game-wallpaper {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    background-size: cover;
+    background-position: center;
+    filter: saturate(1.7) brightness(0.5);
+    transition: background-image 2s ease-in-out;
+}
+
+.color-overlay {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 76, 0, 0.1), rgba(0, 242, 255, 0.1));
+    z-index: -1;
+    backdrop-filter: blur(2px);
+}
+
+/* ==========================================
+   HEADER MELHORADO
+   ========================================== */
+header { 
+    background: rgba(0, 0, 0, 0.95); 
+    border-bottom: 3px solid var(--primary); 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 4px 30px rgba(255, 76, 0, 0.3);
+}
+
+.container-header { 
+    width: 100%; 
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 15px 20px; 
+    align-items: center; 
+}
+
+.logo { 
+    font-family: 'Black Ops One', cursive; 
+    font-size: 32px; 
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 10px rgba(255, 76, 0, 0.5));
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        filter: drop-shadow(0 0 10px rgba(255, 76, 0, 0.5)); 
+    }
+    50% { 
+        filter: drop-shadow(0 0 20px rgba(255, 76, 0, 0.8)); 
+    }
+}
+
+.logo span { 
+    color: var(--primary); 
+}
+
+/* BOTÕES DO MENU - ESTILO GLASS MORPHISM */
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    
+    /* Glass Morphism Effect */
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 76, 0, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+nav a:hover::before {
+    left: 100%;
+}
+
+nav a:hover {
+    border-color: var(--primary);
+    background: rgba(255, 76, 0, 0.15);
+    color: var(--primary);
+    box-shadow: 0 0 20px rgba(255, 76, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+nav a i {
+    font-size: 16px;
+}
+
+/* BOTÃO LER LIVRO NO HEADER - DESTAQUE ESPECIAL */
+.btn-manga-header {
+    background: linear-gradient(135deg, var(--purple), var(--secondary)) !important;
+    border: 2px solid var(--yellow) !important;
+    color: #fff !important;
+    font-weight: 900 !important;
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
+    position: relative;
+    animation: mangaPulse 3s ease-in-out infinite;
+}
+
+@keyframes mangaPulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
+        border-color: var(--yellow);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(147, 51, 234, 0.8);
+        border-color: var(--secondary);
+    }
+}
+
+.btn-manga-header::after {
+    content: '📚';
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    font-size: 18px;
+    animation: bookBounce 2s ease-in-out infinite;
+}
+
+@keyframes bookBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(10deg); }
+}
+
+.btn-manga-header:hover {
+    background: linear-gradient(135deg, var(--secondary), var(--purple)) !important;
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 5px 30px rgba(147, 51, 234, 0.7) !important;
+}
+
+/* ==========================================
+   CONTEÚDO PRINCIPAL
+   ========================================== */
+.main-content { 
+    background: rgba(0, 0, 0, 0.3); 
+    border-radius: 30px; 
+    padding: 40px 20px; 
+    max-width: 1400px;
+    margin: 30px auto;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* TÍTULO PRINCIPAL COM EFEITO NEON */
+.title-glow {
+    font-size: 2.8rem;
+    text-align: center;
+    color: var(--yellow);
+    text-shadow: 
+        0 0 10px var(--yellow),
+        0 0 20px var(--primary),
+        0 0 30px var(--primary);
+    font-family: 'Black Ops One', cursive;
+    margin-bottom: 40px;
+    animation: neonGlow 2s ease-in-out infinite alternate;
+    letter-spacing: 3px;
+}
+
+@keyframes neonGlow {
+    from {
+        text-shadow: 
+            0 0 10px var(--yellow),
+            0 0 20px var(--primary),
+            0 0 30px var(--primary);
+    }
+    to {
+        text-shadow: 
+            0 0 20px var(--yellow),
+            0 0 30px var(--primary),
+            0 0 40px var(--primary),
+            0 0 50px var(--secondary);
+    }
+}
+
+/* ==========================================
+   BOTÕES DE SELEÇÃO DE ESPORTE
+   ========================================== */
+.sports-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.btn-sport {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(255, 76, 0, 0.1));
+    color: #fff;
+    border: 2px solid rgba(255, 76, 0, 0.3);
+    padding: 14px 28px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-sport::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 76, 0, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-sport:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-sport:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 76, 0, 0.4);
+}
+
+.btn-sport.active {
+    background: linear-gradient(135deg, var(--primary), var(--yellow));
+    border-color: var(--yellow);
+    color: #000;
+    box-shadow: 0 0 30px var(--primary);
+    transform: scale(1.1);
+}
+
+.btn-sport i {
+    font-size: 18px;
+    z-index: 1;
+}
+
+/* ==========================================
+   BOTÕES DE FILTRO - NOVO DESIGN MODERNO
+   ========================================== */
+.standings-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 40px 0 50px 0;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+/* Adiciona um botão extra para "LER LIVRO" */
+.standings-menu::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+}
+
+.btn-filter {
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 14px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    font-family: 'Kanit', sans-serif;
+}
+
+.btn-filter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn-filter:hover::before {
+    left: 100%;
+}
+
+.btn-filter i {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.btn-filter:hover {
+    border-color: var(--secondary);
+    background: rgba(0, 242, 255, 0.15);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 242, 255, 0.3);
+}
+
+.btn-filter:hover i {
+    transform: rotate(360deg);
+}
+
+.btn-filter.active {
+    background: linear-gradient(135deg, var(--secondary), var(--purple));
+    border-color: var(--yellow);
+    color: #000;
+    box-shadow: 0 0 30px var(--secondary);
+    transform: scale(1.15);
+    font-weight: 900;
+}
+
+/* ANIMAÇÃO PULSANTE PARA AO VIVO */
+#filter-live.active {
+    animation: livePulse 2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(255, 76, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 76, 0, 0.8);
+    }
+}
+
+#filter-live i {
+    color: #ff4757;
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* ==========================================
+   CONTAINER DE JOGOS
+   ========================================== */
+#jogos-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+/* TÍTULO DA LIGA */
+.league-title {
+    background: linear-gradient(135deg, rgba(255, 76, 0, 0.3), rgba(0, 242, 255, 0.2));
+    backdrop-filter: blur(10px);
+    border-left: 5px solid var(--primary);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin: 25px 0 15px 0;
+    font-size: 15px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px #000;
+    box-shadow: 0 4px 15px rgba(255, 76, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.league-title:hover {
+    transform: translateX(5px);
+    box-shadow: 0 6px 20px rgba(255, 76, 0, 0.4);
+}
+
+.league-title img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+/* ==========================================
+   CARDS DE JOGOS - DESIGN MODERNO
+   ========================================== */
+.match-item {
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid var(--secondary);
+    border-radius: 20px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 120px 1fr;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 12px;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.match-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 76, 0, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+}
+
+.match-item:hover::before {
+    left: 100%;
+}
+
+.match-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(255, 76, 0, 0.5);
+}
+
+/* TIMES */
+.team {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.team img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+    transition: all 0.3s ease;
+}
+
+.match-item:hover .team img {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+}
+
+.t-left {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.t-left img {
+    order: 2;
+}
+
+.t-left span {
+    order: 1;
+}
+
+.t-right {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.t-right img {
+    order: 1;
+}
+
+.t-right span {
+    order: 2;
+}
+
+/* PLACAR */
+.score-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.time-badge {
+    color: #ff4757;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px #ff4757;
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 10px #ff4757;
+    }
+    50% {
+        text-shadow: 0 0 20px #ff4757, 0 0 30px #ff4757;
+    }
+}
+
+.score-now {
+    background: linear-gradient(135deg, #000, #1a1a1a);
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-size: 24px;
+    font-weight: 900;
+    border: 3px solid var(--yellow);
+    color: var(--yellow);
+    min-width: 80px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.match-item:hover .score-now {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
+}
+
+/* ==========================================
+   LOADING STATE
+   ========================================== */
+.loading-state {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 18px;
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+.loading-state i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+    color: var(--primary);
+}
+
+/* ==========================================
+   CORES POR ESPORTE
+   ========================================== */
+.sport-football { 
+    border-color: var(--secondary) !important; 
+}
+
+.sport-basketball { 
+    border-color: #ff8800 !important; 
+}
+
+.sport-volleyball { 
+    border-color: #00ff88 !important; 
+}
+
+.sport-f1 { 
+    border-color: #ff0000 !important;
+    grid-template-columns: 1fr !important;
+}
+
+/* ==========================================
+   RESPONSIVIDADE
+   ========================================== */
+@media (max-width: 768px) {
+    .title-glow {
+        font-size: 2rem;
+    }
+
+    .sports-nav {
+        gap: 10px;
+    }
+
+    .btn-sport {
+        padding: 12px 20px;
+        font-size: 12px;
+    }
+
+    .standings-menu {
+        gap: 10px;
+    }
+
+    .btn-filter {
+        padding: 12px 20px;
+        font-size: 12px;
+    }
+
+    .match-item {
+        grid-template-columns: 1fr 90px 1fr;
+        padding: 15px;
+    }
+
+    .team span {
+        font-size: 13px;
+    }
+
+    .score-now {
+        font-size: 20px;
+        min-width: 70px;
+        padding: 8px 15px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        font-size: 11px;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 500px) {
+    .logo {
+        font-size: 24px;
+    }
+
+    .title-glow {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+    }
+
+    .btn-sport {
+        padding: 10px 15px;
+        font-size: 11px;
+        gap: 6px;
+    }
+
+    .btn-filter {
+        padding: 10px 15px;
+        font-size: 11px;
+    }
+
+    .match-item {
+        grid-template-columns: 1fr 75px 1fr;
+        padding: 12px 8px;
+    }
+
+    .team span {
+        font-size: 11px;
+    }
+
+    .team img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .score-now {
+        font-size: 18px;
+        min-width: 60px;
+        padding: 6px 12px;
+    }
+
+    nav a {
+        font-size: 10px;
+        padding: 8px 12px;
+        gap: 5px;
+    }
+}
+
+/* ==========================================
+   ANIMAÇÕES EXTRAS
+   ========================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.match-item {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.league-title {
+    animation: fadeIn 0.4s ease-out;
+}
