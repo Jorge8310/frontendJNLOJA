@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JNLOJA | FIFA TV ⚽</title>
+    <link rel="stylesheet" href="style_live.css"> <!-- LINK PARA O NOVO CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Kanit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-wallpaper"></div>
+    <div class="color-overlay"></div>
+
+    <header>
+        <div class="container-header">
+            <div class="logo">JN<span>SHOP</span></div>
+            <nav>
+                <a href="index.html">VOLTAR À LOJA</a>
+                <a href="tabelas.html">VER TABELAS</a>
+                <a href="manga.html"><i class="fa fa-download"></i> BAIXAR LIVRO</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container live-page">
+        <h1 class="title-glow" style="text-align: center; color: var(--yellow); text-shadow: 2px 2px 0 #000; font-family: 'Black Ops One';">JN ARENA TV</h1>
+        
+        <div class="main-player-container">
+            <!-- Mudei o texto inicial aqui -->
+            <div class="live-header" id="current-channel-title">PRONTO PARA TRANSMISSÃO</div>
+            <div class="video-container">
+                <iframe 
+                    id="arenaPlayer"
+                    src="about:blank" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div class="channel-selector">
+            <!-- Botão FIFA TV - Note que o segundo parâmetro é o que aparece no título -->
+            <button class="btn-fifa" onclick="mudarCanal('https://pluto.tv/br/live-tv/66997e8d3a4ad20008e50be9', 'FIFA +', this)">
+                <i class="fas fa-trophy"></i> ASSISTIR FIFA TV
+            </button>
+        </div>
+
+        <p class="live-status">⚠️ Se o som não sair, clique no ícone de volume do vídeo.</p>
+    </main>
+
+
+    <script src="script_live.js"></script> <!-- Mantido para o fundo funcionar -->
+</body>
+</html>

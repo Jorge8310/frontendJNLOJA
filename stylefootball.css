@@ -1,0 +1,931 @@
+/* ==========================================
+   STYLEFOOTBALL.CSS - JNLOJA ARENA
+   ========================================== */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+:root {
+    --primary: #ff4c00;
+    --secondary: #00f2ff;
+    --yellow: #ffcc00;
+    --success: #00ff88;
+    --glass: rgba(10, 10, 10, 0.9);
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+body { 
+    font-family: 'Kanit', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #000; 
+    color: #fff; 
+    overflow-x: hidden; 
+    line-height: 1.6;
+}
+
+/* FUNDO DINÂMICO */
+.game-wallpaper {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    background-size: cover;
+    background-position: center;
+    filter: saturate(1.7) brightness(0.6);
+    transition: background-image 2s ease-in-out;
+}
+
+.color-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: -1;
+}
+
+/* HEADER */
+header { 
+    background: rgba(0, 0, 0, 0.95); 
+    border-bottom: 3px solid var(--primary); 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.container-header { 
+    width: 100%; 
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 15px 20px; 
+    align-items: center; 
+}
+
+.logo { 
+    font-family: 'Black Ops One', cursive; 
+    font-size: 32px; 
+    font-weight: 900;
+}
+
+.logo span { 
+    color: var(--primary); 
+}
+
+/* ESTILO DOS BOTÕES DO MENU (TRANSPARENTES) */
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px; /* Tamanho levemente menor para caber tudo */
+    white-space: nowrap;
+    text-transform: uppercase;
+    
+    /* Transformando em botão transparente */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda fina e discreta */
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* EFEITO AO PASSAR O MOUSE */
+nav a:hover {
+    border-color: var(--primary); /* A borda acende com a cor laranja */
+    background: rgba(255, 76, 0, 0.1); /* Um fundo laranja bem clarinho */
+    color: var(--primary) !important;
+    box-shadow: 0 0 10px rgba(255, 76, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* AJUSTE PARA O BOTÃO "MINHA CONTA" NÃO FICAR DIFERENTE */
+.btn-account {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+/* LAYOUT PRINCIPAL - 3 COLUNAS */
+.main-wrapper {
+    display: grid;
+    grid-template-columns: 280px 1fr 280px;
+    gap: 30px;
+    max-width: 98%;
+    margin: 30px auto;
+    align-items: start;
+}
+
+/* SIDEBARS */
+.sidebar-promo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 100px;
+}
+
+.side-title { 
+    font-family: 'Black Ops One', cursive; 
+    text-align: center; 
+    color: var(--yellow); 
+    font-size: 1.1rem;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.glass-mini-card {
+    background: var(--glass); 
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px; 
+    padding: 15px; 
+    transition: all 0.3s ease;
+}
+
+.glass-mini-card:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+.side-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-list li {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ddd;
+}
+
+.side-list li:hover {
+    background: rgba(0, 242, 255, 0.1);
+    color: var(--secondary);
+    transform: translateX(5px);
+}
+
+.side-list li img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+/* CONTEÚDO CENTRAL */
+.main-content { 
+    background: rgba(0, 0, 0, 0.3); 
+    border-radius: 30px; 
+    padding: 30px 20px; 
+    text-align: center;
+}
+
+.hero-text {
+    margin-bottom: 30px;
+}
+
+.title-glow {
+    text-align: center;
+    color: var(--yellow);
+    text-shadow: 2px 2px 0px #000, 0 0 20px var(--primary);
+    font-family: 'Black Ops One', cursive;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    margin: 20px 0;
+}
+
+/* BOTÕES DE FILTRO */
+.standings-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.btn-league {
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border: 2px solid #333;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 13px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    font-family: 'Kanit', sans-serif;
+}
+
+.btn-league:hover {
+    border-color: var(--secondary);
+    background: rgba(0, 242, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.btn-league.active {
+    background: linear-gradient(135deg, var(--primary), var(--yellow));
+    border-color: var(--primary);
+    color: #000;
+    box-shadow: 0 0 20px var(--primary);
+}
+
+/* CONTAINER DE JOGOS */
+#jogos-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+/* TÍTULO DA LIGA */
+.league-title {
+    background: linear-gradient(135deg, rgba(255, 76, 0, 0.3), rgba(0, 242, 255, 0.2));
+    backdrop-filter: blur(10px);
+    border-left: 4px solid var(--primary);
+    padding: 12px 20px;
+    border-radius: 12px;
+    margin: 25px 0 15px 0;
+    font-size: 14px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.league-title img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+/* CARDS DE JOGOS */
+.match-item {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--secondary);
+    border-radius: 15px;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: 1fr 110px 1fr;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.match-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 76, 0, 0.4);
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.team img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.t-left {
+    justify-content: space-between; /* Espaça o conteúdo */
+    text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.t-left img {
+    order: 2; /* Força a imagem ir para o final (direita) */
+    margin-left: auto; /* Empurra para a extrema direita */
+}
+
+.t-left span {
+    order: 1; /* Nome fica à esquerda */
+    margin-right: auto; /* Empurra para a extrema esquerda */
+}
+
+.t-right {
+    justify-content: space-between; /* Espaça o conteúdo */
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.t-right img {
+    order: 1; /* Imagem fica no início (esquerda) */
+    margin-right: auto; /* Empurra para a extrema esquerda */
+}
+
+.t-right span {
+    order: 2; /* Nome fica à direita */
+    margin-left: auto; /* Empurra para a extrema direita */
+}
+.score-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.time-badge {
+    color: #ff4757;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px #ff4757;
+}
+
+.score-now {
+    background: linear-gradient(135deg, #000, #1a1a1a);
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: 900;
+    border: 2px solid var(--yellow);
+    color: var(--yellow);
+    min-width: 75px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+}
+
+/* LOADING */
+.loading-state {
+    width: 100%;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--secondary);
+    font-size: 16px;
+}
+
+.loading-state i {
+    display: block;
+    font-size: 42px;
+    margin-bottom: 20px;
+    color: var(--primary);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* SELETOR DE ANO */
+.year-selector {
+    margin: 30px 0 25px 0;
+    text-align: center;
+}
+
+.year-selector label {
+    color: var(--secondary);
+    font-weight: 900;
+    margin-right: 15px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+#anoTemporada, #anoHistorico {
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--secondary);
+    border: 2px solid var(--secondary);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Kanit', sans-serif;
+    transition: all 0.3s ease;
+}
+
+#anoTemporada:focus,
+#anoTemporada:hover,
+#anoHistorico:focus,
+#anoHistorico:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(255, 76, 0, 0.5);
+}
+
+/* TABELA DE CLASSIFICAÇÃO */
+.table-container {
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    overflow-x: auto;
+    margin-top: 30px;
+    box-shadow: 0 10px 40px rgba(255, 76, 0, 0.3);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th {
+    background: rgba(255, 76, 0, 0.1);
+    color: var(--yellow);
+    padding: 18px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px #000;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+}
+
+td:first-child {
+    font-family: 'Black Ops One', cursive;
+    color: var(--secondary);
+    font-size: 18px;
+}
+
+tbody tr:hover {
+    background: rgba(0, 242, 255, 0.05);
+}
+
+td img {
+    vertical-align: middle;
+}
+
+.team-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+}
+
+/* HISTÓRICO */
+#secao-historico {
+    background: rgba(20, 20, 20, 0.8);
+    border: 2px solid var(--yellow);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 30px;
+    box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);
+}
+
+#resultado-campeao {
+    margin-top: 30px;
+}
+
+.campeao-card {
+    background: linear-gradient(135deg, rgba(255, 204, 0, 0.2), rgba(255, 76, 0, 0.2));
+    border: 3px solid var(--yellow);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 10px 40px rgba(255, 204, 0, 0.4);
+    animation: trofeuBrilho 2s infinite;
+}
+
+@keyframes trofeuBrilho {
+    0%, 100% { box-shadow: 0 10px 40px rgba(255, 204, 0, 0.4); }
+    50% { box-shadow: 0 10px 60px rgba(255, 204, 0, 0.8); }
+}
+
+.campeao-trophy {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.campeao-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin: 20px auto;
+    filter: drop-shadow(0 0 20px rgba(255, 204, 0, 0.6));
+}
+
+.campeao-nome {
+    font-size: 2.5rem;
+    font-family: 'Black Ops One', cursive;
+    color: var(--yellow);
+    text-shadow: 3px 3px 0px #000, 0 0 30px var(--primary);
+    margin: 20px 0;
+}
+
+.campeao-ano {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+.campeao-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.campeao-stats div {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--secondary);
+}
+
+.campeao-stats strong {
+    display: block;
+    font-size: 2rem;
+    color: var(--yellow);
+    margin-bottom: 5px;
+}
+
+.grupo-copa {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--secondary);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: inline-block;
+    min-width: 200px;
+    margin-right: 15px;
+}
+
+.grupo-copa h4 {
+    color: var(--yellow);
+    font-family: 'Black Ops One', cursive;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.campeao-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.campeao-mini img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.campeao-mini span {
+    font-weight: 700;
+    color: white;
+}
+
+/* ==========================================
+   RESPONSIVIDADE MOBILE
+   ========================================== */
+
+/* MOBILE - ESCONDE SIDEBARS E ORGANIZA HEADER */
+@media (max-width: 1200px) {
+    .main-wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .main-content { 
+        order: 1; 
+        width: 100%;
+        padding: 20px 10px;
+    }
+
+    .sidebar-promo { 
+        display: none !important;
+    }
+
+    /* HEADER - BOTÕES LADO A LADO */
+    .container-header {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 15px 10px;
+    }
+
+    .logo {
+        font-size: 24px;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px 15px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 11px;
+        white-space: nowrap;
+        flex: 0 1 auto;
+    }
+
+    .title-glow { 
+        font-size: 1.8rem; 
+    }
+
+    .btn-league {
+        padding: 10px 16px;
+        font-size: 11px;
+    }
+
+    .match-item {
+        grid-template-columns: 1fr 90px 1fr;
+        padding: 12px 8px;
+        gap: 10px;
+    }
+
+    .team {
+        font-size: 12px;
+    }
+
+    .team img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .score-now {
+        font-size: 18px;
+        padding: 6px 12px;
+        min-width: 65px;
+    }
+
+    .league-title {
+        font-size: 12px;
+        padding: 10px 15px;
+    }
+
+    .league-title img {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* CELULARES MUITO PEQUENOS */
+@media (max-width: 500px) {
+    nav a {
+        font-size: 10px;
+        padding: 8px 12px;
+    }
+
+    .match-item {
+        grid-template-columns: 1fr 75px 1fr;
+        padding: 10px 5px;
+    }
+
+    .team span { 
+        font-size: 11px; 
+    }
+
+    .score-now { 
+        font-size: 16px; 
+        min-width: 60px;
+        padding: 5px 10px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+}
+
+/*//////////////////////////////////////////////////////*/
+
+/* ==========================================
+   ADICIONE ESTE CSS NO FINAL DO SEU STYLEFOOTBALL.CSS
+   ESTILOS PARA COPA DO MUNDO
+   ========================================== */
+
+/* SEÇÃO COPA DO MUNDO */
+#secao-copa-mundo {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* CARD DO CAMPEÃO */
+.campeao-card {
+    background: linear-gradient(135deg, rgba(255, 204, 0, 0.2), rgba(255, 76, 0, 0.2));
+    border: 3px solid var(--yellow);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    max-width: 600px;
+    margin: 30px auto;
+    box-shadow: 0 10px 40px rgba(255, 204, 0, 0.4);
+    animation: trofeuBrilho 2s infinite;
+}
+
+@keyframes trofeuBrilho {
+    0%, 100% { 
+        box-shadow: 0 10px 40px rgba(255, 204, 0, 0.4); 
+        border-color: var(--yellow);
+    }
+    50% { 
+        box-shadow: 0 10px 60px rgba(255, 204, 0, 0.8); 
+        border-color: var(--primary);
+    }
+}
+
+/* TROFÉU ANIMADO */
+.campeao-trophy {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+    filter: drop-shadow(0 0 20px rgba(255, 204, 0, 0.8));
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+}
+
+/* LOGO DO CAMPEÃO */
+.campeao-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin: 20px auto;
+    filter: drop-shadow(0 0 20px rgba(255, 204, 0, 0.6));
+    animation: rotateGlow 4s infinite;
+}
+
+@keyframes rotateGlow {
+    0%, 100% { 
+        filter: drop-shadow(0 0 20px rgba(255, 204, 0, 0.6));
+        transform: scale(1);
+    }
+    50% { 
+        filter: drop-shadow(0 0 30px rgba(255, 76, 0, 0.8));
+        transform: scale(1.05);
+    }
+}
+
+/* NOME DO CAMPEÃO */
+.campeao-nome {
+    font-size: 2.5rem;
+    font-family: 'Black Ops One', cursive;
+    color: var(--yellow);
+    text-shadow: 3px 3px 0px #000, 0 0 30px var(--primary);
+    margin: 20px 0;
+    text-transform: uppercase;
+}
+
+/* ANO DO CAMPEONATO */
+.campeao-ano {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    font-weight: 900;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px #000;
+}
+
+/* ESTATÍSTICAS DO CAMPEÃO */
+.campeao-stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.campeao-stats div {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 2px solid var(--secondary);
+    min-width: 120px;
+}
+
+.campeao-stats strong {
+    display: block;
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* GRUPOS DA COPA */
+.grupo-copa {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--secondary);
+    border-radius: 15px;
+    padding: 20px;
+    min-width: 280px;
+    max-width: 320px;
+    transition: all 0.3s ease;
+}
+
+.grupo-copa:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 76, 0, 0.3);
+}
+
+.grupo-copa h4 {
+    color: var(--yellow);
+    font-family: 'Black Ops One', cursive;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.3rem;
+    text-shadow: 2px 2px 4px #000;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 204, 0, 0.3);
+}
+
+/* AJUSTES DE RESPONSIVIDADE PARA COPA DO MUNDO */
+@media (max-width: 768px) {
+    .campeao-card {
+        padding: 30px 20px;
+        max-width: 95%;
+    }
+
+    .campeao-nome {
+        font-size: 1.8rem;
+    }
+
+    .campeao-logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .campeao-trophy {
+        font-size: 60px;
+    }
+
+    .campeao-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .campeao-stats div {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .grupo-copa {
+        min-width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .campeao-nome {
+        font-size: 1.5rem;
+    }
+
+    .campeao-ano {
+        font-size: 1rem;
+    }
+
+    .grupo-copa h4 {
+        font-size: 1.1rem;
+    }
+}

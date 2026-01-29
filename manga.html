@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JN SHOP | Livros & Mangas 📚</title>
+    <link rel="stylesheet" href="manga.css">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Kanit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="game-wallpaper"></div>
+    <div class="color-overlay"></div>
+
+    <header>
+        <div class="container-header">
+            <div class="logo">JN<span>SHOP</span></div>
+            <nav>
+                
+                </a>
+                <a href="index.html">VOLTAR À LOJA</a>
+                <a href="tabelas.html">🏆 TABELAS</a>
+                <a href="live.html">📺 AO VIVO</a>
+               <!-- <a href="jogos.html" class="btn-live">BAIXAR JOGOS</a>-->
+            </nav>
+        </div>
+    </header>
+
+ <main class="container">
+    <section class="hero-text">
+        <h1 class="title-glow">BIBLIOTECA <span>GAMER</span> 📚</h1>
+        <p>Leia online ou baixe os melhores títulos gratuitamente.</p>
+        
+        <div class="search-box">
+            <input type="text" id="mangaSearch" placeholder="Buscar manga ou livro..." onkeyup="filtrarMangas()">
+            <i class="fas fa-search"></i>
+        </div>
+    </section>
+
+    <!-- GRID ONDE OS CARDS VÃO APARECER -->
+    <div class="manga-grid" id="mangaContainer">
+        <!-- O JavaScript vai colocar os cards aqui dentro automaticamente -->
+    </div>
+</main>
+
+<!-- JANELA DO LEITOR (MODAL) -->
+<div id="modalLeitor" class="modal-leitor">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="tituloLivroAberto">Lendo...</h2>
+            <button onclick="fecharLeitor()" class="btn-fechar">&times; FECHAR</button>
+        </div>
+        <div class="modal-body">
+            <!-- O livro vai aparecer aqui dentro -->
+            <iframe id="frameLivro" src="" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+    <!--<script src="script.js"></script> --><!-- Link para o seu JS principal para manter o login -->
+    <script src="manga.js"></script> <!-- JS específico desta página -->
+</body>
+</html>

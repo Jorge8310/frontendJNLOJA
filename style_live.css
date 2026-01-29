@@ -1,0 +1,241 @@
+/* ESTILO EXCLUSIVO DA JN ARENA TV */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #ff4c00;
+    --secondary: #00f2ff;
+    --glass: rgba(10, 10, 10, 0.9);
+}
+
+body { font-family: 'Kanit', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+
+/* FUNDO DINÂMICO */
+.game-wallpaper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-size: cover; background-position: center; filter: brightness(0.3); }
+.color-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: -1; }
+
+/* HEADER */
+.container-header { 
+   /* max-width: 1400px; */
+    width:100%;
+    margin: auto; 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 10px 15px; 
+    align-items: center; 
+    border-bottom: 2px solid var(--primary); 
+    background: rgba(0,0,0,0.9);
+}
+
+.logo { 
+    font-family: 'Black Ops One'; 
+    font-size: 20px; /* Reduzido de 28px */
+    flex-shrink: 0;
+}
+.logo span { color: var(--primary); }
+
+/* ESTILO DOS BOTÕES DO MENU (TRANSPARENTES) */
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px; /* Tamanho levemente menor para caber tudo */
+    white-space: nowrap;
+    text-transform: uppercase;
+    
+    /* Transformando em botão transparente */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda fina e discreta */
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* EFEITO AO PASSAR O MOUSE */
+nav a:hover {
+    border-color: var(--primary); /* A borda acende com a cor laranja */
+    background: rgba(255, 76, 0, 0.1); /* Um fundo laranja bem clarinho */
+    color: var(--primary) !important;
+    box-shadow: 0 0 10px rgba(255, 76, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* AJUSTE PARA O BOTÃO "MINHA CONTA" NÃO FICAR DIFERENTE */
+.btn-account {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.live-page { padding: 30px 15px; text-align: center; }
+
+.main-player-container {
+    width: 100%; 
+    max-width: 900px; 
+    margin: 0 auto 25px auto;
+    background: #000; 
+    border: 3px solid var(--secondary);
+    border-radius: 20px; 
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0, 210, 255, 0.3);
+}
+
+.live-header { 
+    background: rgba(255, 255, 255, 0.05); 
+    padding: 12px; 
+    font-weight: 900; 
+    color: var(--secondary); 
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.video-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; }
+.video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+/* BOTÕES - DESKTOP (lado a lado) */
+.channel-selector { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px; 
+    flex-wrap: wrap;
+    padding: 0 15px;
+}
+
+.btn-fifa {
+    background: linear-gradient(135deg, #004795, #00b4e5) !important;
+    color: white !important;
+    padding: 15px 35px !important;
+    border-radius: 50px !important;
+    font-weight: 900 !important;
+    font-size: 16px !important;
+    border: 3px solid #fff !important;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 0 20px rgba(0, 71, 149, 0.6);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-fifa:hover { 
+    transform: scale(1.05); 
+    box-shadow: 0 0 30px #00b4e5; 
+}
+
+.live-status { 
+    margin-top: 20px; 
+    color: #ff4757; 
+    font-weight: bold; 
+    font-size: 12px; 
+    text-transform: uppercase;
+    padding: 0 15px;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  /* HEADER - BOTÕES LADO A LADO */
+    .container-header {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 15px 10px;
+    }
+
+    .logo {
+        font-size: 24px;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px 15px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 11px;
+        white-space: nowrap;
+        flex: 0 1 auto;
+    }
+    
+
+    .live-page {
+        padding: 20px 10px;
+    }
+    
+    .main-player-container {
+        border-radius: 15px;
+        border-width: 2px;
+        margin-bottom: 20px;
+    }
+    
+    .live-header {
+        font-size: 13px;
+        padding: 10px;
+    }
+    
+    .channel-selector {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 10px;
+    }
+    
+    .btn-fifa { 
+        width: 100%;
+        max-width: 320px;
+        font-size: 15px !important;
+        padding: 14px 25px !important;
+    }
+    
+    .live-status {
+        font-size: 11px;
+        padding: 0 10px;
+    }
+
+}
+/* TABLETS */
+@media (min-width: 769px) and (max-width: 1024px) {
+   nav a {
+        font-size: 10px;
+        padding: 8px 12px;
+    }
+
+    .match-item {
+        grid-template-columns: 1fr 75px 1fr;
+        padding: 10px 5px;
+    }
+
+    .team span { 
+        font-size: 11px; 
+    }
+
+    .score-now { 
+        font-size: 16px; 
+        min-width: 60px;
+        padding: 5px 10px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .btn-fifa {
+        font-size: 15px !important;
+        padding: 14px 30px !important;
+    }
+}

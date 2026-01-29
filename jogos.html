@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JNLOJA - GameStore</title>
+    <link rel="stylesheet" href="stylejogos.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- AGREGADO: Elementos para o Fundo Dinâmico (Igual ao Football) -->
+    <div class="game-wallpaper"></div>
+    <div class="color-overlay"></div>
+
+    <!-- Header -->
+    <header>
+    <div class="container-header">
+        <div class="logo">JN<span>SHOP</span></div>
+        <nav>
+            <a href="index.html">VOLTAR À LOJA</a>
+            <a href="tabelas.html">🏆 TABELAS</a>
+            <a href="live.html">📺 AO VIVO</a>
+          <!-- <a href="https://wa.me/5554996689157" target="_blank" class="btn-live">WHATSAPP</a> --> 
+        </nav>
+    </div>
+</header>
+
+<section class="page-header-vibrant style="background: none; padding-bottom: 0;">
+    <div class="hero-text">
+        <h1 class="title-glow">BAIXAR <span>JOGOS</span></h1>
+        <p class="subtitle-gamer">Milhares de títulos elite para PC e Consoles.</p>
+    </div>
+</section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Filtros -->
+            <div class="filters-card">
+                <div class="filters-grid">
+                    <!-- Busca -->
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" class="search-input" placeholder="Buscar jogos...">
+                    </div>
+
+                    <!-- Filtro Plataforma -->
+                    <select id="platformFilter" class="filter-select">
+                        <option value="all">Todas Plataformas</option>
+                        <option value="PC">PC</option>
+                        <option value="PlayStation">PlayStation</option>
+                        <option value="Xbox">Xbox</option>
+                    </select>
+
+                    <!-- Filtro Categoria -->
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="all">Todas Categorias</option>
+                        <option value="Ação">Ação</option>
+                        <option value="Aventura">Aventura</option>
+                        <option value="Esportes">Esportes</option>
+                        <option value="Corrida">Corrida</option>
+                        <option value="Simulação">Simulação</option>
+                    </select>
+                </div>
+
+                <!-- Botões de Visualização -->
+                <div class="view-buttons">
+                    <button id="gridViewBtn" class="view-btn active"><i class="fas fa-th-large"></i></button>
+                    <button id="listViewBtn" class="view-btn"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p class="loading-text">Conectando ao servidor JNLOJA...</p>
+            </div>
+
+            <!-- Games Grid -->
+            <div id="gamesContainer" class="games-grid" style="display: none;"></div>
+
+            <!-- No Results -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <p><i class="fas fa-exclamation-circle"></i> Nenhum jogo encontrado</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4 class="footer-title">JNLOJA - GameStore</h4>
+                    <p class="footer-text">Sua plataforma elite de download de jogos.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://wa.me/5554996689157" target="_blank">Contato WhatsApp</a></li>
+                        <li><a href="#">Como Baixar?</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 JNLOJA. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scriptjogos.js"></script>
+</body>
+</html>

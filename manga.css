@@ -1,0 +1,276 @@
+/* ==========================================
+   CONFIGURAÇÕES GERAIS (ESTILO ELITE)
+   ========================================== */
+:root {
+    --primary: #ff4c00;    /* Laranja Chama */
+    --secondary: #00f2ff;  /* Ciano Neon */
+    --yellow: #ffcc00;     /* Amarelo Booyah */
+    --glass: rgba(10, 10, 10, 0.9);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    font-family: 'Kanit', sans-serif; 
+    background: #000; 
+    color: #fff; 
+    overflow-x: hidden; 
+}
+
+/* FUNDO DINÂMICO */
+.game-wallpaper {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+    background-size: cover; background-position: center; filter: brightness(0.3);
+    transition: 2s;
+}
+.color-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: -1; }
+
+/* ==========================================
+   HEADER ORGANIZADO (IGUAL AO INDEX)
+   ========================================== */
+header { 
+    background: rgba(0,0,0,0.95); 
+    border-bottom: 3px solid var(--primary); 
+    position: sticky; top: 0; z-index: 1000; 
+}
+
+.container-header { 
+    /*max-width: 1400px; */
+    width:100%;    margin: 0 auto; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px 20px; 
+}
+
+.logo { 
+    font-family: 'Black Ops One'; 
+    font-size: 32px; 
+    flex-shrink: 0;
+}
+.logo span { color: var(--primary); }
+
+nav { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+
+/* BOTÕES DO MENU (TRANSPARENTES) */
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+nav a:hover {
+    border-color: var(--primary);
+    background: rgba(255, 76, 0, 0.1);
+    color: var(--primary) !important;
+}
+
+/* BOTÃO DESTAQUE (BAIXAR JOGOS) */
+.btn-live {
+    background: linear-gradient(to right, #ff4c00, #ffcc00) !important;
+    color: #000 !important;
+    border: none !important;
+    font-weight: 900 !important;
+    box-shadow: 0 0 15px rgba(255, 76, 0, 0.4);
+}
+
+.btn-live:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
+
+/* ==========================================
+   CONTEÚDO DA BIBLIOTECA
+   ========================================== */
+.container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+.hero-text { text-align: center; margin-bottom: 40px; }
+.title-glow { 
+    font-size: 3rem; 
+    font-family: 'Black Ops One';
+    text-shadow: 0 0 20px var(--primary); 
+    color: #fff;
+}
+.title-glow span { color: var(--primary); }
+
+.search-box {
+    position: relative;
+    max-width: 500px;
+    margin: 25px auto;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px 45px 14px 20px;
+    background: rgba(0,0,0,0.6);
+    border: 2px solid var(--secondary);
+    border-radius: 30px;
+    color: white;
+    outline: none;
+    font-family: 'Kanit';
+}
+
+.search-box i { position: absolute; right: 20px; top: 16px; color: var(--secondary); }
+
+/* GRID DE LIVROS */
+.manga-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+.manga-card {
+    background: var(--glass);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.4s;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.manga-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--secondary);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+}
+
+.manga-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--secondary);
+}
+
+.manga-card h3 { margin: 15px 0 5px; font-family: 'Black Ops One'; color: var(--yellow); }
+.manga-card p { color: #ccc; font-size: 0.9rem; margin-bottom: 20px; }
+
+.btn-manga {
+    border: 2px solid var(--secondary);
+    background: transparent;
+    color: var(--secondary);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-manga:hover {
+    background: var(--secondary);
+    color: #000;
+    box-shadow: 0 0 20px var(--secondary);
+}
+
+/* MODAL DO LEITOR */
+.modal-leitor {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.95);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.modal-header {
+    background: #1a1a1a;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--secondary);
+}
+
+.modal-body {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+#frameLivro {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.btn-fechar {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* MOBILE - ESCONDE SIDEBARS E ORGANIZA HEADER */
+@media (max-width: 1200px) {
+    .main-wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    /* HEADER - BOTÕES LADO A LADO */
+    .container-header {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 15px 10px;
+    }
+
+    .logo {
+        font-size: 24px;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px 15px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 11px;
+        white-space: nowrap;
+        flex: 0 1 auto;
+    }
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 500px) {
+    .container-header { flex-direction: column; gap: 15px; }
+    nav { flex-wrap: wrap; justify-content: center; }
+}

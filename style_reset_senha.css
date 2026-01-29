@@ -1,0 +1,162 @@
+/* ==========================================
+   VARIAVEIS E CORES JNLOJA
+   ========================================== */
+:root {
+    --primary: #ff4c00;    /* Laranja */
+    --secondary: #00f2ff;  /* Ciano */
+    --yellow: #ffcc00;     /* Amarelo */
+    --glass: rgba(10, 10, 10, 0.95);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    font-family: 'Kanit', sans-serif; 
+    background: #000; 
+    color: #fff; 
+    overflow-x: hidden; 
+}
+
+/* ==========================================
+   ESTRUTURA DA PÁGINA DE REDEFINIÇÃO
+   ========================================== */
+
+/* 1. Container que centraliza o card na tela */
+.reset-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center; /* Centraliza horizontal */
+    align-items: center;     /* Centraliza vertical */
+    padding: 20px;
+    width: 100%;
+}
+
+/* 2. O Card (A caixa que segura os campos) */
+.reset-card {
+    background: var(--glass);
+    border: 2px solid var(--primary);
+    border-radius: 25px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 420px; /* ISSO impede que fique muito comprido */
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255, 76, 0, 0.4);
+    backdrop-filter: blur(10px);
+}
+
+.reset-card h2 {
+    font-family: 'Black Ops One', cursive;
+    color: var(--yellow);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* 3. Campos de Entrada (Inputs) */
+.input-form {
+    width: 100% !important;
+    padding: 15px !important;
+    margin-bottom: 15px;
+    background: #111 !important;
+    border: 1px solid var(--secondary) !important;
+    color: #fff !important;
+    border-radius: 10px !important;
+    font-size: 16px;
+    outline: none;
+}
+
+/* 4. Container da Senha e Olhinho */
+.password-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-80%); /* Centraliza dentro do campo */
+    cursor: pointer;
+    font-size: 20px !important;
+    color: #ffffff !important;
+    /* FORÇA O OLHO A FICAR BRANCO NO FUNDO PRETO */
+    filter: brightness(0) invert(1) !important; 
+    z-index: 10;
+}
+
+/* 5. Botão de Salvar (Estilo Booyah) */
+.btn-reset-save {
+    width: 100% !important;
+    background: linear-gradient(to right, var(--primary), var(--yellow)) !important;
+    color: #000 !important;
+    padding: 15px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 900 !important;
+    font-size: 16px !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btn-reset-save:hover {
+    transform: scale(1.03);
+    filter: brightness(1.2);
+}
+
+/* 6. Link de Voltar */
+.reset-card a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* CONFIGURAÇÃO DO FUNDO DINÂMICO */
+.game-wallpaper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Fica atrás de tudo */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Ajuste de brilho para as fotos ficarem vivas */
+    filter: saturate(1.6) brightness(0.4); 
+    transition: background-image 1.5s ease-in-out;
+}
+
+.color-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Camada para dar leitura ao texto */
+    z-index: -1;
+}
+
+/* ==========================================
+   AJUSTE PARA CELULAR
+   ========================================== */
+@media (max-width: 500px) {
+    .reset-card {
+        padding: 30px 20px;
+        max-width: 95%;
+    }
+    
+    .reset-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .input-form {
+        font-size: 14px;
+        padding: 12px !important;
+    }
+}
+
