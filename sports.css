@@ -635,101 +635,353 @@ nav a i {
 }
 
 /* ==========================================
-   RESPONSIVIDADE
+   RESPONSIVIDADE - TABLETS E CELULARES
    ========================================== */
 @media (max-width: 768px) {
-    .title-glow {
-        font-size: 2rem;
+    /* CONTEÚDO PRINCIPAL */
+    .main-content {
+        padding: 25px 15px;
+        margin: 20px 10px;
+        border-radius: 20px;
     }
 
+    .title-glow {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+        letter-spacing: 2px;
+    }
+
+    /* BOTÕES DE ESPORTE - GRID 2 COLUNAS */
     .sports-nav {
-        gap: 10px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 10px;
+        margin: 20px 0;
     }
 
     .btn-sport {
-        padding: 12px 20px;
+        padding: 14px 18px;
         font-size: 12px;
+        width: 100%;
+        justify-content: center;
     }
 
+    .btn-sport i {
+        font-size: 16px;
+    }
+
+    /* BOTÕES DE FILTRO - GRID 3 COLUNAS */
     .standings-menu {
-        gap: 10px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 0 10px;
+        margin: 30px 0 40px 0;
+    }
+
+    .standings-menu::after {
+        display: none;
     }
 
     .btn-filter {
-        padding: 12px 20px;
-        font-size: 12px;
+        padding: 12px 15px;
+        font-size: 11px;
+        width: 100%;
+        justify-content: center;
     }
 
+    .btn-filter i {
+        font-size: 14px;
+    }
+
+    /* CARDS DE JOGOS */
     .match-item {
         grid-template-columns: 1fr 90px 1fr;
-        padding: 15px;
+        padding: 15px 12px;
+        gap: 15px;
+        border-radius: 15px;
     }
 
     .team span {
-        font-size: 13px;
+        font-size: 12px;
+    }
+
+    .team img {
+        width: 32px;
+        height: 32px;
     }
 
     .score-now {
         font-size: 20px;
         min-width: 70px;
         padding: 8px 15px;
+        border-width: 2px;
     }
 
-    nav {
+    .time-badge {
+        font-size: 10px;
+    }
+
+    /* TÍTULOS DE LIGA */
+    .league-title {
+        font-size: 13px;
+        padding: 12px 15px;
+        margin: 20px 0 12px 0;
+    }
+
+    .league-title img {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* HEADER - BOTÕES MENORES */
+    .container-header {
+        padding: 12px 15px;
         flex-wrap: wrap;
     }
 
-    nav a {
-        font-size: 11px;
-        padding: 8px 15px;
-    }
-}
-
-@media (max-width: 500px) {
     .logo {
-        font-size: 24px;
+        font-size: 26px;
     }
 
-    .title-glow {
-        font-size: 1.5rem;
-        letter-spacing: 1px;
-    }
-
-    .btn-sport {
-        padding: 10px 15px;
-        font-size: 11px;
-        gap: 6px;
-    }
-
-    .btn-filter {
-        padding: 10px 15px;
-        font-size: 11px;
-    }
-
-    .match-item {
-        grid-template-columns: 1fr 75px 1fr;
-        padding: 12px 8px;
-    }
-
-    .team span {
-        font-size: 11px;
-    }
-
-    .team img {
-        width: 28px;
-        height: 28px;
-    }
-
-    .score-now {
-        font-size: 18px;
-        min-width: 60px;
-        padding: 6px 12px;
+    nav {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        width: 100%;
+        margin-top: 10px;
     }
 
     nav a {
         font-size: 10px;
-        padding: 8px 12px;
+        padding: 10px 12px;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .btn-manga-header {
+        grid-column: 1 / -1;
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+    }
+
+    .btn-manga-header::after {
+        right: 10px;
+        font-size: 16px;
+    }
+}
+
+/* CELULARES PEQUENOS (iPhone SE, etc) */
+@media (max-width: 500px) {
+    /* CONTEÚDO PRINCIPAL */
+    .main-content {
+        padding: 20px 10px;
+        margin: 15px 5px;
+        border-radius: 15px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .title-glow {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+    }
+
+    /* BOTÕES DE ESPORTE - GRID 2 COLUNAS COMPACTO */
+    .sports-nav {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        padding: 0 5px;
+        margin: 15px 0;
+    }
+
+    .btn-sport {
+        padding: 12px 12px;
+        font-size: 10px;
         gap: 5px;
+        border-radius: 12px;
+    }
+
+    .btn-sport i {
+        font-size: 14px;
+    }
+
+    /* BOTÕES DE FILTRO - GRID 3 COLUNAS COMPACTO */
+    .standings-menu {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        padding: 0 5px;
+        margin: 25px 0 35px 0;
+    }
+
+    .btn-filter {
+        padding: 10px 8px;
+        font-size: 9px;
+        border-radius: 30px;
+        gap: 5px;
+    }
+
+    .btn-filter i {
+        font-size: 12px;
+    }
+
+    /* CARDS DE JOGOS - MAIS COMPACTOS */
+    .match-item {
+        grid-template-columns: 1fr 70px 1fr;
+        padding: 12px 6px;
+        gap: 10px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+    }
+
+    .team {
+        gap: 8px;
+    }
+
+    .team span {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+
+    .team img {
+        width: 26px;
+        height: 26px;
+    }
+
+    .score-area {
+        gap: 5px;
+    }
+
+    .score-now {
+        font-size: 16px;
+        min-width: 55px;
+        padding: 6px 10px;
+        border-width: 2px;
+        border-radius: 10px;
+    }
+
+    .time-badge {
+        font-size: 9px;
+    }
+
+    /* TÍTULOS DE LIGA */
+    .league-title {
+        font-size: 11px;
+        padding: 10px 12px;
+        margin: 15px 0 10px 0;
+        border-radius: 10px;
+    }
+
+    .league-title img {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* HEADER */
+    .container-header {
+        padding: 10px 10px;
+    }
+
+    nav {
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    nav a {
+        font-size: 9px;
+        padding: 8px 10px;
+        gap: 4px;
+        border-radius: 8px;
+    }
+
+    nav a i {
+        font-size: 12px;
+    }
+    
+    .btn-manga-header {
+        padding: 10px 15px;
+        font-size: 10px;
+    }
+
+    .btn-manga-header::after {
+        font-size: 14px;
+        right: 8px;
+        top: -6px;
+    }
+
+    /* LOADING */
+    .loading-state {
+        padding: 40px 15px;
+        font-size: 14px;
+    }
+
+    .loading-state i {
+        font-size: 36px;
+    }
+}
+
+/* CELULARES MUITO PEQUENOS (menos de 360px) */
+@media (max-width: 360px) {
+    .logo {
+        font-size: 20px;
+    }
+
+    .title-glow {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .sports-nav {
+        gap: 6px;
+    }
+
+    .btn-sport {
+        padding: 10px 8px;
+        font-size: 9px;
+    }
+
+    .standings-menu {
+        gap: 5px;
+    }
+
+    .btn-filter {
+        padding: 8px 6px;
+        font-size: 8px;
+    }
+
+    .match-item {
+        grid-template-columns: 1fr 60px 1fr;
+        padding: 10px 5px;
+        gap: 8px;
+    }
+
+    .team span {
+        font-size: 9px;
+    }
+
+    .team img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .score-now {
+        font-size: 14px;
+        min-width: 50px;
+        padding: 5px 8px;
+    }
+
+    .time-badge {
+        font-size: 8px;
+    }
+
+    nav a {
+        font-size: 8px;
+        padding: 7px 8px;
     }
 }
 
