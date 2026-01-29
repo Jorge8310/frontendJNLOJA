@@ -634,87 +634,104 @@ nav a i {
 }
 
 /* ==========================================
-   RESPONSIVIDADE - CORREÇÃO DE BOTÕES GRUDADOS
+   RESPONSIVIDADE
    ========================================== */
-
 @media (max-width: 768px) {
-    /* 1. TOPO: Logo pequeno e 3 botões alinhados */
-    .container-header {
-        flex-direction: column !important;
-        padding: 10px 5px !important;
-        gap: 10px !important;
+    .title-glow {
+        font-size: 2rem;
     }
 
-    .logo {
-        font-size: 20px !important;
-        text-align: center !important;
-        margin: 0 !important;
-    }
-
-    nav {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important; /* 3 colunas iguais */
-        gap: 8px !important; /* ESPAÇO ENTRE LOJA, AO VIVO E LIVROS */
-        width: 100% !important;
-    }
-
-    nav a {
-        font-size: 10px !important;
-        padding: 8px 2px !important;
-        justify-content: center !important;
-        border-radius: 8px !important;
-        margin: 0 !important; /* Remove margens antigas que podem atrapalhar */
-    }
-
-    /* 2. BOTÕES DE ESPORTE: Futebol e Basquete descolados */
     .sports-nav {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important; /* 2 botões por linha */
-        gap: 12px !important; /* ESPAÇO ENTRE FUTEBOL E BASQUETE */
-        padding: 0 15px !important;
+        gap: 10px;
     }
 
     .btn-sport {
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 15px 10px !important;
-        justify-content: center !important;
-        font-size: 12px !important;
+        padding: 12px 20px;
+        font-size: 12px;
     }
 
-    /* 3. FILTROS: Ao Vivo, Hoje e Amanhã descolados */
     .standings-menu {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr 1fr !important; /* 3 colunas iguais */
-        gap: 8px !important; /* ESPAÇO ENTRE AO VIVO, HOJE E AMANHÃ */
-        padding: 0 15px !important;
-        margin: 30px 0 !important;
+        gap: 10px;
     }
 
     .btn-filter {
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 10px 5px !important;
-        font-size: 10px !important;
-        justify-content: center !important;
+        padding: 12px 20px;
+        font-size: 12px;
     }
 
-    /* Ajuste do Título Arena */
+    .match-item {
+        grid-template-columns: 1fr 90px 1fr;
+        padding: 15px;
+    }
+
+    .team span {
+        font-size: 13px;
+    }
+
+    .score-now {
+        font-size: 20px;
+        min-width: 70px;
+        padding: 8px 15px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        font-size: 11px;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 500px) {
+    .logo {
+        font-size: 24px;
+    }
+
     .title-glow {
-        font-size: 1.8rem !important;
-        margin: 20px 0 !important;
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+    }
+
+    .btn-sport {
+        padding: 10px 15px;
+        font-size: 11px;
+        gap: 6px;
+    }
+
+    .btn-filter {
+        padding: 10px 15px;
+        font-size: 11px;
+    }
+
+    .match-item {
+        grid-template-columns: 1fr 75px 1fr;
+        padding: 12px 8px;
+    }
+
+    .team span {
+        font-size: 11px;
+    }
+
+    .team img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .score-now {
+        font-size: 18px;
+        min-width: 60px;
+        padding: 6px 12px;
+    }
+
+    nav a {
+        font-size: 10px;
+        padding: 8px 12px;
+        gap: 5px;
     }
 }
 
-/* Ajuste para celulares muito pequenos (menos de 360px) */
-@media (max-width: 360px) {
-    nav a, .btn-filter {
-        font-size: 9px !important;
-    }
-    .btn-sport {
-        font-size: 11px !important;
-    }
-}
 /* ==========================================
    ANIMAÇÕES EXTRAS
    ========================================== */
