@@ -105,14 +105,19 @@ function renderizarJogos(dados) {
     const grupos = {};
     const ordemLigasFinal = [];
 
-    // Agrupamento
+    // Agrupamento com país + liga
     dados.forEach(item => {
-        const liga = item.league ? item.league.name : (item.competition ? item.competition.name : "Competição");
-        if (!grupos[liga]) {
-            grupos[liga] = [];
-            ordemLigasFinal.push(liga);
+        const ligaNome = item.league ? item.league.name : (item.competition ? item.competition.name : "Competição");
+        const paisNome = item.league?.country || item.competition?.country || "";
+        
+        // Chave única: "País - Liga" (ex: "Brazil - Serie A")
+        const chaveGrupo = paisNome ? `${paisNome} - ${ligaNome}` : ligaNome;
+        
+        if (!grupos[chaveGrupo]) {
+            grupos[chaveGrupo] = [];
+            ordemLigasFinal.push(chaveGrupo);
         }
-        grupos[liga].push(item);
+        grupos[chaveGrupo].push(item);
     });
 
     ordemLigasFinal.forEach(ligaNome => {
@@ -160,7 +165,6 @@ function renderizarJogos(dados) {
         });
     });
 }
-
 // ==========================================
 // POPULAR SIDEBARS
 // ==========================================
