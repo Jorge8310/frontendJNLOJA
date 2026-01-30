@@ -424,15 +424,20 @@ carregarFutebol();
 setInterval(carregarFutebol, 900000);
 
 // ==========================================
-// 5. COMPRA DE DIAMANTES E PIX
+// 5. COMPRA DE PRODUTOS E PIX (ATUALIZADO)
 // ==========================================
-async function comprarDima(preco, nome) {
+
+async function iniciarCompra(preco, nome, categoria) {
+    console.log(`🛒 Iniciando compra: ${nome} | Categoria: ${categoria} | Valor: R$ ${preco}`);
+
+    // 1. Verifica se o usuário está logado
     if (!userLogado) {
         document.getElementById('avisoModal').style.display = 'block';
         return;
     }
 
     try {
+        // 2. Faz a chamada para o checkout enviando a categoria
         const res = await fetch(`${API_URL}/checkout`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -440,29 +445,72 @@ async function comprarDima(preco, nome) {
                 email: userLogado.email, 
                 whatsapp: userLogado.whatsapp, 
                 amount: preco, 
-                description: nome 
+                description: nome,
+                category: categoria // 👈 IMPORTANTE: Enviando a categoria para o servidor
             })
         });
 
         const data = await res.json();
 
-        // SE O STATUS NÃO FOR OK OU TIVER ERRO DE ESTOQUE
+        // 3. Verifica se deu erro (como falta de estoque)
         if (!res.ok || data.error === "ESTOQUE_ESGOTADO") {
             alert("⚠️ " + (data.message || "Produto sem estoque no momento!"));
-            return; // SAI DA FUNÇÃO E NÃO ABRE O MODAL PIX
+            return;
         }
 
-        // SE CHEGOU AQUI, TEM ESTOQUE E O PIX FOI GERADO
+        // 4. Se o Pix foi gerado com sucesso, abre o modal
         if (data.qr_code) {
             document.getElementById('pixCodeDisplay').value = data.qr_code;
             document.getElementById('pixModal').style.display = 'block';
             
-            // ... resto do seu código (whatsapp, checkInterval, etc) ...
+            // Configura o botão do WhatsApp dentro do modal do Pix
+            document.querySelector('.btn-whatsapp-send').onclick = () => {
+                const msg = encodeURIComponent(`🔥 *JNSHOP* 🔥\n\nAqui está meu código Pix para *${nome}*:\n\n${data.qr_code}\n\n_Vou pagar agora!_`);
+                window.open(`https://wa.me/5554996689157?text=${msg}`, '_blank');
+            };
+
+            // Inicia a verificação automática de pagamento
+            if (checkInterval) clearInterval(checkInterval);
+            checkInterval = setInterval(() => verificarStatus(data.id), 5000);
         }
     } catch (e) { 
-        console.error("Erro no checkout:", e);
-        alert("Erro de conexão com o servidor."); 
+        console.error("❌ Erro no checkout:", e);
+        alert("Erro de conexão com o servidor. Verifique se a API está online."); 
     }
+}
+
+// Função para o botão do modal de aviso
+function irParaLogin() {
+    closeModal('avisoModal');
+    document.getElementById('accountModal').style.display = 'block';
+}
+
+// Verifica se o pagamento foi aprovado pelo Mercado Pago
+async function verificarStatus(id) {
+    try {
+        const res = await fetch(`${API_URL}/status/${id}`);
+        const data = await res.json();
+        
+        if (data.status === 'approved' && data.pin) {
+            clearInterval(checkInterval);
+            const modalContent = document.querySelector('.pix-modal-content');
+            if (modalContent) {
+                modalContent.innerHTML = `
+                    <h2 style="color:#00ff88;">💎 PAGAMENTO APROVADO!</h2>
+                    <p style="margin-top:15px;">Obrigado pela compra! Seu código é:</p>
+                    <div style="background:#000; padding:20px; color:#00f2ff; font-size:24px; font-weight:bold; margin:20px 0; border:2px solid #00f2ff; border-radius:10px; box-shadow: 0 0 15px rgba(0,242,255,0.3);">
+                        ${data.pin}
+                    </div>
+                    <button onclick="copyPin('${data.pin}')" class="btn-copy">📋 COPIAR CÓDIGO</button>
+                    <button onclick="enviarPinWhats('${data.pin}')" class="btn-whatsapp-send" style="margin-top:10px;">
+                        <i class="fab fa-whatsapp"></i> ENVIAR PARA MEU WHATSAPP
+                    </button>
+                    <p style="font-size:12px; color:#888; margin-top:15px;">O código também foi enviado para seu e-mail e salvo na aba MINHA CONTA.</p>
+                    <button onclick="location.reload()" class="btn-close" style="background:#333; margin-top:20px;">FECHAR</button>
+                `;
+            }
+        }
+    } catch (e) { console.log("Aguardando aprovação..."); }
 }
 
 /*
