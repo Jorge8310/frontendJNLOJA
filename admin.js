@@ -74,20 +74,20 @@ async function carregarClientes() {
     } catch (e) { container.innerHTML = "Erro ao carregar clientes."; }
 }
 
-
+// ATUALIZE A FUNÇÃO DE CARREGAR CÓDIGOS
 async function carregarCodigos() {
     const container = document.getElementById('lista-codigos');
     try {
         const res = await fetch(`${API_URL}/admin/pins?adminEmail=${userLogado.email}`);
         const pins = await res.json();
         
-        // Filtro: Pega apenas os disponíveis
+        // Filtra para mostrar apenas os códigos disponíveis no estoque
         const disponiveis = pins.filter(p => !p.isUsed);
 
         let html = `<table class="admin-table">
             <thead>
                 <tr>
-                    <th>Produto</th> <!-- 👈 Nova Coluna -->
+                    <th>Produto</th>
                     <th>Código</th>
                     <th>Valor</th>
                     <th>Ação</th>
@@ -96,7 +96,7 @@ async function carregarCodigos() {
         
         disponiveis.forEach(p => {
             html += `<tr>
-                <td style="color: var(--secondary); font-weight: bold;">${p.category ? p.category.toUpperCase() : 'FREEFIRE'}</td>
+                <td style="color: var(--secondary); font-weight: bold;">${(p.category || 'FREEFIRE').toUpperCase()}</td>
                 <td>${p.code}</td>
                 <td>R$ ${p.amount}</td>
                 <td>
@@ -105,8 +105,12 @@ async function carregarCodigos() {
             </tr>`;
         });
         container.innerHTML = html + `</tbody></table>`;
-    } catch (e) { container.innerHTML = "Erro ao carregar estoque."; }
+    } catch (e) { 
+        console.error(e);
+        container.innerHTML = "Erro ao carregar estoque."; 
+    }
 }
+
 
 /*
 // ATUALIZE A FUNÇÃO DE CARREGAR CÓDIGOS
