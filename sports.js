@@ -163,16 +163,29 @@ function renderizarJogos(dados) {
             const card = document.createElement('div');
             card.className = `match-item sport-${esporteAtivo}`;
 
-            if (esporteAtivo === 'f1') {
-                // Layout F1
-                card.innerHTML = `
-                    <div style="width:100%; text-align:left; padding:10px;">
-                        <span class="time-badge" style="color:var(--primary)">${jogo.status}</span>
-                        <h3 style="margin:5px 0; color:#fff;">${jogo.circuit.name}</h3>
-                        <p style="font-size:12px; color:#aaa;">${jogo.city}, ${jogo.country.name}</p>
-                        <small style="color:var(--secondary)">${new Date(jogo.date).toLocaleString('pt-BR')}</small>
-                    </div>`;
-            } else {
+         if (esporteAtivo === 'baseball') {
+    // Layout Baseball (mesmo formato de futebol/basquete)
+    const status = jogo.status?.short || jogo.status?.long || 'NS';
+    const scoreHome = jogo.scores?.home?.total ?? 0;
+    const scoreAway = jogo.scores?.away?.total ?? 0;
+    
+    let tempo;
+    if (status === 'NS') {
+        tempo = new Date(jogo.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    } else if (status === 'FT' || status === 'Finished') {
+        tempo = 'FIM';
+    } else {
+        tempo = status;
+    }
+    
+    card.innerHTML = `
+        <div class="team t-left"><span>${jogo.teams.home.name}</span><img src="${jogo.teams.home.logo}"></div>
+        <div class="score-area">
+            <span class="time-badge">${tempo}</span>
+            <div class="score-now">${scoreHome} - ${scoreAway}</div>
+        </div>
+        <div class="team t-right"><img src="${jogo.teams.away.logo}"><span>${jogo.teams.away.name}</span></div>`;
+} else {
                 // Layout Futebol, Basquete e Vôlei
                 const status = esporteAtivo === 'football' ? jogo.fixture.status.short : jogo.status.short;
                 

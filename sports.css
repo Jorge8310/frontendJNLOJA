@@ -676,9 +676,8 @@ nav a i {
     border-color: #00ff88 !important; 
 }
 
-.sport-f1 { 
-    border-color: #ff0000 !important;
-    grid-template-columns: 1fr !important;
+.sport-baseball { 
+    border-color: #0066cc !important;
 }
 
 /* ==========================================
