@@ -25,10 +25,13 @@ body {
     line-height: 1.6;
 }
 
+
+
 /* ==========================================
    FUNDO DINÂMICO
    ========================================== */
-.game-wallpaper {
+/*
+   .game-wallpaper {
     position: fixed;
     top: 0; 
     left: 0;
@@ -50,6 +53,30 @@ body {
     background: linear-gradient(135deg, rgba(255, 76, 0, 0.1), rgba(0, 242, 255, 0.1));
     z-index: -1;
     backdrop-filter: blur(2px);
+}
+*/
+
+.game-wallpaper {
+    position: fixed; /* Mantém a imagem fixa ao rolar a página */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('view-soccer-ball-field.jpg'); /* COLOQUE O CAMINHO DA SUA IMAGEM AQUI */
+    background-size: cover; /* Faz a imagem cobrir toda a tela */
+    background-position: center; /* Centraliza a imagem */
+    z-index: -2; /* Coloca ela atrás de tudo */
+}
+
+/* Opcional: Estilo para o overlay (escurecer a imagem para ler melhor o texto) */
+.color-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Cor preta com 60% de transparência */
+    z-index: -1;
 }
 
 /* ==========================================

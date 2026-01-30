@@ -13,6 +13,7 @@ const PRIORIDADE_LIGAS = [
     71, 610, 602, 606, 611, 13, 2, 39, 140, 72, 1060
 ];
 
+/*
 // ==========================================
 // FUNDO DINÂMICO
 // ==========================================
@@ -36,6 +37,8 @@ function mudarFundo() {
 
 mudarFundo();
 setInterval(mudarFundo, 7000);
+*/
+
 
 // Troca o esporte (Futebol, Basket, Vôlei, F1)
 function setSport(sport, btn) {
