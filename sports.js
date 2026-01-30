@@ -137,12 +137,12 @@ function renderizarJogos(dados) {
     const grupos = {};
     const ordemLigasFinal = [];
 
-    // Agrupamento com país
+    // Agrupamento com país + liga
     dados.forEach(item => {
         const ligaNome = item.league ? item.league.name : (item.competition ? item.competition.name : "Competição");
         const paisNome = item.league?.country || item.competition?.country || "";
         
-        // Chave única: País + Liga (ex: "Brazil - Serie A")
+        // Chave única: "País - Liga" (ex: "Brazil - Serie A")
         const chaveGrupo = paisNome ? `${paisNome} - ${ligaNome}` : ligaNome;
         
         if (!grupos[chaveGrupo]) {
@@ -175,8 +175,21 @@ function renderizarJogos(dados) {
             } else {
                 // Layout Futebol, Basquete e Vôlei
                 const status = esporteAtivo === 'football' ? jogo.fixture.status.short : jogo.status.short;
-                const scoreHome = esporteAtivo === 'football' ? (jogo.goals.home ?? 0) : (jogo.scores?.home?.total ?? 0);
-                const scoreAway = esporteAtivo === 'football' ? (jogo.goals.away ?? 0) : (jogo.scores?.away?.total ?? 0);
+                
+                let scoreHome, scoreAway;
+                
+                if (esporteAtivo === 'football') {
+                    scoreHome = jogo.goals.home ?? 0;
+                    scoreAway = jogo.goals.away ?? 0;
+                } else if (esporteAtivo === 'volleyball') {
+                    // Vôlei: tenta pegar de sets, senão home, senão total
+                    scoreHome = jogo.scores?.home?.sets ?? jogo.scores?.home ?? jogo.scores?.home?.total ?? 0;
+                    scoreAway = jogo.scores?.away?.sets ?? jogo.scores?.away ?? jogo.scores?.away?.total ?? 0;
+                } else {
+                    // Basquete
+                    scoreHome = jogo.scores?.home?.total ?? 0;
+                    scoreAway = jogo.scores?.away?.total ?? 0;
+                }
 
                 let tempo;
                 if (status === 'NS') {
