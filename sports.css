@@ -1,4 +1,3 @@
-
 /* ==========================================
    JNSPORTS - CSS MODERNO E ESTILOSO
    ========================================== */
@@ -72,7 +71,7 @@ header {
     display: flex; 
     justify-content: space-between; 
     padding: 15px 20px; 
-    align-items: center; 
+    align-items: center;
 }
 
 .logo { 
@@ -104,6 +103,7 @@ header {
 nav {
     display: flex;
     gap: 15px;
+    align-items: center;
 }
 
 nav a {
@@ -478,6 +478,11 @@ nav a i {
     backdrop-filter: blur(10px);
 }
 
+/* GRID MAIOR PARA BASQUETE */
+.match-item.sport-basketball {
+    grid-template-columns: 1fr 150px 1fr;
+}
+
 .match-item::before {
     content: '';
     position: absolute;
@@ -557,6 +562,7 @@ nav a i {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    white-space: nowrap;
 }
 
 .time-badge {
@@ -589,6 +595,7 @@ nav a i {
     text-align: center;
     box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 .match-item:hover .score-now {
@@ -622,7 +629,20 @@ nav a i {
 }
 
 .sport-basketball { 
-    border-color: #ff8800 !important; 
+    border-color: #ff8800 !important;
+}
+
+/* PLACAR MAIOR PARA BASQUETE (números de 3 dígitos) */
+.sport-basketball .score-area {
+    min-width: 140px;
+}
+
+.sport-basketball .score-now {
+    min-width: 130px;
+    font-size: 26px;
+    padding: 10px 20px;
+    letter-spacing: 1px;
+    white-space: nowrap;
 }
 
 .sport-volleyball { 
@@ -667,6 +687,16 @@ nav a i {
         justify-content: center;
     }
 
+    /* Remove o efeito de crescimento no mobile */
+    .btn-sport:hover {
+        transform: translateY(-2px) scale(1.0) !important;
+    }
+
+    .btn-sport.active {
+        transform: scale(1.0) !important;
+        /* Mantém apenas o brilho/luz */
+    }
+
     .btn-sport i {
         font-size: 16px;
     }
@@ -691,6 +721,16 @@ nav a i {
         justify-content: center;
     }
 
+    /* Remove o efeito de crescimento no mobile */
+    .btn-filter:hover {
+        transform: translateY(-2px) scale(1.0) !important;
+    }
+
+    .btn-filter.active {
+        transform: scale(1.0) !important;
+        /* Mantém apenas o brilho/luz */
+    }
+
     .btn-filter i {
         font-size: 14px;
     }
@@ -701,6 +741,17 @@ nav a i {
         padding: 15px 12px;
         gap: 15px;
         border-radius: 15px;
+    }
+
+    /* BASQUETE - Grid maior no mobile */
+    .match-item.sport-basketball {
+        grid-template-columns: 1fr 110px 1fr;
+    }
+
+    .sport-basketball .score-now {
+        min-width: 90px;
+        font-size: 22px;
+        padding: 8px 15px;
     }
 
     .team span {
@@ -735,14 +786,17 @@ nav a i {
         height: 24px;
     }
 
-    /* HEADER - BOTÕES MENORES */
+    /* HEADER - LOGO CENTRALIZADO NO MOBILE */
     .container-header {
         padding: 12px 15px;
-        flex-wrap: wrap;
+        gap: 12px;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .logo {
         font-size: 26px;
+        text-align: center;
     }
 
     nav {
@@ -750,7 +804,7 @@ nav a i {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
         width: 100%;
-        margin-top: 10px;
+        justify-content: center;
     }
 
     nav a {
@@ -807,6 +861,15 @@ nav a i {
         border-radius: 12px;
     }
 
+    /* Remove completamente o efeito de crescimento */
+    .btn-sport:hover {
+        transform: translateY(0) scale(1.0) !important;
+    }
+
+    .btn-sport.active {
+        transform: scale(1.0) !important;
+    }
+
     .btn-sport i {
         font-size: 14px;
     }
@@ -826,6 +889,15 @@ nav a i {
         gap: 5px;
     }
 
+    /* Remove completamente o efeito de crescimento */
+    .btn-filter:hover {
+        transform: translateY(0) scale(1.0) !important;
+    }
+
+    .btn-filter.active {
+        transform: scale(1.0) !important;
+    }
+
     .btn-filter i {
         font-size: 12px;
     }
@@ -837,6 +909,17 @@ nav a i {
         gap: 10px;
         border-radius: 12px;
         margin-bottom: 10px;
+    }
+
+    /* BASQUETE - Grid maior em celular */
+    .match-item.sport-basketball {
+        grid-template-columns: 1fr 85px 1fr;
+    }
+
+    .sport-basketball .score-now {
+        min-width: 75px;
+        font-size: 18px;
+        padding: 6px 10px;
     }
 
     .team {
@@ -885,11 +968,11 @@ nav a i {
     /* HEADER */
     .container-header {
         padding: 10px 10px;
+        gap: 10px;
     }
 
     nav {
         gap: 6px;
-        margin-top: 8px;
     }
 
     nav a {
@@ -945,6 +1028,12 @@ nav a i {
         font-size: 9px;
     }
 
+    /* Remove todos os efeitos de crescimento */
+    .btn-sport:hover,
+    .btn-sport.active {
+        transform: scale(1.0) !important;
+    }
+
     .standings-menu {
         gap: 5px;
     }
@@ -954,10 +1043,27 @@ nav a i {
         font-size: 8px;
     }
 
+    /* Remove todos os efeitos de crescimento */
+    .btn-filter:hover,
+    .btn-filter.active {
+        transform: scale(1.0) !important;
+    }
+
     .match-item {
         grid-template-columns: 1fr 60px 1fr;
         padding: 10px 5px;
         gap: 8px;
+    }
+
+    /* BASQUETE - Grid maior em celular pequeno */
+    .match-item.sport-basketball {
+        grid-template-columns: 1fr 75px 1fr;
+    }
+
+    .sport-basketball .score-now {
+        min-width: 65px;
+        font-size: 15px;
+        padding: 5px 8px;
     }
 
     .team span {

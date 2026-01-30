@@ -204,11 +204,9 @@ function popularSidebars() {
     }
 }
 
-// ==========================================
-// FILTROS
-// ==========================================
+//TRATAR FILTROS
 function tratarFiltro(tipo, botao) {
-    // Esconde seções
+    // MANTIVE TUDO: Esconde seções conforme seu código original
     document.getElementById('secao-historico').style.display = 'none';
     document.getElementById('secao-copa-mundo').style.display = 'none';
     document.getElementById('jogos-container').style.display = 'flex';
@@ -216,20 +214,22 @@ function tratarFiltro(tipo, botao) {
     document.querySelectorAll('.btn-league').forEach(b => b.classList.remove('active'));
     if (botao) botao.classList.add('active');
     
-    const d = new Date();
-    
+    // 1. ATUALIZAMOS A VARIÁVEL 'filtroAtivo' (que sua função carregarEsportes usa)
     if (tipo === 'live') {
-        carregarDadosFutebol("live=all");
+        filtroAtivo = 'live';
     } 
     else if (tipo === 'hoje') {
-        const hoje = d.toLocaleDateString('sv-SE');
-        carregarDadosFutebol(`date=${hoje}`);
+        filtroAtivo = 'today';
     } 
     else if (tipo === 'amanha') {
-        d.setDate(d.getDate() + 1);
-        const amanha = d.toLocaleDateString('sv-SE');
-        carregarDadosFutebol(`date=${amanha}`);
+        filtroAtivo = 'tomorrow';
     }
+
+    // 2. O PULO DO GATO: 
+    // Em vez de chamar carregarDadosFutebol (que só busca futebol),
+    // chamamos a sua função carregarEsportes() que você já criou abaixo no seu arquivo.
+    // Ela já sabe qual esporte está ativo (esporteAtivo) e qual filtro usar.
+    carregarEsportes();
 }
 
 // ==========================================
@@ -332,7 +332,7 @@ async function verTabelaCompleta(leagueId, ligaNome, anoSelectorId) {
             </div>`;
     }
 }
-
+/*
 // ==========================================
 // COPA DO MUNDO - FUNÇÕES
 // ==========================================
@@ -642,6 +642,8 @@ function mostrarErroCopa(mensagem) {
         `;
     }
 }
+    
+*/
 
 // ==========================================
 // ATUALIZAÇÃO AUTOMÁTICA A CADA 20 MINUTOS
