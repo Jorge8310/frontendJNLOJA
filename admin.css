@@ -222,6 +222,36 @@ button { cursor: pointer; border: none; border-radius: 5px; font-weight: bold; }
     box-shadow: 0 0 10px rgba(255, 71, 87, 0.4);
 }
 
+/* Estilo para o seletor de categorias no Admin */
+select.input-form, 
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    background: #000; /* Fundo preto como os inputs */
+    border: 1px solid #444;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    appearance: none; /* Remove a seta padrão do Windows */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+}
+
+select.input-form:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+    outline: none;
+}
+
+/* Opções dentro do select */
+select option {
+    background: #1a1a1a;
+    color: white;
+    padding: 10px;
+}
+
 /* Responsividade: em celulares as colunas do formulário ficam uma embaixo da outra */
 @media (max-width: 600px) {
     #aba-livros .grid-form {

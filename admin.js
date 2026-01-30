@@ -74,6 +74,41 @@ async function carregarClientes() {
     } catch (e) { container.innerHTML = "Erro ao carregar clientes."; }
 }
 
+
+async function carregarCodigos() {
+    const container = document.getElementById('lista-codigos');
+    try {
+        const res = await fetch(`${API_URL}/admin/pins?adminEmail=${userLogado.email}`);
+        const pins = await res.json();
+        
+        // Filtro: Pega apenas os disponíveis
+        const disponiveis = pins.filter(p => !p.isUsed);
+
+        let html = `<table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Produto</th> <!-- 👈 Nova Coluna -->
+                    <th>Código</th>
+                    <th>Valor</th>
+                    <th>Ação</th>
+                </tr>
+            </thead><tbody>`;
+        
+        disponiveis.forEach(p => {
+            html += `<tr>
+                <td style="color: var(--secondary); font-weight: bold;">${p.category ? p.category.toUpperCase() : 'FREEFIRE'}</td>
+                <td>${p.code}</td>
+                <td>R$ ${p.amount}</td>
+                <td>
+                    <button onclick="deletarPin('${p._id}')" class="btn-delete"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>`;
+        });
+        container.innerHTML = html + `</tbody></table>`;
+    } catch (e) { container.innerHTML = "Erro ao carregar estoque."; }
+}
+
+/*
 // ATUALIZE A FUNÇÃO DE CARREGAR CÓDIGOS
 async function carregarCodigos() {
     const container = document.getElementById('lista-codigos');
@@ -99,32 +134,9 @@ async function carregarCodigos() {
         container.innerHTML = html + `</tbody></table>`;
     } catch (e) { container.innerHTML = "Erro ao carregar estoque."; }
 }
-
-/*
-async function carregarCodigos() {
-    const container = document.getElementById('lista-codigos');
-    try {
-        const res = await fetch(`${API_URL}/admin/pins?adminEmail=${userLogado.email}`);
-        const pins = await res.json();
-        let html = `<table class="admin-table">
-            <thead><tr><th>Código</th><th>Valor</th><th>Ação</th></tr></thead><tbody>`;
-        
-        pins.forEach(p => {
-            html += `<tr>
-                <td>${p.code}</td>
-                <td>R$ ${p.amount}</td>
-                <td>
-                    <button onclick="deletarPin('${p._id}')" class="btn-delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-            </tr>`;
-        });
-        container.innerHTML = html + `</tbody></table>`;
-    } catch (e) { container.innerHTML = "Erro ao carregar estoque."; }
-}
 */
 
+/*
 // Adicionar código
 async function adicionarCodigo() {
     const code = document.getElementById('newCode').value;
@@ -144,6 +156,45 @@ async function adicionarCodigo() {
             carregarStats();
         }
     } catch (e) { alert("Erro ao salvar."); }
+}
+*/
+
+// Adicionar código
+async function adicionarCodigo() {
+    // 1. Pega os valores dos campos
+    const category = document.getElementById('newCategory').value;
+    const code = document.getElementById('newCode').value;
+    const amount = document.getElementById('newAmount').value;
+
+    // 2. Validação simples
+    if(!code || !amount) return alert("Por favor, preencha o código e o valor!");
+
+    try {
+        // 3. Envia para a API (URL que você já configurou)
+        const res = await fetch(`${API_URL}/admin/add-pin`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ 
+                adminEmail: userLogado.email, 
+                code, 
+                amount,
+                category // 👈 Enviando a categoria selecionada
+            })
+        });
+
+        const data = await res.json();
+
+        if(data.success) {
+            alert(`✅ Sucesso: PIN de ${category.toUpperCase()} salvo!`);
+            // Limpa o campo de código para o próximo
+            document.getElementById('newCode').value = "";
+            carregarStats(); // Atualiza os números no topo do painel
+        } else {
+            alert("Erro ao salvar: " + data.error);
+        }
+    } catch (e) {
+        alert("Erro de conexão com o servidor.");
+    }
 }
 
 // --- NOVAS FUNÇÕES DE EXCLUSÃO ---

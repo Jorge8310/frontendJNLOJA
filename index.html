@@ -72,46 +72,123 @@
 
 </aside>
 
-        <!-- CONTEÚDO CENTRAL (AGORA COM 4 PACOTES) -->
-        <section class="main-content" id="diamantes">
-            <div class="hero-text">
-                <h1>DOMINE O <span>MAPA</span></h1>
-                <p id="countdown">Ofertas expiram em: --:--:--</p>
-            </div>
+<!-- CONTEÚDO CENTRAL -->
+<section class="main-content" id="loja">
+    <div class="hero-text">
+        <h1>DOMINE O <span>MAPA</span></h1>
+        <p id="countdown">Ofertas expiram em: --:--:--</p>
+    </div>
 
-            <h2 class="title-glow">RECARGA AUTOMÁTICA 🔥</h2>
-            <div class="ff-grid">
-                <div class="card-ff-neon">
-                    <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png">
-                    <h3>85 DIAMANTES</h3>
-                    <p class="price-main">R$ 5,00</p>
-                    <button onclick="comprarDima(5, '85 Diamantes')" class="btn-main-buy">RECARREGAR</button>
-                    <span class="auto-tag">⚡ ENTREGA AUTOMÁTICA</span>
-                </div>
-                <div class="card-ff-neon">
-                    <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png">
-                    <h3>520 DIAMANTES</h3>
-                    <p class="price-main">R$ 20,00</p>
-                    <button onclick="comprarDima(20, '520 Diamantes')" class="btn-main-buy">RECARREGAR</button>
-                    <span class="auto-tag">⚡ ENTREGA AUTOMÁTICA</span>
-                </div>
-                <div class="card-ff-neon best">
-                    <div class="pop-tag">MAIS VENDIDO</div>
-                    <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png">
-                    <h3>1060 DIAMANTES</h3>
-                    <p class="price-main">R$ 40,00</p>
-                    <button onclick="comprarDima(40, '1060 Diamantes')" class="btn-main-buy">RECARREGAR</button>
-                    <span class="auto-tag">⚡ ENTREGA AUTOMÁTICA</span>
-                </div>
-                <div class="card-ff-neon">
-                    <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png">
-                    <h3>2180 DIAMANTES</h3>
-                    <p class="price-main">R$ 80,00</p>
-                    <button onclick="comprarDima(80, '2180 Diamantes')" class="btn-main-buy">RECARREGAR</button>
-                    <span class="auto-tag">⚡ ENTREGA AUTOMÁTICA</span>
-                </div>
-            </div>
-        </section>
+    <!-- SEÇÃO: FREE FIRE (4 PACOTES) -->
+    <h2 class="title-glow">RECARGA FREE FIRE 🔥</h2>
+    <div class="ff-grid">
+        <div class="card-ff-neon">
+            <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png">
+            <h3>85 DIAMANTES</h3>
+            <p class="price-main">R$ 5,00</p>
+            <button onclick="iniciarCompra(5, '85 Diamantes', 'freefire')" class="btn-main-buy">RECARREGAR</button>
+            <span class="auto-tag">⚡ VIA ID</span>
+        </div>
+        <div class="card-ff-neon">
+            <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png">
+            <h3>520 DIAMANTES</h3>
+            <p class="price-main">R$ 20,00</p>
+            <button onclick="iniciarCompra(20, '520 Diamantes', 'freefire')" class="btn-main-buy">RECARREGAR</button>
+            <span class="auto-tag">⚡ VIA ID</span>
+        </div>
+        <div class="card-ff-neon best">
+            <div class="pop-tag">MAIS VENDIDO</div>
+            <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png">
+            <h3>1060 DIAMANTES</h3>
+            <p class="price-main">R$ 40,00</p>
+            <button onclick="iniciarCompra(40, '1060 Diamantes', 'freefire')" class="btn-main-buy">RECARREGAR</button>
+            <span class="auto-tag">⚡ VIA ID</span>
+        </div>
+        <div class="card-ff-neon">
+            <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png">
+            <h3>2180 DIAMANTES</h3>
+            <p class="price-main">R$ 80,00</p>
+            <button onclick="iniciarCompra(80, '2180 Diamantes', 'freefire')" class="btn-main-buy">RECARREGAR</button>
+            <span class="auto-tag">⚡ VIA ID</span>
+        </div>
+    </div>
+
+    <!-- SEÇÃO: ROBLOX (2 PACOTES) -->
+    <h2 class="title-glow" style="margin-top: 60px;">ROBLOX (ROBUX) 🟦</h2>
+    <div class="ff-grid">
+        <div class="card-ff-neon roblox-card">
+            <i class="fas fa-cube" style="font-size: 50px; color: #fff; margin: 20px 0; display: block;"></i>
+            <h3>100 ROBUX</h3>
+            <p class="price-main">R$ 11,00</p>
+            <button onclick="iniciarCompra(11, '100 Robux', 'roblox')" class="btn-main-buy">COMPRAR</button>
+            <span class="auto-tag">⚡ PIN DIGITAL</span>
+        </div>
+        <div class="card-ff-neon roblox-card">
+            <i class="fas fa-cubes" style="font-size: 50px; color: #fff; margin: 20px 0; display: block;"></i>
+            <h3>400 ROBUX</h3>
+            <p class="price-main">R$ 35,00</p>
+            <button onclick="iniciarCompra(35, '400 Robux', 'roblox')" class="btn-main-buy">COMPRAR</button>
+            <span class="auto-tag">⚡ PIN DIGITAL</span>
+        </div>
+    </div>
+
+    <!-- SEÇÃO: GOOGLE PLAY (2 PACOTES) -->
+    <h2 class="title-glow" style="margin-top: 60px;">GOOGLE PLAY 🟢</h2>
+    <div class="ff-grid">
+        <div class="card-ff-neon google-card">
+            <i class="fab fa-google-play" style="font-size: 50px; color: #34a853; margin: 20px 0; display: block;"></i>
+            <h3>GOOGLE R$ 15</h3>
+            <p class="price-main">R$ 17,00</p>
+            <button onclick="iniciarCompra(17, 'Google R$ 15', 'google_play')" class="btn-main-buy">COMPRAR</button>
+            <span class="auto-tag">⚡ BRASIL</span>
+        </div>
+        <div class="card-ff-neon google-card">
+            <i class="fab fa-google-play" style="font-size: 50px; color: #34a853; margin: 20px 0; display: block;"></i>
+            <h3>GOOGLE R$ 30</h3>
+            <p class="price-main">R$ 34,00</p>
+            <button onclick="iniciarCompra(34, 'Google R$ 30', 'google_play')" class="btn-main-buy">COMPRAR</button>
+            <span class="auto-tag">⚡ BRASIL</span>
+        </div>
+    </div>
+
+    <!-- SEÇÃO: PLAYSTATION (2 PACOTES) -->
+    <h2 class="title-glow" style="margin-top: 60px;">PLAYSTATION 🔵</h2>
+    <div class="ff-grid">
+        <div class="card-ff-neon psn-card">
+            <i class="fab fa-playstation" style="font-size: 50px; color: #003791; margin: 20px 0; display: block;"></i>
+            <h3>PSN R$ 30</h3>
+            <p class="price-main">R$ 33,00</p>
+            <button onclick="iniciarCompra(33, 'PSN R$ 30', 'playstation')" class="btn-main-buy">COMPRAR</button>
+            <span class="auto-tag">⚡ CÓDIGO</span>
+        </div>
+        <div class="card-ff-neon psn-card">
+            <i class="fab fa-playstation" style="font-size: 50px; color: #003791; margin: 20px 0; display: block;"></i>
+            <h3>PSN R$ 50</h3>
+            <p class="price-main">R$ 54,00</p>
+            <button onclick="iniciarCompra(54, 'PSN R$ 50', 'playstation')" class="btn-main-buy">COMPRAR</button>
+            <span class="auto-tag">⚡ CÓDIGO</span>
+        </div>
+    </div>
+
+    <!-- SEÇÃO: STEAM (2 PACOTES) -->
+    <h2 class="title-glow" style="margin-top: 60px;">STEAM 💻</h2>
+    <div class="ff-grid">
+        <div class="card-ff-neon steam-card">
+            <i class="fab fa-steam" style="font-size: 50px; color: #1b2838; margin: 20px 0; display: block;"></i>
+            <h3>STEAM R$ 20</h3>
+            <p class="price-main">R$ 23,00</p>
+            <button onclick="iniciarCompra(23, 'Steam R$ 20', 'steam')" class="btn-main-buy">COMPRAR</button>
+            <span class="auto-tag">⚡ GLOBAL</span>
+        </div>
+        <div class="card-ff-neon steam-card">
+            <i class="fab fa-steam" style="font-size: 50px; color: #1b2838; margin: 20px 0; display: block;"></i>
+            <h3>STEAM R$ 50</h3>
+            <p class="price-main">R$ 55,00</p>
+            <button onclick="iniciarCompra(55, 'Steam R$ 50', 'steam')" class="btn-main-buy">COMPRAR</button>
+            <span class="auto-tag">⚡ GLOBAL</span>
+        </div>
+    </div>
+</section>
 
         <!-- COLUNA DIREITA -->
         <aside class="sidebar-promo">

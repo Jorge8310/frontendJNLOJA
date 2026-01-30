@@ -351,6 +351,31 @@ nav a:hover {
 }
 
 /* ==========================================
+   nova disenho de cards
+   ========================================== */
+/* EFEITOS ESPECÍFICOS PARA CADA MARCA */
+.roblox-card { border-color: #ffffff !important; }
+.roblox-card:hover { box-shadow: 0 0 30px rgba(255, 255, 255, 0.4); }
+
+.google-card { border-color: #34a853 !important; }
+.google-card:hover { box-shadow: 0 0 30px rgba(52, 168, 83, 0.4); }
+
+.psn-card { border-color: #003791 !important; }
+.psn-card:hover { box-shadow: 0 0 30px rgba(0, 55, 145, 0.4); }
+
+.steam-card { border-color: #1b2838 !important; }
+.steam-card:hover { box-shadow: 0 0 30px rgba(27, 40, 56, 0.6); }
+
+/* Ajuste para ícones brilharem no hover */
+.card-ff-neon i {
+    transition: 0.3s;
+}
+.card-ff-neon:hover i {
+    transform: scale(1.1);
+    filter: brightness(1.5);
+}
+
+/* ==========================================
    6. RESPONSIVIDADE MOBILE
    ========================================== */
 @media (max-width: 1100px) {
