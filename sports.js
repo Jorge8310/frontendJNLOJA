@@ -1,4 +1,3 @@
-
 // ==========================================
 // CONFIGURAÇÕES E API
 // ==========================================
@@ -55,7 +54,7 @@ function setSport(sport, btn) {
     carregarEsportes();
 }
 
-// Troca o tempo (Ao vivo, Hoje, Amanhã)
+// Troca o tempo (Jogos, Finalizados, Amanhã)
 function setFilter(filter, btn) {
     filtroAtivo = filter;
     document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
@@ -70,9 +69,19 @@ async function carregarEsportes() {
 
     container.innerHTML = `<div class="loading-state"><i class="fa fa-spinner fa-spin"></i> Buscando ${esporteAtivo.toUpperCase()}...</div>`;
 
-    let query = "live=all";
+    let query = "";
     const d = new Date();
-    if (filtroAtivo === 'today') {
+    
+    // NOVA LÓGICA:
+    // "live" = JOGOS (ao vivo + não iniciados)
+    // "finished" = FINALIZADOS (só jogos terminados)
+    // "tomorrow" = AMANHÃ (jogos de amanhã)
+    
+    if (filtroAtivo === 'live') {
+        // JOGOS: Busca todos os jogos de hoje (ao vivo + não iniciados)
+        query = `date=${d.toLocaleDateString('sv-SE')}`;
+    } else if (filtroAtivo === 'finished') {
+        // FINALIZADOS: Busca jogos de hoje e filtra só finalizados
         query = `date=${d.toLocaleDateString('sv-SE')}`;
     } else if (filtroAtivo === 'tomorrow') {
         d.setDate(d.getDate() + 1);
@@ -80,11 +89,31 @@ async function carregarEsportes() {
     }
 
     try {
-        // Chama a rota única que você criou no server.js
         const response = await fetch(`${API_BASE}/sports/${esporteAtivo}?${query}`);
         const dados = await response.json();
         
-        renderizarJogos(dados); // Chama a função que desenha os cards
+        // Se for FINALIZADOS, filtra só jogos terminados
+        if (filtroAtivo === 'finished') {
+            const dadosFiltrados = dados.filter(jogo => {
+                const status = esporteAtivo === 'football' 
+                    ? jogo.fixture?.status?.short 
+                    : jogo.status?.short;
+                return status === 'FT' || status === 'Finished' || status === 'AOT' || status === 'AET';
+            });
+            renderizarJogos(dadosFiltrados);
+        } else if (filtroAtivo === 'live') {
+            // JOGOS: Filtra ao vivo + não iniciados (remove finalizados)
+            const dadosFiltrados = dados.filter(jogo => {
+                const status = esporteAtivo === 'football' 
+                    ? jogo.fixture?.status?.short 
+                    : jogo.status?.short;
+                return status !== 'FT' && status !== 'Finished' && status !== 'AOT' && status !== 'AET';
+            });
+            renderizarJogos(dadosFiltrados);
+        } else {
+            // AMANHÃ: Mostra todos
+            renderizarJogos(dados);
+        }
     } catch (err) {
         container.innerHTML = `<div class="loading-state" style="color:red;"><p>Erro ao conectar ao servidor.</p></div>`;
     }
@@ -105,12 +134,12 @@ function renderizarJogos(dados) {
     const grupos = {};
     const ordemLigasFinal = [];
 
-    // Agrupamento com país + liga
+    // Agrupamento com país
     dados.forEach(item => {
         const ligaNome = item.league ? item.league.name : (item.competition ? item.competition.name : "Competição");
         const paisNome = item.league?.country || item.competition?.country || "";
         
-        // Chave única: "País - Liga" (ex: "Brazil - Serie A")
+        // Chave única: País + Liga (ex: "Brazil - Serie A")
         const chaveGrupo = paisNome ? `${paisNome} - ${ligaNome}` : ligaNome;
         
         if (!grupos[chaveGrupo]) {
@@ -165,6 +194,7 @@ function renderizarJogos(dados) {
         });
     });
 }
+
 // ==========================================
 // POPULAR SIDEBARS
 // ==========================================

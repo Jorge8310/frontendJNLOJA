@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,12 +14,11 @@
 
     <header class="navbar">
         <div class="container-header">
-            <div class="logo"><span>JN</span>SHOP</div>
+            <div class="logo"><span>JN</span>SPORTS</div>
             <nav>
                 <a href="index.html"><i class="fa fa-home"></i> LOJA</a>
                 <a href="live.html"><i class="fa fa-tv"></i> AO VIVO</a>
-             <!--  <a href="mangas.html" class="btn-manga-header"><i class="fas fa-book-open"></i> LER LIVRO</a>--> 
-                <a href="manga.html"><i class="fa fa-download"></i>LER LIVROS</a>
+                <a href="mangas.html" class="btn-manga-header"><i class="fas fa-book-open"></i> LER LIVRO</a>
             </nav>
         </div>
     </header>
@@ -38,16 +35,16 @@
   <!-- FILTROS DE TEMPO -->
 <div class="standings-menu">
     <button class="btn-filter active" id="filter-live" onclick="setFilter('live', this)">
-        <i class="fas fa-circle"></i> AO VIVO
+        <i class="fas fa-play-circle"></i> JOGOS
     </button>
-    <button class="btn-filter" onclick="setFilter('today', this)">
-        <i class="far fa-calendar-alt"></i> HOJE
+    <button class="btn-filter" onclick="setFilter('finished', this)">
+        <i class="fas fa-check-circle"></i> FINALIZADOS
     </button>
     <button class="btn-filter" onclick="setFilter('tomorrow', this)">
         <i class="fas fa-step-forward"></i> AMANHÃ
     </button>
 </div>
-        <h2 id="display-title" class="title-glow">SPORTS AO VIVO</h2>
+        <h2 id="display-title" class="title-glow">FUTEBOL AO VIVO</h2>
 
         <!-- CONTAINER DE RESULTADOS (A ID deve ser 'jogos-container' para o JS funcionar) -->
         <div id="jogos-container" class="games-grid">

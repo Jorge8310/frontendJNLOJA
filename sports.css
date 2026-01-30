@@ -745,14 +745,14 @@ nav a i {
 
     /* BASQUETE - Grid maior no mobile */
     .match-item.sport-basketball {
-        grid-template-columns: 1fr 120px 1fr;
-        gap: 10px;
+        grid-template-columns: 0.9fr 130px 0.9fr;
+        gap: 8px;
     }
 
     .sport-basketball .score-now {
-        min-width: 100px;
-        font-size: 20px;
-        padding: 8px 12px;
+        min-width: 110px;
+        font-size: 19px;
+        padding: 8px 10px;
     }
 
     .team span {
@@ -914,13 +914,13 @@ nav a i {
 
     /* BASQUETE - Grid maior em celular */
     .match-item.sport-basketball {
-        grid-template-columns: 1fr 95px 1fr;
-        gap: 8px;
+        grid-template-columns: 0.85fr 105px 0.85fr;
+        gap: 6px;
     }
 
     .sport-basketball .score-now {
-        min-width: 85px;
-        font-size: 16px;
+        min-width: 95px;
+        font-size: 15px;
         padding: 6px 8px;
     }
 
