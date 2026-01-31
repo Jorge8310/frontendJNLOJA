@@ -65,7 +65,7 @@ function setFilter(filter, btn) {
     
     carregarEsportes();
 }
-
+//CARREGAR SPORTS
 async function carregarEsportes() {
     const container = document.getElementById('jogos-container');
     if (!container) return;
@@ -75,16 +75,9 @@ async function carregarEsportes() {
     let query = "";
     const d = new Date();
     
-    // NOVA LÓGICA:
-    // "live" = JOGOS (ao vivo + não iniciados)
-    // "finished" = FINALIZADOS (só jogos terminados)
-    // "tomorrow" = AMANHÃ (jogos de amanhã)
-    
     if (filtroAtivo === 'live') {
-        // JOGOS: Busca todos os jogos de hoje (ao vivo + não iniciados)
         query = `date=${d.toLocaleDateString('sv-SE')}`;
     } else if (filtroAtivo === 'finished') {
-        // FINALIZADOS: Busca jogos de hoje e filtra só finalizados
         query = `date=${d.toLocaleDateString('sv-SE')}`;
     } else if (filtroAtivo === 'tomorrow') {
         d.setDate(d.getDate() + 1);
@@ -98,26 +91,41 @@ async function carregarEsportes() {
         // Se for FINALIZADOS, filtra só jogos terminados
         if (filtroAtivo === 'finished') {
             const dadosFiltrados = dados.filter(jogo => {
-                const status = esporteAtivo === 'football' 
-                    ? jogo.fixture?.status?.short 
-                    : jogo.status?.short;
-                return status === 'FT' || status === 'Finished' || status === 'AOT' || status === 'AET';
+                let status;
+                if (esporteAtivo === 'football') {
+                    status = jogo.fixture?.status?.short;
+                } else {
+                    status = jogo.status?.short || jogo.status?.long;  // ✅ MUDOU AQUI
+                }
+                return status === 'FT' || 
+                       status === 'Finished' || 
+                       status === 'AOT' || 
+                       status === 'AET' ||
+                       status === 'FINALIZED' ||  // ✅ ADICIONADO
+                       status === 'Match Finished';  // ✅ ADICIONADO
             });
             renderizarJogos(dadosFiltrados);
         } else if (filtroAtivo === 'live') {
-            // JOGOS: Filtra ao vivo + não iniciados (remove finalizados)
             const dadosFiltrados = dados.filter(jogo => {
-                const status = esporteAtivo === 'football' 
-                    ? jogo.fixture?.status?.short 
-                    : jogo.status?.short;
-                return status !== 'FT' && status !== 'Finished' && status !== 'AOT' && status !== 'AET';
+                let status;
+                if (esporteAtivo === 'football') {
+                    status = jogo.fixture?.status?.short;
+                } else {
+                    status = jogo.status?.short || jogo.status?.long;  // ✅ MUDOU AQUI
+                }
+                return status !== 'FT' && 
+                       status !== 'Finished' && 
+                       status !== 'AOT' && 
+                       status !== 'AET' &&
+                       status !== 'FINALIZED' &&  // ✅ ADICIONADO
+                       status !== 'Match Finished';  // ✅ ADICIONADO
             });
             renderizarJogos(dadosFiltrados);
         } else {
-            // AMANHÃ: Mostra todos
             renderizarJogos(dados);
         }
     } catch (err) {
+        console.error('Erro:', err);  // ✅ ADICIONADO para debug
         container.innerHTML = `<div class="loading-state" style="color:red;"><p>Erro ao conectar ao servidor.</p></div>`;
     }
 }
@@ -163,29 +171,36 @@ function renderizarJogos(dados) {
             const card = document.createElement('div');
             card.className = `match-item sport-${esporteAtivo}`;
 
-         if (esporteAtivo === 'baseball') {
-    // Layout Baseball (mesmo formato de futebol/basquete)
-    const status = jogo.status?.short || jogo.status?.long || 'NS';
-    const scoreHome = jogo.scores?.home?.total ?? 0;
-    const scoreAway = jogo.scores?.away?.total ?? 0;
-    
-    let tempo;
-    if (status === 'NS') {
+        if (esporteAtivo === 'baseball') {
+     const status = jogo.status?.short || 'NS';
+     // No Baseball da API-Sports, os scores ficam em scores.home.total
+     const scoreHome = jogo.scores?.home?.total ?? 0;
+     const scoreAway = jogo.scores?.away?.total ?? 0;
+
+     let tempo;
+     if (status === 'NS') {
+        // Usa a data do jogo se não começou
         tempo = new Date(jogo.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    } else if (status === 'FT' || status === 'Finished') {
+     } else if (status === 'FT' || status === 'Finished') {
         tempo = 'FIM';
-    } else {
-        tempo = status;
-    }
-    
-    card.innerHTML = `
-        <div class="team t-left"><span>${jogo.teams.home.name}</span><img src="${jogo.teams.home.logo}"></div>
+     } else {
+         tempo = status; // Ex: "Inning 5"
+     }
+
+     card.innerHTML = `
+        <div class="team t-left">
+            <span>${jogo.teams.home.name}</span>
+            <img src="${jogo.teams.home.logo}">
+        </div>
         <div class="score-area">
             <span class="time-badge">${tempo}</span>
             <div class="score-now">${scoreHome} - ${scoreAway}</div>
         </div>
-        <div class="team t-right"><img src="${jogo.teams.away.logo}"><span>${jogo.teams.away.name}</span></div>`;
-} else {
+        <div class="team t-right">
+            <img src="${jogo.teams.away.logo}">
+            <span>${jogo.teams.away.name}</span>
+        </div>`;
+     }else {
                 // Layout Futebol, Basquete e Vôlei
                 const status = esporteAtivo === 'football' ? jogo.fixture.status.short : jogo.status.short;
                 
