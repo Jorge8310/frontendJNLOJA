@@ -2,7 +2,8 @@
 // CONFIGURAÇÕES E VARIÁVEIS GLOBAIS
 // ==========================================
 
-const API_URL = "https://jnloja.onrender.com/api";
+//const API_URL = "https://jnloja.onrender.com/api";
+const API_URL = "http://localhost:3000/api";
 let userLogado = JSON.parse(localStorage.getItem('jnloja_user')) || null;
 let checkInterval;
 
@@ -360,60 +361,45 @@ function logout() {
 }
 
 
-
-// ==========================================
-// 4. FUTEBOL (HEADER E FOOTER)
-// ==========================================
+//CARREGAR FUTEBOL
 async function carregarFutebol() {
     try {
-        console.log("🔄 Buscando jogos ao vivo...");
+        // console.log("🔄 Buscando jogos para o Ticker...");
         const res = await fetch(`${API_URL}/football`);
         
-        if (!res.ok) {
-            throw new Error(`HTTP ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Erro HTTP: ${res.status}`);
         
         const data = await res.json();
-        console.log("✅ Dados recebidos:", data.length, "jogos");
-        
         const tSuperior = document.getElementById('ticker');
         const tRodape = document.getElementById('footer-ticker');
 
         if (data && data.length > 0) {
-            const html = data.map(j => `
-                <span class="ticker-item-style">${j.teams.home.name} ${j.goals.home ?? 0} x ${j.goals.away ?? 0} ${j.teams.away.name}</span>
-                <i class="fas fa-futbol" style="color:#fff; margin: 0 10px;"></i>
-            `).join('');
+            // Usamos apenas os primeiros 20 jogos e verificamos se os dados existem antes de mostrar
+            const html = data.slice(0, 20).map(j => {
+                // Verifica se os objetos básicos existem para não dar erro
+                if (!j.teams || !j.teams.home || !j.teams.away) return '';
 
-            if (tSuperior) {
-                tSuperior.innerHTML = `<div class="header-animacao">${html}${html}</div>`;
-            }
+                const home = j.teams.home.name;
+                const away = j.teams.away.name;
+                const scoreHome = j.goals.home ?? 0;
+                const scoreAway = j.goals.away ?? 0;
 
-            if (tRodape) {
-                tRodape.innerHTML = `<div class="footer-ticker-wrapper">${html}${html}</div>`;
-            }
+                return `
+                    <span class="ticker-item-style">${home} ${scoreHome} x ${scoreAway} ${away}</span>
+                    <i class="fas fa-futbol" style="color:#fff; margin: 0 10px;"></i>
+                `;
+            }).join('');
+
+            if (tSuperior) tSuperior.innerHTML = `<div class="header-animacao">${html}${html}</div>`;
+            if (tRodape) tRodape.innerHTML = `<div class="footer-ticker-wrapper">${html}${html}</div>`;
             
-            console.log("✅ Futebol atualizado no header e footer!");
         } else {
-            console.log("⚠️ Nenhum jogo ao vivo no momento");
-            if (tSuperior) {
-                tSuperior.innerHTML = '<span class="ticker-item-style">Nenhum jogo ao vivo no momento</span>';
-            }
-            if (tRodape) {
-                tRodape.innerHTML = '<span>Nenhum jogo ao vivo</span>';
-            }
+            if (tSuperior) tSuperior.innerHTML = '<span>NENHUM JOGO DISPONÍVEL AGORA</span>';
         }
     } catch (e) { 
-        console.error("❌ Erro ao carregar futebol:", e);
+        console.error("❌ Erro detalhado no Ticker:", e);
         const tSuperior = document.getElementById('ticker');
-        const tRodape = document.getElementById('footer-ticker');
-        
-        if (tSuperior) {
-            tSuperior.innerHTML = '<span class="ticker-item-style">Erro ao carregar placares</span>';
-        }
-        if (tRodape) {
-            tRodape.innerHTML = '<span>Erro ao carregar placares</span>';
-        }
+        if (tSuperior) tSuperior.innerHTML = '<span>PLACAR INDISPONÍVEL</span>';
     }
 }
 
