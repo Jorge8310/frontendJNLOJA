@@ -3,138 +3,126 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JNSHOP - Futebol ao Vivo</title>
+    <title>JNLOJA | FIFA TV ⚽</title>
+    <link rel="stylesheet" href="tabelas.css" />
+    <!-- LINK PARA O NOVO CSS -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700;900&family=Black+Ops+One&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Kanit:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="sports.css" />
-    <style>
-      /* Estilo para esconder o placar inicialmente */
-      #scorebatFrame {
-        display: none;
-        width: 100%;
-        height: 760px;
-        border: none;
-        margin-top: 20px;
-      }
-      .btn-scorebat {
-        background: #ffcc00;
-        border: none;
-        padding: 10px 20px;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 15px 0;
-        border-radius: 5px;
-      }
-      .btn-scorebat:hover {
-        background: #ffaa00;
-      }
-    </style>
   </head>
   <body>
     <div class="game-wallpaper"></div>
     <div class="color-overlay"></div>
-    <header class="navbar">
+
+    <header>
       <div class="container-header">
-        <div class="logo"><span>JN</span>SHOP</div>
+        <div class="logo">JN<span>SHOP</span></div>
         <nav>
-          <a href="index.html"><i class="fa fa-home"></i> LOJA</a>
-          <a href="tabelas.html" class="active"
-            ><i class="fa fa-trophy"></i> FUTEBOL</a
-          >
-          <a href="live.html"><i class="fa fa-tv"></i> AO VIVO</a>
+          <a href="index.html">VOLTAR À LOJA</a>
+          <a href="football.html">🏆 FOOTBALL</a>
+          <a href="manga.html"><i class="fa fa-download"></i>LER LIVROS</a>
         </nav>
       </div>
     </header>
-    <main class="main-content">
-      <!-- SELETOR DE LIGAS -->
-      <div class="leagues-nav">
+
+    <main class="container live-page">
+      <h1
+        class="title-glow"
+        style="
+          text-align: center;
+          color: var(--yellow);
+          text-shadow: 2px 2px 0 #000;
+          font-family: &quot;Black Ops One&quot;;
+          padding-right: 10px;
+        "
+      >
+        JN ARENA - TABELAS
+      </h1>
+
+      <!-- SEÇÃO DE BOTÕES - TODOS JUNTOS E ALINHADOS -->
+
+      <div class="channel-selector">
+        <!-- BRASIL 2026 -->
         <button
-          class="btn-league active"
-          onclick="changeLeague('Champions League', this)"
+          class="btn-fifa"
+          onclick="mudarTabela('83/87678', 'Brasileirão Série A')"
         >
-          <i class="fas fa-trophy"></i> CHAMPIONS LEAGUE
+          <i class="fas fa-trophy"></i> BRASILEIRÃO
         </button>
+
+        <!-- INGLATERRA 25/26 -->
         <button
-          class="btn-league"
-          onclick="changeLeague('Premier League', this)"
+          class="btn-fifa"
+          style="
+            background: linear-gradient(135deg, #3d195b, #e90052) !important;
+          "
+          onclick="mudarTabela('1/61627', 'Premier League')"
         >
           <i class="fas fa-crown"></i> PREMIER LEAGUE
         </button>
-        <button class="btn-league" onclick="changeLeague('La Liga', this)">
-          <i class="fas fa-star"></i> LA LIGA
+
+        <!-- ESPANHA 25/26 (ID ATUALIZADO) -->
+        <button
+          class="btn-fifa"
+          style="
+            background: linear-gradient(135deg, #8b0d0d, #f1c40f) !important;
+          "
+          onclick="mudarTabela('36/77559', 'La Liga')"
+        >
+          <i class="fas fa-futbol"></i> LA LIGA
         </button>
-        <button class="btn-league" onclick="changeLeague('Bundesliga', this)">
+
+        <!-- CHAMPIONS 25/26 (ID ATUALIZADO) -->
+        <button
+          class="btn-fifa"
+          style="
+            background: linear-gradient(135deg, #052214, #15d87a) !important;
+          "
+          onclick="mudarTabela('33/76457', 'Champions League')"
+        >
+          <i class="fas fa-star"></i> ITALIA SERIE A
+        </button>
+
+        <!-- ITÁLIA 25/26 (ID ATUALIZADO) -->
+        <button
+          class="btn-fifa"
+          style="
+            background: linear-gradient(135deg, #f1c40f, #f1c40f) !important;
+          "
+          onclick="mudarTabela('42/77333', 'Série A Tim')"
+        >
           <i class="fas fa-shield-alt"></i> BUNDESLIGA
         </button>
-        <button class="btn-league" onclick="changeLeague('Serie A', this)">
-          <i class="fas fa-flag"></i> SERIE A
-        </button>
-        <button class="btn-league" onclick="changeLeague('Ligue 1', this)">
-          <i class="fas fa-medal"></i> LIGUE 1
-        </button>
-        <button class="btn-league" onclick="changeLeague('Brasileirão', this)">
-          <i class="fas fa-futbol"></i> BRASILEIRÃO
-        </button>
-        <button class="btn-league" onclick="changeLeague('Libertadores', this)">
-          <i class="fas fa-fire"></i> LIBERTADORES
-        </button>
       </div>
-      <h2 id="league-title" class="title-glow">⚽ MELHORES MOMENTOS</h2>
-      <!-- BOTÃO PARA MOSTRAR PLACAR AO VIVO -->
-      <button class="btn-scorebat" onclick="mostrarPlacar()">
-        📺 Mostrar Placar ao Vivo
-      </button>
-      <!-- IFRAME DO SCOREBAT (ESCONDIDO ATÉ CLICAR) -->
-      <iframe
-        id="scorebatFrame"
-        src="https://www.scorebat.com/embed/livescore/?token=MjczODUzXzE3Njk5MDgzNjBfNjEyZmRhNWZlOTZhYzdkYTZiMTg2MmJlYTkzZDhjMjliMWNjNmZjZA=="
-        allowfullscreen
-        allow="autoplay; fullscreen"
-      >
-      </iframe>
-      <!-- CONTAINER DE JOGOS -->
-      <div id="matches-container" class="matches-grid">
-        <div class="loading">⚽ Carregando jogos...</div>
+
+      <!-- CONTAINER DA TABELA -->
+      <div class="main-player-container">
+        <div class="live-header" id="current-league-title">
+          BRASILEIRÃO SÉRIE A
+        </div>
+        <div id="table-wrapper">
+          <iframe
+            id="sofa-standings-embed"
+            src="https://widgets.sofascore.com/pt-BR/embed/tournament/83/season/87678/standings/Brasileiro%20Serie%20A%202026?widgetTitle=Brasileiro%20Serie%20A%202026&showCompetitionLogo=true"
+            style="
+              height: 1000px !important;
+              width: 100% !important;
+              border: none;
+            "
+            frameborder="0"
+            scrolling="no"
+          >
+          </iframe>
+        </div>
       </div>
     </main>
-    <!-- Scripts -->
-    <script src="football-api.js"></script>
 
-    <script>
-      let currentLeague = "Champions League";
-      const leagueNames = {
-        "Champions League": "⚽ UEFA CHAMPIONS LEAGUE",
-        "Premier League": "👑 PREMIER LEAGUE",
-        "La Liga": "⭐ LA LIGA",
-        Bundesliga: "🛡️ BUNDESLIGA",
-        "Serie A": "🇮🇹 SERIE A",
-        "Ligue 1": "🏅 LIGUE 1",
-        Brasileirão: "🇧🇷 BRASILEIRÃO",
-        Libertadores: "🔥 COPA LIBERTADORES",
-      };
-      function changeLeague(leagueName, btn) {
-        currentLeague = leagueName; // Atualiza botões ativos
-        document
-          .querySelectorAll(".btn-league")
-          .forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active"); // Atualiza título
-        document.getElementById("league-title").textContent =
-          leagueNames[leagueName] || leagueName; // Carrega dados da nova liga
-        loadMatchesByLeague(leagueName);
-      } // Função para mostrar/esconder placar
-      function mostrarPlacar() {
-        const frame = document.getElementById("scorebatFrame");
-        frame.style.display =
-          frame.style.display === "none" || frame.style.display === ""
-            ? "block"
-            : "none";
-      }
-    </script>
+    <script src="tabelas.js"></script>
+    <!-- Mantido para o fundo funcionar -->
   </body>
 </html>

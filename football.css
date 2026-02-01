@@ -1,0 +1,434 @@
+/* ========== VARIÁVEIS ========== */
+:root {
+    --primary: #ff4c00;
+    --secondary: #00d4ff;
+    --dark-bg: #0a0a0a;
+    --card-bg: rgba(20, 20, 30, 0.95);
+    --text: #ffffff;
+    --border-glow: rgba(0, 212, 255, 0.4);
+}
+
+/* ========== RESET ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ========== BACKGROUND ========== */
+.game-wallpaper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1920') center/cover;
+    filter: blur(8px);
+    z-index: -2;
+}
+
+.color-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,76,0,0.2), rgba(0,212,255,0.2));
+    z-index: -1;
+}
+
+/* ========== HEADER ========== */
+.navbar {
+    background: rgba(10, 10, 10, 0.95);
+    padding: 20px 0;
+    border-bottom: 2px solid var(--primary);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.container-header {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Black Ops One', cursive;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--text);
+    text-shadow: 0 0 20px var(--primary);
+}
+
+.logo span {
+    color: var(--primary);
+    text-shadow: 0 0 30px var(--primary);
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+nav a:hover,
+nav a.active {
+    color: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary);
+    transform: translateY(-2px);
+}
+
+nav a i {
+    margin-right: 8px;
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+    max-width: 1600px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* No bloco .title-glow */
+.title-glow {
+    text-align: center;
+    font-size: 32px; /* Reduzido de 42px */
+    font-weight: 900;
+    color: var(--text);
+    text-transform: uppercase;
+    margin: 15px 0 10px; /* Reduzido o espaçamento */
+    text-shadow: 0 0 30px var(--primary), 0 0 60px var(--secondary);
+    letter-spacing: 2px;
+}
+
+/* No bloco .scorebat-info */
+.scorebat-info {
+    background: linear-gradient(135deg, rgba(255, 76, 0, 0.15), rgba(0, 212, 255, 0.15));
+    border-left: 4px solid var(--primary);
+    padding: 8px 15px; /* Reduzido de 15px 25px */
+    margin: 10px 0; /* Reduzido de 20px */
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px; /* Reduzido de 15px */
+}
+
+
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scorebat-info i {
+    font-size: 20px;
+    color: var(--primary);
+}
+
+.scorebat-container {
+    background: var(--card-bg);
+    border: 2px solid var(--border-glow);
+    border-radius: 15px;
+    padding: 10px;
+    margin: 0 auto 30px; /* Mudei o primeiro valor (top) para 0 */
+    max-width: 100%;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2);
+}
+/* Garante que o wrapper não limite a altura */
+.scorebat-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 800px; /* Aumentamos a altura mínima */
+    height: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    background: transparent; /* Remove o fundo preto se sobrar algo */
+}
+
+
+
+/* Overlay para bloquear navegação externa mantendo vídeos funcionando */
+.iframe-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none; /* Permite cliques passarem */
+}
+
+#scorebatFrame {
+    width: 100%;
+    height: 900px; /* Forçamos uma altura inicial maior */
+    border: none;
+    display: block;
+}
+
+/* ========== LOADING ========== */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 20px;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(255, 76, 0, 0.2);
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    text-shadow: 0 0 20px var(--primary);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* No bloco .info-banner */
+.info-banner {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    padding: 8px 15px; /* Reduzido de 15px 20px */
+    border-radius: 8px;
+    margin-bottom: 15px; /* Reduzido de 20px */
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px; /* Reduzido de 16px */
+    box-shadow: 0 4px 15px rgba(255, 76, 0, 0.3);
+}
+.info-banner i {
+    margin-right: 10px;
+}
+
+/* No bloco .features-grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 10px 0 5px; /* Reduzi a margem de baixo para 5px */
+}
+
+
+/* No bloco .feature-card */
+.feature-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-glow);
+    border-radius: 10px;
+    padding: 12px; /* Reduzido de 25px */
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px var(--secondary);
+    border-color: var(--secondary);
+}
+
+
+/* No bloco .feature-icon */
+.feature-icon {
+    font-size: 24px; /* Reduzido de 48px */
+    margin-bottom: 5px; /* Reduzido de 15px */
+}
+
+
+
+
+.feature-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--text);
+}
+
+
+
+.feature-description {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.3;
+}
+
+/* Estilo do Modal */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 0; top: 0; width: 100%; height: 100%; 
+    background-color: rgba(0,0,0,0.9);
+    align-items: center; justify-content: center;
+}
+
+.modal-content {
+    background: #1a1a1a; 
+    padding: 20px; 
+    border-radius: 15px; 
+    width: 90%; max-width: 800px; 
+    border: 2px solid #ff4c00;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute; right: 15px; top: 0; 
+    color: #fff; font-size: 40px; cursor: pointer;
+}
+
+
+#videoPlayerContainer iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+}
+
+/* ========== RESPONSIVO ========== */
+@media (max-width: 1024px) {
+    #scorebatFrame {
+        height: 700px;
+    }
+    
+    .title-glow {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    nav a {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    .title-glow {
+        font-size: 24px;
+        letter-spacing: 1px;
+    }
+
+    .scorebat-container {
+        padding: 15px;
+    }
+
+    #scorebatFrame {
+        height: 600px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-banner {
+        font-size: 14px;
+        padding: 12px 15px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 24px;
+    }
+
+    .title-glow {
+        font-size: 20px;
+        margin: 20px 0 15px;
+    }
+
+    #scorebatFrame {
+        height: 500px;
+    }
+
+    .scorebat-container {
+        padding: 10px;
+    }
+}
+
+
+
+/* ========== SCROLL PERSONALIZADO ========== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+
+
+
+
+
+
+
+
+
