@@ -2,8 +2,7 @@
 // CONFIGURAÇÕES E VARIÁVEIS GLOBAIS
 // ==========================================
 
-//const API_URL = "https://jnloja.onrender.com/api";
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://jnloja.onrender.com/api";
 let userLogado = JSON.parse(localStorage.getItem('jnloja_user')) || null;
 let checkInterval;
 
@@ -359,6 +358,7 @@ function logout() {
     localStorage.removeItem('jnloja_user');
     location.reload();
 }
+
 
 // ==========================================
 // 5. COMPRA DE PRODUTOS E PIX (ATUALIZADO)
