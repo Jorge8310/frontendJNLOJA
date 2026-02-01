@@ -1,58 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JNSHOP - Arena Sports</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700;900&family=Black+Ops+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="sports.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JNSHOP - Futebol ao Vivo</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700;900&family=Black+Ops+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="sports.css" />
+    <style>
+      /* Estilo para esconder o placar inicialmente */
+      #scorebatFrame {
+        display: none;
+        width: 100%;
+        height: 760px;
+        border: none;
+        margin-top: 20px;
+      }
+      .btn-scorebat {
+        background: #ffcc00;
+        border: none;
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+      .btn-scorebat:hover {
+        background: #ffaa00;
+      }
+    </style>
+  </head>
+  <body>
     <div class="game-wallpaper"></div>
     <div class="color-overlay"></div>
-
     <header class="navbar">
-        <div class="container-header">
-            <div class="logo"><span>JN</span>SHOP</div>
-            <nav>
-                <a href="index.html"><i class="fa fa-home"></i> LOJA</a>
-                <a href="live.html"><i class="fa fa-tv"></i> AO VIVO</a>
-               <!-- <a href="mangas.html" class="btn-manga-header"><i class="fas fa-book-open"></i> LER LIVRO</a>-->
-                <a href="manga.html"><i class="fa fa-download"></i>LER LIVROS</a>
-            </nav>
-        </div>
+      <div class="container-header">
+        <div class="logo"><span>JN</span>SHOP</div>
+        <nav>
+          <a href="index.html"><i class="fa fa-home"></i> LOJA</a>
+          <a href="tabelas.html" class="active"
+            ><i class="fa fa-trophy"></i> FUTEBOL</a
+          >
+          <a href="live.html"><i class="fa fa-tv"></i> AO VIVO</a>
+        </nav>
+      </div>
     </header>
-
     <main class="main-content">
-        <!-- SELETOR DE ESPORTE (Adicionado 'this') -->
-        <div class="sports-nav">
-            <button class="btn-sport active" onclick="setSport('football', this)"><i class="fas fa-futbol"></i> FUTEBOL</button>
-            <button class="btn-sport" onclick="setSport('basketball', this)"><i class="fas fa-basketball-ball"></i> BASQUETE</button>
-            <button class="btn-sport" onclick="setSport('volleyball', this)"><i class="fas fa-volleyball-ball"></i> VÔLEI</button>
-            <button class="btn-sport" onclick="setSport('baseball', this)"><i class="fas fa-baseball-ball"></i> BASEBALL</button>
-        </div>
-
-  <!-- FILTROS DE TEMPO -->
-<div class="standings-menu">
-    <button class="btn-filter active" id="filter-live" onclick="setFilter('live', this)">
-        <i class="fas fa-play-circle"></i> JOGOS
-    </button>
-    <button class="btn-filter" onclick="setFilter('finished', this)">
-        <i class="fas fa-check-circle"></i> FINALIZADOS
-    </button>
-    <button class="btn-filter" onclick="setFilter('tomorrow', this)">
-        <i class="fas fa-step-forward"></i> AMANHÃ
-    </button>
-</div>
-        <h2 id="display-title" class="title-glow">Sports AO VIVO</h2>
-
-        <!-- CONTAINER DE RESULTADOS (A ID deve ser 'jogos-container' para o JS funcionar) -->
-        <div id="jogos-container" class="games-grid">
-            <!-- Os jogos entram aqui via JS -->
-        </div>
+      <!-- SELETOR DE LIGAS -->
+      <div class="leagues-nav">
+        <button
+          class="btn-league active"
+          onclick="changeLeague('Champions League', this)"
+        >
+          <i class="fas fa-trophy"></i> CHAMPIONS LEAGUE
+        </button>
+        <button
+          class="btn-league"
+          onclick="changeLeague('Premier League', this)"
+        >
+          <i class="fas fa-crown"></i> PREMIER LEAGUE
+        </button>
+        <button class="btn-league" onclick="changeLeague('La Liga', this)">
+          <i class="fas fa-star"></i> LA LIGA
+        </button>
+        <button class="btn-league" onclick="changeLeague('Bundesliga', this)">
+          <i class="fas fa-shield-alt"></i> BUNDESLIGA
+        </button>
+        <button class="btn-league" onclick="changeLeague('Serie A', this)">
+          <i class="fas fa-flag"></i> SERIE A
+        </button>
+        <button class="btn-league" onclick="changeLeague('Ligue 1', this)">
+          <i class="fas fa-medal"></i> LIGUE 1
+        </button>
+        <button class="btn-league" onclick="changeLeague('Brasileirão', this)">
+          <i class="fas fa-futbol"></i> BRASILEIRÃO
+        </button>
+        <button class="btn-league" onclick="changeLeague('Libertadores', this)">
+          <i class="fas fa-fire"></i> LIBERTADORES
+        </button>
+      </div>
+      <h2 id="league-title" class="title-glow">⚽ MELHORES MOMENTOS</h2>
+      <!-- BOTÃO PARA MOSTRAR PLACAR AO VIVO -->
+      <button class="btn-scorebat" onclick="mostrarPlacar()">
+        📺 Mostrar Placar ao Vivo
+      </button>
+      <!-- IFRAME DO SCOREBAT (ESCONDIDO ATÉ CLICAR) -->
+      <iframe
+        id="scorebatFrame"
+        src="https://www.scorebat.com/embed/livescore/?token=MjczODUzXzE3Njk5MDgzNjBfNjEyZmRhNWZlOTZhYzdkYTZiMTg2MmJlYTkzZDhjMjliMWNjNmZjZA=="
+        allowfullscreen
+        allow="autoplay; fullscreen"
+      >
+      </iframe>
+      <!-- CONTAINER DE JOGOS -->
+      <div id="matches-container" class="matches-grid">
+        <div class="loading">⚽ Carregando jogos...</div>
+      </div>
     </main>
+    <!-- Scripts -->
+    <script src="football-api.js"></script>
 
-    <script src="sports.js"></script>
-</body>
+    <script>
+      let currentLeague = "Champions League";
+      const leagueNames = {
+        "Champions League": "⚽ UEFA CHAMPIONS LEAGUE",
+        "Premier League": "👑 PREMIER LEAGUE",
+        "La Liga": "⭐ LA LIGA",
+        Bundesliga: "🛡️ BUNDESLIGA",
+        "Serie A": "🇮🇹 SERIE A",
+        "Ligue 1": "🏅 LIGUE 1",
+        Brasileirão: "🇧🇷 BRASILEIRÃO",
+        Libertadores: "🔥 COPA LIBERTADORES",
+      };
+      function changeLeague(leagueName, btn) {
+        currentLeague = leagueName; // Atualiza botões ativos
+        document
+          .querySelectorAll(".btn-league")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active"); // Atualiza título
+        document.getElementById("league-title").textContent =
+          leagueNames[leagueName] || leagueName; // Carrega dados da nova liga
+        loadMatchesByLeague(leagueName);
+      } // Função para mostrar/esconder placar
+      function mostrarPlacar() {
+        const frame = document.getElementById("scorebatFrame");
+        frame.style.display =
+          frame.style.display === "none" || frame.style.display === ""
+            ? "block"
+            : "none";
+      }
+    </script>
+  </body>
 </html>

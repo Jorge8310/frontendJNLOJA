@@ -1,1143 +1,549 @@
-/* ==========================================
-   JNSPORTS - CSS MODERNO E ESTILOSO
-   ========================================== */
-
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
-
+/* ========== VARIÁVEIS ========== */
 :root {
     --primary: #ff4c00;
-    --secondary: #00f2ff;
-    --yellow: #ffcc00;
-    --glass: rgba(0, 0, 0, 0.8);
-    --purple: #9333ea;
-    --green: #10b981;
+    --secondary: #00d4ff;
+    --dark-bg: #0a0a0a;
+    --card-bg: rgba(20, 20, 30, 0.85);
+    --text: #ffffff;
+    --border-glow: rgba(0, 212, 255, 0.4);
 }
 
-body { 
-    font-family: 'Kanit', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #000; 
-    color: #fff; 
-    overflow-x: hidden; 
-    line-height: 1.6;
+/* ========== RESET ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-
-
-/* ==========================================
-   FUNDO DINÂMICO
-   ========================================== */
-/*
-   .game-wallpaper {
-    position: fixed;
-    top: 0; 
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -2;
-    background-size: cover;
-    background-position: center;
-    filter: saturate(1.7) brightness(0.5);
-    transition: background-image 2s ease-in-out;
+body {
+    font-family: 'Kanit', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
 }
 
-.color-overlay {
-    position: fixed;
-    top: 0; 
-    left: 0;
-    width: 100%; 
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 76, 0, 0.1), rgba(0, 242, 255, 0.1));
-    z-index: -1;
-    backdrop-filter: blur(2px);
-}
-*/
-
+/* ========== BACKGROUND ========== */
 .game-wallpaper {
-    position: fixed; /* Mantém a imagem fixa ao rolar a página */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('view-soccer-ball-field.jpg'); /* COLOQUE O CAMINHO DA SUA IMAGEM AQUI */
-    background-size: cover; /* Faz a imagem cobrir toda a tela */
-    background-position: center; /* Centraliza a imagem */
-    z-index: -2; /* Coloca ela atrás de tudo */
+    background: url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1920') center/cover;
+    filter: blur(8px);
+    z-index: -2;
 }
 
-/* Opcional: Estilo para o overlay (escurecer a imagem para ler melhor o texto) */
 .color-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Cor preta com 60% de transparência */
+    background: linear-gradient(135deg, rgba(255,76,0,0.2), rgba(0,212,255,0.2));
     z-index: -1;
 }
 
-/* ==========================================
-   HEADER MELHORADO
-   ========================================== */
-header { 
-    background: rgba(0, 0, 0, 0.95); 
-    border-bottom: 3px solid var(--primary); 
-    position: sticky; 
-    top: 0; 
-    z-index: 1000;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 4px 30px rgba(255, 76, 0, 0.3);
+/* ========== HEADER ========== */
+.navbar {
+    background: rgba(10, 10, 10, 0.95);
+    padding: 20px 0;
+    border-bottom: 2px solid var(--primary);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.container-header { 
-    width: 100%; 
-    margin: 0 auto; 
-    display: flex; 
-    justify-content: space-between; 
-    padding: 15px 20px; 
+.container-header {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.logo { 
-    font-family: 'Black Ops One', cursive; 
-    font-size: 32px; 
+.logo {
+    font-family: 'Black Ops One', cursive;
+    font-size: 32px;
     font-weight: 900;
-    background: linear-gradient(135deg, var(--primary), var(--yellow));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 10px rgba(255, 76, 0, 0.5));
-    animation: pulse 3s ease-in-out infinite;
+    color: var(--text);
+    text-shadow: 0 0 20px var(--primary);
 }
 
-@keyframes pulse {
-    0%, 100% { 
-        filter: drop-shadow(0 0 10px rgba(255, 76, 0, 0.5)); 
-    }
-    50% { 
-        filter: drop-shadow(0 0 20px rgba(255, 76, 0, 0.8)); 
-    }
+.logo span {
+    color: var(--primary);
+    text-shadow: 0 0 30px var(--primary);
 }
 
-.logo span { 
-    color: var(--primary); 
-}
-
-/* BOTÕES DO MENU - ESTILO GLASS MORPHISM */
 nav {
     display: flex;
-    gap: 15px;
-    align-items: center;
+    gap: 30px;
 }
 
 nav a {
-    color: #fff;
+    color: var(--text);
     text-decoration: none;
-    font-weight: bold;
-    font-size: 13px;
-    white-space: nowrap;
-    text-transform: uppercase;
-    
-    /* Glass Morphism Effect */
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    font-weight: 700;
+    font-size: 16px;
     padding: 10px 20px;
-    border-radius: 12px;
+    border-radius: 8px;
     transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    position: relative;
-    overflow: hidden;
+    border: 2px solid transparent;
 }
 
-nav a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 76, 0, 0.3), transparent);
-    transition: left 0.5s ease;
-}
-
-nav a:hover::before {
-    left: 100%;
-}
-
-nav a:hover {
-    border-color: var(--primary);
-    background: rgba(255, 76, 0, 0.15);
+nav a:hover,
+nav a.active {
     color: var(--primary);
-    box-shadow: 0 0 20px rgba(255, 76, 0, 0.4);
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary);
     transform: translateY(-2px);
 }
 
 nav a i {
-    font-size: 16px;
+    margin-right: 8px;
 }
 
-/* BOTÃO LER LIVRO NO HEADER - DESTAQUE ESPECIAL */
-.btn-manga-header {
-    background: linear-gradient(135deg, var(--purple), var(--secondary)) !important;
-    border: 2px solid var(--yellow) !important;
-    color: #fff !important;
-    font-weight: 900 !important;
-    box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
-    position: relative;
-    animation: mangaPulse 3s ease-in-out infinite;
-}
-
-@keyframes mangaPulse {
-    0%, 100% {
-        box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
-        border-color: var(--yellow);
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(147, 51, 234, 0.8);
-        border-color: var(--secondary);
-    }
-}
-
-.btn-manga-header::after {
-    content: '📚';
-    position: absolute;
-    right: -8px;
-    top: -8px;
-    font-size: 18px;
-    animation: bookBounce 2s ease-in-out infinite;
-}
-
-@keyframes bookBounce {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-5px) rotate(10deg); }
-}
-
-.btn-manga-header:hover {
-    background: linear-gradient(135deg, var(--secondary), var(--purple)) !important;
-    transform: translateY(-3px) scale(1.05) !important;
-    box-shadow: 0 5px 30px rgba(147, 51, 234, 0.7) !important;
-}
-
-/* ==========================================
-   CONTEÚDO PRINCIPAL
-   ========================================== */
-.main-content { 
-    background: rgba(0, 0, 0, 0.3); 
-    border-radius: 30px; 
-    padding: 40px 20px; 
+/* ========== MAIN CONTENT ========== */
+.main-content {
     max-width: 1400px;
-    margin: 30px auto;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-/* TÍTULO PRINCIPAL COM EFEITO NEON */
 .title-glow {
-    font-size: 2.8rem;
     text-align: center;
-    color: var(--yellow);
-    text-shadow: 
-        0 0 10px var(--yellow),
-        0 0 20px var(--primary),
-        0 0 30px var(--primary);
-    font-family: 'Black Ops One', cursive;
-    margin-bottom: 40px;
-    animation: neonGlow 2s ease-in-out infinite alternate;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--text);
+    text-transform: uppercase;
+    margin: 40px 0 30px;
+    text-shadow: 0 0 30px var(--primary), 0 0 60px var(--secondary);
     letter-spacing: 3px;
 }
 
-@keyframes neonGlow {
-    from {
-        text-shadow: 
-            0 0 10px var(--yellow),
-            0 0 20px var(--primary),
-            0 0 30px var(--primary);
-    }
-    to {
-        text-shadow: 
-            0 0 20px var(--yellow),
-            0 0 30px var(--primary),
-            0 0 40px var(--primary),
-            0 0 50px var(--secondary);
-    }
-}
-
-/* ==========================================
-   BOTÕES DE SELEÇÃO DE ESPORTE
-   ========================================== */
-.sports-nav {
+/* ========== NAVEGAÇÃO DE LIGAS ========== */
+.leagues-nav {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
     gap: 15px;
+    justify-content: center;
     margin: 30px 0;
-    flex-wrap: wrap;
 }
 
-.btn-sport {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(255, 76, 0, 0.1));
-    color: #fff;
-    border: 2px solid rgba(255, 76, 0, 0.3);
-    padding: 14px 28px;
-    border-radius: 15px;
-    cursor: pointer;
+.btn-league {
+    background: var(--card-bg);
+    color: var(--text);
+    border: 2px solid var(--border-glow);
+    padding: 15px 25px;
+    font-size: 16px;
     font-weight: 700;
-    font-size: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Kanit', sans-serif;
     text-transform: uppercase;
-    transition: all 0.4s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: relative;
-    overflow: hidden;
 }
 
-.btn-sport::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 76, 0, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
+.btn-league:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: var(--secondary);
+    box-shadow: 0 0 20px var(--secondary);
+    transform: translateY(-3px);
 }
 
-.btn-sport:hover::before {
-    width: 300px;
-    height: 300px;
-}
-
-.btn-sport:hover {
+.btn-league.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     border-color: var(--primary);
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 10px 30px rgba(255, 76, 0, 0.4);
-}
-
-.btn-sport.active {
-    background: linear-gradient(135deg, var(--primary), var(--yellow));
-    border-color: var(--yellow);
-    color: #000;
     box-shadow: 0 0 30px var(--primary);
-    transform: scale(1.1);
 }
 
-.btn-sport i {
-    font-size: 18px;
-    z-index: 1;
+.btn-league i {
+    margin-right: 8px;
 }
 
-/* ==========================================
-   BOTÕES DE FILTRO - NOVO DESIGN MODERNO
-   ========================================== */
-.standings-menu {
+/* ========== TABS ========== */
+.tabs-container {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 20px;
-    margin: 40px 0 50px 0;
-    flex-wrap: wrap;
-    position: relative;
+    margin: 30px 0;
 }
 
-/* Adiciona um botão extra para "LER LIVRO" */
-.standings-menu::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--secondary), transparent);
-}
-
-.btn-filter {
-    background: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    padding: 14px 30px;
-    border-radius: 50px;
-    cursor: pointer;
+.tab-btn {
+    background: var(--card-bg);
+    color: var(--text);
+    border: 2px solid var(--border-glow);
+    padding: 15px 40px;
+    font-size: 18px;
     font-weight: 700;
-    font-size: 14px;
-    text-transform: uppercase;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
     font-family: 'Kanit', sans-serif;
+    text-transform: uppercase;
 }
 
-.btn-filter::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+.tab-btn:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: var(--secondary);
+    box-shadow: 0 0 20px var(--secondary);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-color: var(--primary);
+    box-shadow: 0 0 30px var(--primary);
+}
+
+.tab-btn i {
+    margin-right: 10px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ========== GRID DE JOGOS ========== */
+.matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.match-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-glow);
+    border-radius: 15px;
+    padding: 0;
+    transition: all 0.3s ease;
+    position: relative;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.match-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px var(--secondary);
+    border-color: var(--secondary);
+}
+
+.match-thumbnail {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.match-thumbnail img {
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.6s ease;
-}
-
-.btn-filter:hover::before {
-    left: 100%;
-}
-
-.btn-filter i {
-    font-size: 18px;
+    object-fit: cover;
     transition: transform 0.3s ease;
 }
 
-.btn-filter:hover {
-    border-color: var(--secondary);
-    background: rgba(0, 242, 255, 0.15);
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 242, 255, 0.3);
+.match-card:hover .match-thumbnail img {
+    transform: scale(1.1);
 }
 
-.btn-filter:hover i {
-    transform: rotate(360deg);
+.match-info {
+    padding: 20px;
 }
 
-.btn-filter.active {
-    background: linear-gradient(135deg, var(--secondary), var(--purple));
-    border-color: var(--yellow);
-    color: #000;
-    box-shadow: 0 0 30px var(--secondary);
-    transform: scale(1.15);
-    font-weight: 900;
+.match-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.4;
 }
 
-/* ANIMAÇÃO PULSANTE PARA AO VIVO */
-#filter-live.active {
-    animation: livePulse 2s ease-in-out infinite;
+.match-date {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
-@keyframes livePulse {
+.has-video {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.league-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    z-index: 10;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.match-card.live-match {
+    border-color: var(--primary);
+    box-shadow: 0 0 20px var(--primary);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
     0%, 100% {
-        box-shadow: 0 0 20px rgba(255, 76, 0, 0.5);
+        box-shadow: 0 0 20px var(--primary);
     }
     50% {
-        box-shadow: 0 0 40px rgba(255, 76, 0, 0.8);
+        box-shadow: 0 0 40px var(--primary);
     }
 }
 
-#filter-live i {
-    color: #ff4757;
-    animation: blink 1.5s ease-in-out infinite;
+.status-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.status-badge.live {
+    background: var(--primary);
+    color: white;
+    animation: blink 1.5s infinite;
 }
 
 @keyframes blink {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+    50% { opacity: 0.5; }
 }
 
-/* ==========================================
-   CONTAINER DE JOGOS
-   ========================================== */
-#jogos-container {
-    width: 100%;
+.status-badge.finished {
+    background: #28a745;
+    color: white;
+}
+
+.status-badge.scheduled {
+    background: var(--secondary);
+    color: white;
+}
+
+.status-badge.paused {
+    background: #ffc107;
+    color: black;
+}
+
+.match-date {
+    text-align: center;
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.match-teams {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     gap: 15px;
-    margin-bottom: 40px;
 }
 
-/* TÍTULO DA LIGA */
-.league-title {
-    background: linear-gradient(135deg, rgba(255, 76, 0, 0.3), rgba(0, 242, 255, 0.2));
-    backdrop-filter: blur(10px);
-    border-left: 5px solid var(--primary);
-    border-radius: 12px;
-    padding: 15px 20px;
-    margin: 25px 0 15px 0;
-    font-size: 15px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #fff;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 4px #000;
-    box-shadow: 0 4px 15px rgba(255, 76, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-.league-title:hover {
-    transform: translateX(5px);
-    box-shadow: 0 6px 20px rgba(255, 76, 0, 0.4);
-}
-
-.league-title img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
-}
-
-/* ==========================================
-   CARDS DE JOGOS - DESIGN MODERNO
-   ========================================== */
-.match-item {
-    background: rgba(0, 0, 0, 0.85);
-    border: 2px solid var(--secondary);
-    border-radius: 20px;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 1fr 120px 1fr;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 12px;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-}
-
-/* GRID MAIOR PARA BASQUETE */
-.match-item.sport-basketball {
-    grid-template-columns: 1fr 150px 1fr;
-}
-
-.match-item::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 76, 0, 0.1), transparent);
-    transform: rotate(45deg);
-    transition: all 0.6s ease;
-}
-
-.match-item:hover::before {
-    left: 100%;
-}
-
-.match-item:hover {
-    border-color: var(--primary);
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 15px 40px rgba(255, 76, 0, 0.5);
-}
-
-/* TIMES */
 .team {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 700;
-    font-size: 15px;
-    transition: all 0.3s ease;
-}
-
-.team img {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-    flex-shrink: 0;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
-    transition: all 0.3s ease;
-}
-
-.match-item:hover .team img {
-    transform: scale(1.2) rotate(5deg);
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
-}
-
-.t-left {
-    justify-content: flex-end;
-    text-align: right;
-}
-
-.t-left img {
-    order: 2;
-}
-
-.t-left span {
-    order: 1;
-}
-
-.t-right {
-    justify-content: flex-start;
-    text-align: left;
-}
-
-.t-right img {
-    order: 1;
-}
-
-.t-right span {
-    order: 2;
-}
-
-/* PLACAR */
-.score-area {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    white-space: nowrap;
+    gap: 10px;
 }
 
-.time-badge {
-    color: #ff4757;
-    font-size: 12px;
+.team-name {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text);
+}
+
+.team-score {
+    font-size: 32px;
     font-weight: 900;
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary);
+}
+
+.vs {
+    font-size: 18px;
+    font-weight: 700;
+    color: #666;
+}
+
+/* ========== SECTION TITLES ========== */
+.section-title {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--text);
+    margin: 40px 0 20px;
     text-transform: uppercase;
-    text-shadow: 0 0 10px #ff4757;
-    animation: glow 2s ease-in-out infinite;
+    text-align: center;
+    text-shadow: 0 0 20px var(--primary);
 }
 
-@keyframes glow {
-    0%, 100% {
-        text-shadow: 0 0 10px #ff4757;
-    }
-    50% {
-        text-shadow: 0 0 20px #ff4757, 0 0 30px #ff4757;
-    }
-}
-
-.score-now {
-    background: linear-gradient(135deg, #000, #1a1a1a);
-    padding: 10px 20px;
+/* ========== TABELA DE CLASSIFICAÇÃO ========== */
+.standings-table {
+    background: var(--card-bg);
+    border: 2px solid var(--border-glow);
     border-radius: 15px;
-    font-size: 24px;
+    padding: 20px;
+    overflow-x: auto;
+    backdrop-filter: blur(10px);
+}
+
+.standings-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.standings-table th {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.standings-table td {
+    padding: 15px 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.standings-table tr:hover {
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.pos {
     font-weight: 900;
-    border: 3px solid var(--yellow);
-    color: var(--yellow);
-    min-width: 80px;
-    text-align: center;
-    box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.match-item:hover .score-now {
-    transform: scale(1.1);
-    box-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
-}
-
-/* ==========================================
-   LOADING STATE
-   ========================================== */
-.loading-state {
-    text-align: center;
-    padding: 60px 20px;
     font-size: 18px;
     color: var(--secondary);
-    font-weight: 700;
 }
 
-.loading-state i {
-    font-size: 48px;
-    margin-bottom: 20px;
-    display: block;
+.team-name-cell {
+    text-align: left !important;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-logo {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+.points {
+    font-weight: 900;
+    font-size: 18px;
     color: var(--primary);
 }
 
-/* ==========================================
-   CORES POR ESPORTE
-   ========================================== */
-.sport-football { 
-    border-color: var(--secondary) !important; 
+.positive {
+    color: #28a745;
+    font-weight: 700;
 }
 
-.sport-basketball { 
-    border-color: #ff8800 !important;
+.negative {
+    color: #dc3545;
+    font-weight: 700;
 }
 
-/* PLACAR MAIOR PARA BASQUETE (números de 3 dígitos) */
-.sport-basketball .score-area {
-    min-width: 140px;
+/* ========== LOADING E ESTADOS ========== */
+.loading,
+.no-data,
+.error {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
 }
 
-.sport-basketball .score-now {
-    min-width: 130px;
-    font-size: 26px;
-    padding: 10px 20px;
-    letter-spacing: 1px;
-    white-space: nowrap;
+.loading {
+    animation: spin 2s linear infinite;
 }
 
-.sport-volleyball { 
-    border-color: #00ff88 !important; 
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-.sport-baseball { 
-    border-color: #0066cc !important;
+.error {
+    color: var(--primary);
 }
 
-/* ==========================================
-   RESPONSIVIDADE - TABLETS E CELULARES
-   ========================================== */
+/* ========== RESPONSIVO ========== */
 @media (max-width: 768px) {
-    /* CONTEÚDO PRINCIPAL */
-    .main-content {
-        padding: 25px 15px;
-        margin: 20px 10px;
-        border-radius: 20px;
-    }
-
-    .title-glow {
-        font-size: 1.8rem;
-        margin-bottom: 25px;
-        letter-spacing: 2px;
-    }
-
-    /* BOTÕES DE ESPORTE - GRID 2 COLUNAS */
-    .sports-nav {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        padding: 0 10px;
-        margin: 20px 0;
-    }
-
-    .btn-sport {
-        padding: 14px 18px;
-        font-size: 12px;
-        width: 100%;
-        justify-content: center;
-    }
-
-    /* Remove o efeito de crescimento no mobile */
-    .btn-sport:hover {
-        transform: translateY(-2px) scale(1.0) !important;
-    }
-
-    .btn-sport.active {
-        transform: scale(1.0) !important;
-        /* Mantém apenas o brilho/luz */
-    }
-
-    .btn-sport i {
-        font-size: 16px;
-    }
-
-    /* BOTÕES DE FILTRO - GRID 3 COLUNAS */
-    .standings-menu {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-        padding: 0 10px;
-        margin: 30px 0 40px 0;
-    }
-
-    .standings-menu::after {
-        display: none;
-    }
-
-    .btn-filter {
-        padding: 12px 15px;
-        font-size: 11px;
-        width: 100%;
-        justify-content: center;
-    }
-
-    /* Remove o efeito de crescimento no mobile */
-    .btn-filter:hover {
-        transform: translateY(-2px) scale(1.0) !important;
-    }
-
-    .btn-filter.active {
-        transform: scale(1.0) !important;
-        /* Mantém apenas o brilho/luz */
-    }
-
-    .btn-filter i {
-        font-size: 14px;
-    }
-
-    /* CARDS DE JOGOS */
-    .match-item {
-        grid-template-columns: 1fr 90px 1fr;
-        padding: 15px 12px;
-        gap: 15px;
-        border-radius: 15px;
-    }
-
-    /* BASQUETE - Grid maior no mobile */
-    .match-item.sport-basketball {
-        grid-template-columns: 0.9fr 130px 0.9fr;
-        gap: 8px;
-    }
-
-    .sport-basketball .score-now {
-        min-width: 110px;
-        font-size: 19px;
-        padding: 8px 10px;
-    }
-
-    .team span {
-        font-size: 12px;
-    }
-
-    .team img {
-        width: 32px;
-        height: 32px;
-    }
-
-    .score-now {
-        font-size: 20px;
-        min-width: 70px;
-        padding: 8px 15px;
-        border-width: 2px;
-    }
-
-    .time-badge {
-        font-size: 10px;
-    }
-
-    /* TÍTULOS DE LIGA */
-    .league-title {
-        font-size: 13px;
-        padding: 12px 15px;
-        margin: 20px 0 12px 0;
-    }
-
-    .league-title img {
-        width: 24px;
-        height: 24px;
-    }
-
-    /* HEADER - LOGO CENTRALIZADO NO MOBILE */
     .container-header {
-        padding: 12px 15px;
-        gap: 12px;
         flex-direction: column;
-        justify-content: center;
-    }
-
-    .logo {
-        font-size: 26px;
-        text-align: center;
+        gap: 20px;
     }
 
     nav {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-        width: 100%;
+        flex-wrap: wrap;
         justify-content: center;
     }
 
     nav a {
-        font-size: 10px;
-        padding: 10px 12px;
-        width: 100%;
-        justify-content: center;
+        font-size: 14px;
+        padding: 8px 15px;
     }
-    
-    .btn-manga-header {
-        grid-column: 1 / -1;
-        width: 100%;
-        justify-content: center;
+
+    .title-glow {
+        font-size: 28px;
+    }
+
+    .leagues-nav {
+        gap: 10px;
+    }
+
+    .btn-league {
         padding: 12px 20px;
-    }
-
-    .btn-manga-header::after {
-        right: 10px;
-        font-size: 16px;
-    }
-}
-
-/* CELULARES PEQUENOS (iPhone SE, etc) */
-@media (max-width: 500px) {
-    /* CONTEÚDO PRINCIPAL */
-    .main-content {
-        padding: 20px 10px;
-        margin: 15px 5px;
-        border-radius: 15px;
-    }
-
-    .logo {
-        font-size: 22px;
-    }
-
-    .title-glow {
-        font-size: 1.4rem;
-        letter-spacing: 1px;
-        margin-bottom: 20px;
-    }
-
-    /* BOTÕES DE ESPORTE - GRID 2 COLUNAS COMPACTO */
-    .sports-nav {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        padding: 0 5px;
-        margin: 15px 0;
-    }
-
-    .btn-sport {
-        padding: 12px 12px;
-        font-size: 10px;
-        gap: 5px;
-        border-radius: 12px;
-    }
-
-    /* Remove completamente o efeito de crescimento */
-    .btn-sport:hover {
-        transform: translateY(0) scale(1.0) !important;
-    }
-
-    .btn-sport.active {
-        transform: scale(1.0) !important;
-    }
-
-    .btn-sport i {
         font-size: 14px;
     }
 
-    /* BOTÕES DE FILTRO - GRID 3 COLUNAS COMPACTO */
-    .standings-menu {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
-        padding: 0 5px;
-        margin: 25px 0 35px 0;
+    .matches-grid {
+        grid-template-columns: 1fr;
     }
 
-    .btn-filter {
-        padding: 10px 8px;
-        font-size: 9px;
-        border-radius: 30px;
-        gap: 5px;
+    .tabs-container {
+        flex-direction: column;
     }
 
-    /* Remove completamente o efeito de crescimento */
-    .btn-filter:hover {
-        transform: translateY(0) scale(1.0) !important;
+    .tab-btn {
+        padding: 12px 30px;
+        font-size: 16px;
     }
 
-    .btn-filter.active {
-        transform: scale(1.0) !important;
-    }
-
-    .btn-filter i {
+    .standings-table {
         font-size: 12px;
     }
 
-    /* CARDS DE JOGOS - MAIS COMPACTOS */
-    .match-item {
-        grid-template-columns: 1fr 70px 1fr;
-        padding: 12px 6px;
-        gap: 10px;
-        border-radius: 12px;
-        margin-bottom: 10px;
+    .team-name-cell {
+        flex-direction: column;
+        text-align: center !important;
     }
-
-    /* BASQUETE - Grid maior em celular */
-    .match-item.sport-basketball {
-        grid-template-columns: 0.85fr 105px 0.85fr;
-        gap: 6px;
-    }
-
-    .sport-basketball .score-now {
-        min-width: 95px;
-        font-size: 15px;
-        padding: 6px 8px;
-    }
-
-    .team {
-        gap: 8px;
-    }
-
-    .team span {
-        font-size: 10px;
-        line-height: 1.2;
-    }
-
-    .team img {
-        width: 26px;
-        height: 26px;
-    }
-
-    .score-area {
-        gap: 5px;
-    }
-
-    .score-now {
-        font-size: 16px;
-        min-width: 55px;
-        padding: 6px 10px;
-        border-width: 2px;
-        border-radius: 10px;
-    }
-
-    .time-badge {
-        font-size: 9px;
-    }
-
-    /* TÍTULOS DE LIGA */
-    .league-title {
-        font-size: 11px;
-        padding: 10px 12px;
-        margin: 15px 0 10px 0;
-        border-radius: 10px;
-    }
-
-    .league-title img {
-        width: 20px;
-        height: 20px;
-    }
-
-    /* HEADER */
-    .container-header {
-        padding: 10px 10px;
-        gap: 10px;
-    }
-
-    nav {
-        gap: 6px;
-    }
-
-    nav a {
-        font-size: 9px;
-        padding: 8px 10px;
-        gap: 4px;
-        border-radius: 8px;
-    }
-
-    nav a i {
-        font-size: 12px;
-    }
-    
-    .btn-manga-header {
-        padding: 10px 15px;
-        font-size: 10px;
-    }
-
-    .btn-manga-header::after {
-        font-size: 14px;
-        right: 8px;
-        top: -6px;
-    }
-
-    /* LOADING */
-    .loading-state {
-        padding: 40px 15px;
-        font-size: 14px;
-    }
-
-    .loading-state i {
-        font-size: 36px;
-    }
-}
-
-/* CELULARES MUITO PEQUENOS (menos de 360px) */
-@media (max-width: 360px) {
-    .logo {
-        font-size: 20px;
-    }
-
-    .title-glow {
-        font-size: 1.2rem;
-        margin-bottom: 15px;
-    }
-
-    .sports-nav {
-        gap: 6px;
-    }
-
-    .btn-sport {
-        padding: 10px 8px;
-        font-size: 9px;
-    }
-
-    /* Remove todos os efeitos de crescimento */
-    .btn-sport:hover,
-    .btn-sport.active {
-        transform: scale(1.0) !important;
-    }
-
-    .standings-menu {
-        gap: 5px;
-    }
-
-    .btn-filter {
-        padding: 8px 6px;
-        font-size: 8px;
-    }
-
-    /* Remove todos os efeitos de crescimento */
-    .btn-filter:hover,
-    .btn-filter.active {
-        transform: scale(1.0) !important;
-    }
-
-    .match-item {
-        grid-template-columns: 1fr 60px 1fr;
-        padding: 10px 5px;
-        gap: 8px;
-    }
-
-    /* BASQUETE - Grid maior em celular pequeno */
-    .match-item.sport-basketball {
-        grid-template-columns: 1fr 85px 1fr;
-        gap: 6px;
-    }
-
-    .sport-basketball .score-now {
-        min-width: 75px;
-        font-size: 14px;
-        padding: 5px 6px;
-    }
-
-    .team span {
-        font-size: 9px;
-    }
-
-    .team img {
-        width: 24px;
-        height: 24px;
-    }
-
-    .score-now {
-        font-size: 14px;
-        min-width: 50px;
-        padding: 5px 8px;
-    }
-
-    .time-badge {
-        font-size: 8px;
-    }
-
-    nav a {
-        font-size: 8px;
-        padding: 7px 8px;
-    }
-}
-
-/* ==========================================
-   ANIMAÇÕES EXTRAS
-   ========================================== */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.match-item {
-    animation: fadeIn 0.5s ease-out;
-}
-
-.league-title {
-    animation: fadeIn 0.4s ease-out;
 }
