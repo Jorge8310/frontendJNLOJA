@@ -152,13 +152,14 @@ nav a:hover {
 
 /* CONTAINER DA TABELA */
 .main-player-container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto 50px;
     background: #fff !important;
     border-radius: 20px;
     border: 5px solid var(--primary);
     box-shadow: 0 0 40px rgba(255, 76, 0, 0.4);
     overflow: hidden;
+    padding: 0 10px;
 }
 
 .live-header {
@@ -175,12 +176,14 @@ nav a:hover {
     width: 100%;
     min-height: 800px;
     background: #fff;
+    overflow: hidden;
 }
 
 /* Aumenta o zoom do iframe para escudos maiores */
 #sofa-standings-embed {
-    transform: scale(1.1);
+    transform: scale(1.05);
     transform-origin: top center;
+    width: 100%;
 }
 
 /* RESPONSIVIDADE */
@@ -231,8 +234,10 @@ nav a:hover {
     }
 
     .main-player-container {
-        width: 95%;
+        width: 98%;
+        max-width: 95%;
         border: 3px solid var(--primary);
+        padding: 0 5px;
     }
 
     .live-header {
@@ -242,7 +247,7 @@ nav a:hover {
 
     /* Aumenta ainda mais o zoom no mobile para escudos maiores */
     #sofa-standings-embed {
-        transform: scale(1.15);
+        transform: scale(1.08);
     }
 }
 
@@ -278,6 +283,6 @@ nav a:hover {
 
     /* Zoom máximo no mobile pequeno */
     #sofa-standings-embed {
-        transform: scale(1.2);
+        transform: scale(1.12);
     }
 }
