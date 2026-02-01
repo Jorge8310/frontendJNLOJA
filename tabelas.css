@@ -189,76 +189,27 @@ nav a:hover {
 /* RESPONSIVIDADE */
 @media (max-width: 768px) {
     header {
-        padding: 10px 0;
+        padding: 8px 0;
     }
 
     .container-header {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
     }
 
     .logo {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .title-glow {
-        font-size: 22px;
-        margin: 12px 0 10px;
+        font-size: 20px;
+        margin: 8px 0 8px;
     }
 
     nav {
-        gap: 8px;
+        gap: 6px;
         flex-wrap: wrap;
         justify-content: center;
-    }
-
-    nav a {
-        font-size: 11px;
-        padding: 6px 10px;
-    }
-
-    .channel-selector {
-        gap: 8px;
-        margin: 10px auto 20px;
-    }
-
-    .btn-fifa {
-        font-size: 11px;
-        padding: 8px 12px;
-        min-width: 140px;
-        gap: 6px;
-    }
-
-    .btn-fifa i {
-        font-size: 14px;
-    }
-
-    .main-player-container {
-        width: 98%;
-        max-width: 95%;
-        border: 3px solid var(--primary);
-        padding: 0 5px;
-    }
-
-    .live-header {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    /* Aumenta ainda mais o zoom no mobile para escudos maiores */
-    #sofa-standings-embed {
-        transform: scale(1.08);
-    }
-}
-
-@media (max-width: 480px) {
-    .logo {
-        font-size: 20px;
-    }
-
-    .title-glow {
-        font-size: 18px;
-        margin: 10px 0 8px;
     }
 
     nav a {
@@ -266,23 +217,75 @@ nav a:hover {
         padding: 5px 8px;
     }
 
+    .channel-selector {
+        gap: 6px;
+        margin: 8px auto 15px;
+    }
+
     .btn-fifa {
         font-size: 10px;
-        padding: 7px 10px;
-        min-width: 120px;
+        padding: 6px 10px;
+        min-width: 130px;
+        gap: 5px;
     }
 
     .btn-fifa i {
         font-size: 12px;
     }
 
+    .main-player-container {
+        width: 98%;
+        max-width: 98%;
+        border: 3px solid var(--primary);
+        padding: 0;
+        margin: 0 auto 30px;
+    }
+
     .live-header {
-        font-size: 12px;
+        font-size: 13px;
         padding: 8px;
     }
 
-    /* Zoom máximo no mobile pequeno */
+    /* Aumenta o zoom no mobile para os escudos aparecerem */
     #sofa-standings-embed {
-        transform: scale(1.12);
+        transform: scale(1.25);
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 18px;
+    }
+
+    .title-glow {
+        font-size: 16px;
+        margin: 6px 0 6px;
+    }
+
+    nav a {
+        font-size: 9px;
+        padding: 4px 7px;
+    }
+
+    .btn-fifa {
+        font-size: 9px;
+        padding: 5px 8px;
+        min-width: 110px;
+    }
+
+    .btn-fifa i {
+        font-size: 11px;
+    }
+
+    .live-header {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    /* Zoom maior no mobile pequeno para escudos visíveis */
+    #sofa-standings-embed {
+        transform: scale(1.35);
+        margin-top: 25px;
     }
 }
