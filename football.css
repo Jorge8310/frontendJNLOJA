@@ -49,7 +49,7 @@ body {
 /* ========== HEADER ========== */
 .navbar {
     background: rgba(10, 10, 10, 0.95);
-    padding: 20px 0;
+    padding: 15px 0;
     border-bottom: 2px solid var(--primary);
     backdrop-filter: blur(10px);
     position: sticky;
@@ -82,26 +82,26 @@ body {
 
 nav {
     display: flex;
-    gap: 30px;
+    gap: 15px;
 }
 
 nav a {
     color: var(--text);
     text-decoration: none;
     font-weight: 700;
-    font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 8px;
+    font-size: 14px;
+    padding: 8px 15px;
+    border-radius: 5px;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 nav a:hover,
 nav a.active {
     color: var(--primary);
     border-color: var(--primary);
-    box-shadow: 0 0 15px var(--primary);
-    transform: translateY(-2px);
+    box-shadow: 0 0 10px var(--primary);
+    background: rgba(255, 76, 0, 0.1);
 }
 
 nav a i {
@@ -115,32 +115,28 @@ nav a i {
     padding: 0 20px;
 }
 
-/* No bloco .title-glow */
 .title-glow {
     text-align: center;
-    font-size: 32px; /* Reduzido de 42px */
+    font-size: 32px;
     font-weight: 900;
     color: var(--text);
     text-transform: uppercase;
-    margin: 15px 0 10px; /* Reduzido o espaçamento */
+    margin: 15px 0 10px;
     text-shadow: 0 0 30px var(--primary), 0 0 60px var(--secondary);
     letter-spacing: 2px;
 }
 
-/* No bloco .scorebat-info */
 .scorebat-info {
     background: linear-gradient(135deg, rgba(255, 76, 0, 0.15), rgba(0, 212, 255, 0.15));
     border-left: 4px solid var(--primary);
-    padding: 8px 15px; /* Reduzido de 15px 25px */
-    margin: 10px 0; /* Reduzido de 20px */
+    padding: 8px 15px;
+    margin: 10px 0;
     border-radius: 8px;
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 13px; /* Reduzido de 15px */
+    font-size: 13px;
 }
-
-
 
 @keyframes slideIn {
     from {
@@ -163,25 +159,22 @@ nav a i {
     border: 2px solid var(--border-glow);
     border-radius: 15px;
     padding: 10px;
-    margin: 0 auto 30px; /* Mudei o primeiro valor (top) para 0 */
+    margin: 0 auto 30px;
     max-width: 100%;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2);
 }
-/* Garante que o wrapper não limite a altura */
+
 .scorebat-wrapper {
     position: relative;
     width: 100%;
-    min-height: 800px; /* Aumentamos a altura mínima */
+    min-height: 800px;
     height: auto;
     border-radius: 10px;
     overflow: hidden;
-    background: transparent; /* Remove o fundo preto se sobrar algo */
+    background: transparent;
 }
 
-
-
-/* Overlay para bloquear navegação externa mantendo vídeos funcionando */
 .iframe-overlay {
     position: absolute;
     top: 0;
@@ -189,12 +182,12 @@ nav a i {
     width: 100%;
     height: 100%;
     z-index: 1;
-    pointer-events: none; /* Permite cliques passarem */
+    pointer-events: none;
 }
 
 #scorebatFrame {
     width: 100%;
-    height: 900px; /* Forçamos uma altura inicial maior */
+    height: 900px;
     border: none;
     display: block;
 }
@@ -236,36 +229,33 @@ nav a i {
     50% { opacity: 0.5; }
 }
 
-/* No bloco .info-banner */
 .info-banner {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
-    padding: 8px 15px; /* Reduzido de 15px 20px */
+    padding: 8px 15px;
     border-radius: 8px;
-    margin-bottom: 15px; /* Reduzido de 20px */
+    margin-bottom: 15px;
     text-align: center;
     font-weight: 700;
-    font-size: 14px; /* Reduzido de 16px */
+    font-size: 14px;
     box-shadow: 0 4px 15px rgba(255, 76, 0, 0.3);
 }
+
 .info-banner i {
     margin-right: 10px;
 }
 
-/* No bloco .features-grid */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 10px;
-    margin: 10px 0 5px; /* Reduzi a margem de baixo para 5px */
+    margin: 10px 0 5px;
 }
 
-
-/* No bloco .feature-card */
 .feature-card {
     background: var(--card-bg);
     border: 2px solid var(--border-glow);
     border-radius: 10px;
-    padding: 12px; /* Reduzido de 25px */
+    padding: 12px;
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -276,15 +266,10 @@ nav a i {
     border-color: var(--secondary);
 }
 
-
-/* No bloco .feature-icon */
 .feature-icon {
-    font-size: 24px; /* Reduzido de 48px */
-    margin-bottom: 5px; /* Reduzido de 15px */
+    font-size: 24px;
+    margin-bottom: 5px;
 }
-
-
-
 
 .feature-title {
     font-size: 15px;
@@ -292,8 +277,6 @@ nav a i {
     margin-bottom: 5px;
     color: var(--text);
 }
-
-
 
 .feature-description {
     font-size: 12px;
@@ -306,25 +289,33 @@ nav a i {
     display: none; 
     position: fixed; 
     z-index: 2000; 
-    left: 0; top: 0; width: 100%; height: 100%; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
     background-color: rgba(0,0,0,0.9);
-    align-items: center; justify-content: center;
+    align-items: center; 
+    justify-content: center;
 }
 
 .modal-content {
     background: #1a1a1a; 
     padding: 20px; 
     border-radius: 15px; 
-    width: 90%; max-width: 800px; 
+    width: 90%; 
+    max-width: 800px; 
     border: 2px solid #ff4c00;
     position: relative;
 }
 
 .close-modal {
-    position: absolute; right: 15px; top: 0; 
-    color: #fff; font-size: 40px; cursor: pointer;
+    position: absolute; 
+    right: 15px; 
+    top: 0; 
+    color: #fff; 
+    font-size: 40px; 
+    cursor: pointer;
 }
-
 
 #videoPlayerContainer iframe {
     width: 100%;
@@ -339,34 +330,50 @@ nav a i {
     }
     
     .title-glow {
-        font-size: 32px;
+        font-size: 28px;
     }
 }
 
 @media (max-width: 768px) {
+    .navbar {
+        padding: 10px 0;
+    }
+
     .container-header {
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 24px;
     }
 
     nav {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 15px;
+        gap: 8px;
     }
 
     nav a {
-        font-size: 14px;
-        padding: 8px 15px;
+        font-size: 11px;
+        padding: 6px 10px;
     }
 
     .title-glow {
-        font-size: 24px;
+        font-size: 20px;
         letter-spacing: 1px;
+        margin: 10px 0 8px;
+    }
+
+    .info-banner {
+        font-size: 12px;
+        padding: 8px 12px;
+        margin-bottom: 10px;
     }
 
     .scorebat-container {
-        padding: 15px;
+        padding: 8px;
+        margin-bottom: 20px;
     }
 
     #scorebatFrame {
@@ -375,23 +382,32 @@ nav a i {
 
     .features-grid {
         grid-template-columns: 1fr;
+        gap: 8px;
     }
 
-    .info-banner {
-        font-size: 14px;
-        padding: 12px 15px;
+    .feature-card {
+        padding: 10px;
     }
 }
 
-
 @media (max-width: 480px) {
     .logo {
-        font-size: 24px;
+        font-size: 20px;
+    }
+
+    nav a {
+        font-size: 10px;
+        padding: 5px 8px;
     }
 
     .title-glow {
-        font-size: 20px;
-        margin: 20px 0 15px;
+        font-size: 18px;
+        margin: 8px 0 6px;
+    }
+
+    .info-banner {
+        font-size: 11px;
+        padding: 6px 10px;
     }
 
     #scorebatFrame {
@@ -399,11 +415,9 @@ nav a i {
     }
 
     .scorebat-container {
-        padding: 10px;
+        padding: 6px;
     }
 }
-
-
 
 /* ========== SCROLL PERSONALIZADO ========== */
 ::-webkit-scrollbar {
@@ -422,12 +436,6 @@ nav a i {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
 }
-
-
-
-
-
-
 
 
 
