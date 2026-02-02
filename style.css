@@ -378,94 +378,82 @@ nav a:hover {
 /* ==========================================
    6. RESPONSIVIDADE MOBILE
    ========================================== */
+/* ==========================================
+   6. RESPONSIVIDADE MOBILE (AJUSTADA)
+   ========================================== */
 @media (max-width: 1100px) {
-    /* LAYOUT DE 3 COLUNAS VIRA 1 COLUNA */
+    /* Ajuste do Header */
+    header {
+        padding: 10px 0 !important;
+    }
+
+    .container-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 5px 10px !important;
+    }
+
+    .logo {
+        margin: 0 !important;
+        font-size: 24px !important;
+    }
+
+    /* FORÇA TODOS OS BOTÕES EM UMA LINHA SÓ (IGUAL TABELAS) */
+    nav {
+        display: flex !important; /* Remove o grid */
+        flex-direction: row !important;
+        flex-wrap: nowrap !important; /* Impede de pular linha */
+        justify-content: center !important;
+        gap: 5px !important; /* Espaço pequeno entre eles */
+        width: 100% !important;
+        overflow-x: auto; /* Permite deslizar se a tela for muito pequena */
+        padding: 5px 0;
+    }
+
+    /* Estilo dos botões: Pequenos, sem fundo cinza, apenas borda */
+    nav a, .btn-account {
+        background: transparent !important; /* Remove o fundo cinza da imagem */
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        padding: 6px 8px !important;
+        font-size: 10px !important;
+        border-radius: 4px !important;
+        white-space: nowrap !important; /* Não quebra o texto */
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        color: #fff !important;
+        flex: 1; /* Faz todos terem o mesmo tamanho aproximado */
+        justify-content: center;
+    }
+
+    /* Ajuste do Ticker de placares para não ocupar muito espaço */
+    .football-ticker {
+        padding: 5px 0 !important;
+    }
+
+    /* Ajuste do Layout da Loja */
     .main-wrapper { 
         display: flex;
         flex-direction: column;
-        max-width: 100%;
         padding: 0 10px;
     }
 
-    .main-content { 
-        order: 1; 
-        width: 100%;
-        margin-bottom: 30px;
+    .ff-grid, .money-grid {
+        grid-template-columns: repeat(2, 1fr); /* Mantém 2 cards de diamantes por linha */
+        gap: 10px;
     }
 
-    /* CARDS LATERAIS CENTRALIZADOS EM 2 COLUNAS */
-    .sidebar-promo { 
-        order: 2; 
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 15px;
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto 30px auto;
-        justify-items: center;
+    .sidebar-promo {
+        grid-template-columns: repeat(2, 1fr);
     }
-
-    .side-title {
-        grid-column: span 2;
-        margin-top: 10px;
-        font-size: 1.3rem;
-    }
-
-    /* AJUSTA OS CARDS PARA CABER BEM */
-    .glass-mini-card {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-    }
-
-    .glass-mini-card img {
-        height: 90px;
-    }
-
-    /* HEADER MOBILE - BOTÕES EM GRID 2x2 */
-    .container-header {
-        flex-direction: column;
-        gap: 12px;
-        padding: 15px 10px;
-    }
-
-    /* Ajuste para o Logo não ser esmagado */
-.logo {
-    flex-shrink: 0;
-    margin-right: 20px;
 }
 
-    nav {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        width: 100%;
-    }
-
-    nav a {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 10px 8px;
-        border-radius: 5px;
-        font-size: 11px;
-        text-align: center;
-        margin: 0;
-    }
-
-    .btn-live {
-        /* REMOVA o grid-column: span 2 e o width: 100% */
-        grid-column: auto !important; 
-        width: auto !important;
-        margin: 0 !important;
-    }
-
-    .hero-text h1 { 
-        font-size: 2.2rem; 
-    }
-
-    /* AJUSTA GRIDS DE DIAMANTES E OFERTAS */
-    .ff-grid, .money-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+/* Ajuste para telas muito pequenas (iPhone SE / Celulares antigos) */
+@media (max-width: 380px) {
+    nav a, .btn-account {
+        font-size: 9px !important;
+        padding: 5px 4px !important;
     }
 }
 
@@ -483,10 +471,7 @@ nav a:hover {
         font-size: 22px;
     }
     
-    nav a {
-        font-size: 10px;
-        padding: 8px 6px;
-    }
+    /*nav a {font-size: 10px; padding: 8px 6px;}*/
 }
 
 /* ==========================================
