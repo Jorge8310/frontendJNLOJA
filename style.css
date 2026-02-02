@@ -376,81 +376,44 @@ nav a:hover {
 }
 
 /* ==========================================
-   6. RESPONSIVIDADE MOBILE
+   6. RESPONSIVIDADE MOBILE (AJUSTADA)
    ========================================== */
 @media (max-width: 768px) {
     header {
         padding: 10px 0;
     }
 
-    /* LAYOUT DE 3 COLUNAS VIRA 1 COLUNA */
-    .main-wrapper { 
-        display: flex;
-        flex-direction: column;
-        max-width: 100%;
-        padding: 0 10px;
-    }
-
-    .main-content { 
-        order: 1; 
-        width: 100%;
-        margin-bottom: 30px;
-    }
-
-    /* CARDS LATERAIS CENTRALIZADOS EM 2 COLUNAS */
-    .sidebar-promo { 
-        order: 2; 
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 15px;
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto 30px auto;
-        justify-items: center;
-    }
-
-    .side-title {
-        grid-column: span 2;
-        margin-top: 10px;
-        font-size: 1.3rem;
-    }
-
-    .glass-mini-card {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-    }
-
-    .glass-mini-card img {
-        height: 90px;
-    }
-
-    /* HEADER MOBILE COMPACTO */
     .container-header {
-        flex-direction: column;
+        flex-direction: column; /* Mantém logo em cima e menu embaixo */
         gap: 10px;
-        padding: 0 10px;
+        padding: 5px 10px;
     }
 
     .logo {
         font-size: 24px;
-        flex-shrink: 0;
         margin-right: 0;
+        margin-bottom: 5px;
     }
 
+    /* Ajuste do Menu para ficar em linha e organizado */
     nav {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: row; /* Garante que fiquem lado a lado */
+        flex-wrap: wrap;     /* Permite quebrar linha se não couber, mas mantém alinhado */
         justify-content: center;
-        gap: 8px;
+        gap: 6px;            /* Espaçamento menor entre botões */
         width: 100%;
     }
 
-    nav a {
-        font-size: 11px;
-        padding: 6px 10px;
-        margin: 0;
+    /* Tamanho reduzido para TODOS os botões do nav no celular */
+    nav a, .btn-account {
+        font-size: 11px !important;
+        padding: 6px 10px !important;
+        margin: 0 !important;
+        min-width: auto !important; /* Impede que o botão ocupe a largura toda */
+        display: inline-flex !important;
+        align-items: center;
+        gap: 4px;
     }
 
     .btn-live {
@@ -458,14 +421,16 @@ nav a:hover {
         padding: 6px 10px !important;
     }
 
-    .hero-text h1 { 
-        font-size: 2.2rem; 
+    /* Ajuste das colunas da loja no celular */
+    .main-wrapper { 
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px;
     }
 
-    /* AJUSTA GRIDS DE DIAMANTES E OFERTAS */
     .ff-grid, .money-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        gap: 10px;
     }
 }
 
@@ -474,34 +439,14 @@ nav a:hover {
         font-size: 20px;
     }
 
-    nav a {
-        font-size: 10px;
-        padding: 5px 8px;
-    }
-
-    .btn-live {
+    /* Botões ainda menores para telas muito pequenas (iPhone SE, etc) */
+    nav a, .btn-account {
         font-size: 10px !important;
         padding: 5px 8px !important;
     }
-}
 
-@media (max-width: 500px) {
-    /* TELAS MUITO PEQUENAS - TUDO EM 1 COLUNA */
-    .sidebar-promo {
-        grid-template-columns: 1fr;
-    }
-    
-    .ff-grid, .money-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .container-header { 
-        flex-direction: column; 
-        gap: 10px; 
-    }
-    nav { 
-        flex-wrap: wrap; 
-        justify-content: center; 
+    nav {
+        gap: 4px;
     }
 }
 
