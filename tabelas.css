@@ -188,20 +188,63 @@ nav a:hover {
     background: #fff;
 }
 
-/* RESPONSIVIDADE */
+
 @media (max-width: 768px) {
+    
+
+  header {
+    padding: 10px 0;  /* MUDE de 15px para 10px */
+}
+
+.container-header {
+    gap: 10px;  /* MUDE de 15px para 10px */
+}
+
+.logo {
+    font-size: 24px;  /* MUDE de 28px ou 32px para 24px */
+}
+
+.title-glow {
+    font-size: 20px;  /* MUDE de 28px para 20px */
+    margin: 10px 0 8px;  /* MUDE de 30px 0 para 10px 0 8px */
+}
+
+nav {
+    gap: 8px;  /* MUDE de 15px para 8px */
+}
+
+nav a {
+    font-size: 11px;  /* MUDE de 12px para 11px */
+    padding: 6px 10px;  /* MUDE de 5px 10px para 6px 10px */
+}
+}
+
+
+/* RESPONSIVIDADE */
+@media (max-width: 480px) {
     .container-header {
         flex-direction: column;
         gap: 15px;
     }
-    .title-glow {
-        font-size: 28px;
-    }
-    nav a {
-        font-size: 12px;
-        padding: 5px 10px;
-    }
+
+    .logo {
+    font-size: 20px;  /* MUDE para 20px */
+}
+
+nav a {
+    font-size: 10px;  /* MUDE para 10px */
+    padding: 5px 8px;  /* MUDE para 5px 8px */
+}
+
+.title-glow {
+    font-size: 18px;  /* MUDE para 18px */
+    margin: 8px 0 6px;  /* MUDE para 8px 0 6px */
+}
+   
+   
     .main-player-container {
         width: 95%;
     }
 }
+
+
