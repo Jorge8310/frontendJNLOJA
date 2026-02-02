@@ -378,7 +378,7 @@ nav a:hover {
 
 
 /* ==========================================
-   6. RESPONSIVIDADE MOBILE (LAYOUT COM ANÚNCIOS DOS LADOS)
+   6. RESPONSIVIDADE MOBILE (LAYOUT COM 2 ANÚNCIOS DE CADA LADO)
    ========================================== */
 @media (max-width: 1100px) {
     header {
@@ -420,12 +420,12 @@ nav a:hover {
         color: #fff !important;
     }
 
-    /* --- LAYOUT MOBILE: ANÚNCIOS DOS LADOS + CARDS NO CENTRO --- */
+    /* --- LAYOUT MOBILE: 2 ANÚNCIOS DE CADA LADO + CARDS NO CENTRO --- */
     .main-wrapper { 
         display: grid !important;
-        grid-template-columns: 100px 1fr 100px !important; /* Anúncios laterais + centro */
-        grid-template-rows: auto auto !important;
-        gap: 10px !important;
+        grid-template-columns: 1fr 1fr 1fr !important; /* 3 colunas iguais */
+        grid-template-rows: auto !important;
+        gap: 8px !important;
         width: 100% !important;
         padding: 10px 5px !important;
         align-items: start !important;
@@ -434,29 +434,29 @@ nav a:hover {
     /* Conteúdo principal no centro */
     .main-content { 
         grid-column: 2 / 3 !important;
-        grid-row: 1 / 3 !important;
+        grid-row: 1 / 2 !important;
         width: 100% !important;
         margin: 0 !important;
-        padding: 15px 10px !important;
+        padding: 15px 8px !important;
     }
 
-    /* Sidebar esquerda - anúncios na vertical */
+    /* Sidebar esquerda - 2 anúncios na vertical */
     .sidebar-promo:first-of-type { 
         grid-column: 1 / 2 !important;
         grid-row: 1 / 2 !important;
         display: flex !important;
         flex-direction: column !important;
-        gap: 10px !important;
+        gap: 8px !important;
         width: 100% !important;
     }
 
-    /* Sidebar direita - anúncios na vertical */
+    /* Sidebar direita - 2 anúncios na vertical */
     .sidebar-promo:last-of-type { 
         grid-column: 3 / 4 !important;
         grid-row: 1 / 2 !important;
         display: flex !important;
         flex-direction: column !important;
-        gap: 10px !important;
+        gap: 8px !important;
         width: 100% !important;
     }
 
@@ -465,11 +465,11 @@ nav a:hover {
         display: none !important;
     }
 
-    /* CARDS LATERAIS COMPACTOS */
+    /* CARDS LATERAIS - 2 POR COLUNA */
     .glass-mini-card {
         width: 100% !important;
-        max-width: 100px !important;
-        padding: 8px !important;
+        max-width: 100% !important;
+        padding: 10px 5px !important;
         margin: 0 !important;
         background: rgba(15, 15, 15, 0.95) !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -477,13 +477,13 @@ nav a:hover {
 
     .glass-mini-card img {
         width: 100% !important;
-        height: 50px !important;
+        height: 60px !important;
         object-fit: contain !important;
         margin-bottom: 5px !important;
     }
 
     .glass-mini-card h4 {
-        font-size: 10px !important;
+        font-size: 11px !important;
         margin: 3px 0 !important;
     }
 
@@ -493,38 +493,46 @@ nav a:hover {
     }
 
     .glass-mini-card a {
-        font-size: 8px !important;
-        padding: 4px !important;
+        font-size: 9px !important;
+        padding: 5px !important;
     }
 
-    /* Grids de Diamantes - 2 colunas no centro */
+    /* Mostra apenas 2 cards por sidebar no mobile */
+    .sidebar-promo .glass-mini-card:nth-child(n+4) {
+        display: none !important;
+    }
+
+    /* Grids de Diamantes - 1 coluna no centro */
     .ff-grid, .money-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
     }
 
     .card-ff-neon, .money-card {
-        padding: 15px 10px !important;
+        padding: 18px 12px !important;
     }
 }
 
-/* AJUSTE PARA TELAS PEQUENAS (1 COLUNA DE CARDS) */
+/* AJUSTE PARA TELAS PEQUENAS */
 @media (max-width: 500px) {
     .main-wrapper {
-        grid-template-columns: 80px 1fr 80px !important; /* Anúncios mais estreitos */
+        grid-template-columns: 110px 1fr 110px !important;
     }
 
     .glass-mini-card {
-        max-width: 80px !important;
-        padding: 6px !important;
+        padding: 8px 4px !important;
     }
 
     .glass-mini-card img {
-        height: 40px !important;
+        height: 50px !important;
     }
 
-    .ff-grid, .money-grid {
-        grid-template-columns: 1fr !important; /* 1 coluna no centro */
+    .glass-mini-card h4 {
+        font-size: 10px !important;
+    }
+
+    .glass-mini-card p, .glass-mini-card a {
+        font-size: 8px !important;
     }
     
     .logo { font-size: 22px !important; }
@@ -538,16 +546,23 @@ nav a:hover {
 /* AJUSTE FINO PARA TELAS MUITO PEQUENAS (ATÉ 380px) */
 @media (max-width: 380px) {
     .main-wrapper {
-        grid-template-columns: 70px 1fr 70px !important;
+        grid-template-columns: 100px 1fr 100px !important;
     }
 
     .glass-mini-card {
-        max-width: 70px !important;
-        padding: 4px !important;
+        padding: 6px 3px !important;
     }
 
     .glass-mini-card img {
-        height: 35px !important;
+        height: 45px !important;
+    }
+
+    .glass-mini-card h4 {
+        font-size: 9px !important;
+    }
+
+    .glass-mini-card p, .glass-mini-card a {
+        font-size: 7px !important;
     }
 
     nav a, .btn-account {
