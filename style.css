@@ -378,7 +378,11 @@ nav a:hover {
 /* ==========================================
    6. RESPONSIVIDADE MOBILE
    ========================================== */
-@media (max-width: 1100px) {
+@media (max-width: 768px) {
+    header {
+        padding: 10px 0;
+    }
+
     /* LAYOUT DE 3 COLUNAS VIRA 1 COLUNA */
     .main-wrapper { 
         display: flex;
@@ -411,7 +415,6 @@ nav a:hover {
         font-size: 1.3rem;
     }
 
-    /* AJUSTA OS CARDS PARA CABER BEM */
     .glass-mini-card {
         width: 100%;
         max-width: 100%;
@@ -422,40 +425,37 @@ nav a:hover {
         height: 90px;
     }
 
-    /* HEADER MOBILE - BOTÕES EM GRID 2x2 */
+    /* HEADER MOBILE COMPACTO */
     .container-header {
         flex-direction: column;
-        gap: 12px;
-        padding: 15px 10px;
+        gap: 10px;
+        padding: 0 10px;
     }
 
-    /* Ajuste para o Logo não ser esmagado */
-.logo {
-    flex-shrink: 0;
-    margin-right: 20px;
-}
+    .logo {
+        font-size: 24px;
+        flex-shrink: 0;
+        margin-right: 0;
+    }
 
     nav {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 8px;
         width: 100%;
     }
 
     nav a {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 10px 8px;
-        border-radius: 5px;
         font-size: 11px;
-        text-align: center;
+        padding: 6px 10px;
         margin: 0;
     }
 
     .btn-live {
-        /* REMOVA o grid-column: span 2 e o width: 100% */
-        grid-column: auto !important; 
-        width: auto !important;
-        margin: 0 !important;
+        font-size: 11px !important;
+        padding: 6px 10px !important;
     }
 
     .hero-text h1 { 
@@ -469,6 +469,22 @@ nav a:hover {
     }
 }
 
+@media (max-width: 480px) {
+    .logo {
+        font-size: 20px;
+    }
+
+    nav a {
+        font-size: 10px;
+        padding: 5px 8px;
+    }
+
+    .btn-live {
+        font-size: 10px !important;
+        padding: 5px 8px !important;
+    }
+}
+
 @media (max-width: 500px) {
     /* TELAS MUITO PEQUENAS - TUDO EM 1 COLUNA */
     .sidebar-promo {
@@ -479,13 +495,13 @@ nav a:hover {
         grid-template-columns: 1fr;
     }
 
-    .logo {
-        font-size: 22px;
+    .container-header { 
+        flex-direction: column; 
+        gap: 10px; 
     }
-    
-    nav a {
-        font-size: 10px;
-        padding: 8px 6px;
+    nav { 
+        flex-wrap: wrap; 
+        justify-content: center; 
     }
 }
 
