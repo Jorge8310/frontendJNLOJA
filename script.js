@@ -6,6 +6,42 @@ const API_URL = "https://jnloja.onrender.com/api";
 let userLogado = JSON.parse(localStorage.getItem('jnloja_user')) || null;
 let checkInterval;
 
+
+// ==========================================
+// 1. FUNDO DINÂMICO (SLIDER)
+// ==========================================
+
+// LISTA DE IMAGENS (JNLOJA ELITE)
+const imagens = [
+    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1600&auto=format&fit=crop', 
+    'view-soccer-ball-field.jpg',
+    'Fire.jpg',
+    '1387781.jpg',
+    'free-fire-pictures-igbg9v8vem3du5h4.jpg',
+    'free-fire-pictures-vv8phwlmkhz0ty43.jpg'
+];
+
+let idx = 0;
+function mudarFundo() {
+    const bg = document.querySelector('.game-wallpaper');
+    if (bg) {
+        // Aplica a imagem IMEDIATAMENTE
+        bg.style.backgroundImage = "url('" + imagens[idx] + "')";
+        
+        // Prepara o próximo índice
+        idx = (idx + 1) % imagens.length;
+        console.log("Fundo trocado para imagem: " + idx);
+    } else {
+        console.error("ERRO: Não encontrei a div .game-wallpaper no HTML!");
+    }
+}
+
+// Rodar assim que o script carregar
+mudarFundo();
+
+// Iniciar o cronômetro de 7 segundos
+setInterval(mudarFundo, 7000);
+
 // ==========================================
 // RECUPERAÇÃO DE SENHA
 // ==========================================
@@ -145,43 +181,6 @@ function validarWhatsApp(input) {
 }
 
 // ==========================================
-// 1. FUNDO DINÂMICO (SLIDER)
-// ==========================================
-
-// LISTA DE IMAGENS (JNLOJA ELITE)
-const imagens = [
-    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1600&auto=format&fit=crop', 
-    'view-soccer-ball-field.jpg',
-    'Fire.jpg',
-    '1387781.jpg',
-    'free-fire-pictures-igbg9v8vem3du5h4.jpg',
-    'free-fire-pictures-vv8phwlmkhz0ty43.jpg'
-];
-
-let idx = 0;
-function mudarFundo() {
-    const bg = document.querySelector('.game-wallpaper');
-    if (bg) {
-        // Aplica a imagem IMEDIATAMENTE
-        bg.style.backgroundImage = "url('" + imagens[idx] + "')";
-        
-        // Prepara o próximo índice
-        idx = (idx + 1) % imagens.length;
-        console.log("Fundo trocado para imagem: " + idx);
-    } else {
-        console.error("ERRO: Não encontrei a div .game-wallpaper no HTML!");
-    }
-}
-
-// Rodar assim que o script carregar
-mudarFundo();
-
-// Iniciar o cronômetro de 7 segundos
-setInterval(mudarFundo, 7000);
-
-
-
-// ==========================================
 // 2. CONTROLE DE INTERFACE (MODAIS E UI)
 // ==========================================
 function closeModal(id) {
@@ -253,6 +252,8 @@ async function registrarCliente() {
         const data = await res.json();
         
         if (data.success) {
+            alert("📧 Enviamos um e-mail de confirmação! Acesse sua caixa de entrada para ativar sua conta.");
+            closeModal('accountModal'); // Fecha o modal
             alert("✅ Cadastro realizado! Agora você já pode entrar.");
             toggleForm();
         } else {
@@ -261,6 +262,9 @@ async function registrarCliente() {
         }
     } catch (e) { alert("❌ Erro de conexão com o servidor."); }
 }
+
+
+
 
 // ==========================================
 // SISTEMA ADMIN
@@ -559,8 +563,18 @@ function atualizarBotaoConta() {
 }
 
 // Chamar a função sempre que a página carregar
-document.addEventListener('DOMContentLoaded', atualizarBotaoConta);
-
+// Isso executa assim que o site abre
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Atualiza o botão da conta (você já tem isso)
+    atualizarBotaoConta();
+    // 2. VERIFICAÇÃO DE E-MAIL (O código que você perguntou)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('verified') === 'true') {
+        alert("✅ Conta ativada com sucesso! Você já pode fazer login.");
+        // Isso limpa o "?verified=true" da barra de endereço para não repetir o alerta se ele atualizar a página
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});
 
 
 console.log("✅ Script JNLOJA v3.0 carregado com sucesso!");
