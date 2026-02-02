@@ -251,16 +251,20 @@ async function registrarCliente() {
         });
         const data = await res.json();
         
-        if (data.success) {
-            alert("📧 Enviamos um e-mail de confirmação! Acesse sua caixa de entrada para ativar sua conta.");
-            closeModal('accountModal'); // Fecha o modal
-            alert("✅ Cadastro realizado! Agora você já pode entrar.");
-            toggleForm();
-        } else {
-            // Aqui ele avisa se o e-mail já existir (conforme a função que fizemos no server.js)
-            alert("⚠️ " + (data.error || "Este e-mail já está sendo usado!"));
-        }
-    } catch (e) { alert("❌ Erro de conexão com o servidor."); }
+       if (data.success) {
+    // Alerta principal informando sobre o e-mail
+    alert("📧 REGISTRO QUASE PRONTO!\n\nEnviamos um link de confirmação para o seu e-mail. Você precisa clicar nele para ativar sua conta antes de fazer login.");
+    
+    closeModal('accountModal'); // Fecha o modal de registro
+    
+    // Opcional: Limpar os campos do formulário
+    document.getElementById('regName').value = "";
+    document.getElementById('regEmail').value = "";
+    document.getElementById('regPass').value = "";
+     } else {
+      alert("⚠️ " + (data.error || "Este e-mail já está sendo usado!"));
+    }
+   } catch (e) { alert("❌ Erro de conexão com o servidor."); }
 }
 
 
