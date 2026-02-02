@@ -137,6 +137,7 @@ async function salvarNovaSenha() {
 }
 */
 
+/*
 // Procure por esta parte no seu script.js e deixe assim:
 async function salvarNovaSenha() {
     // ... (seu código de validação de senha)
@@ -159,7 +160,41 @@ async function salvarNovaSenha() {
         alert("Erro ao salvar."); 
     }
 }
+*/
 
+async function salvarNovaSenha() {
+    const newPassword = document.getElementById('newPass').value;
+    const confirm = document.getElementById('confirmPass').value;
+    
+    // CAPTURA O TOKEN DO LINK (Importante!)
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    // Validações básicas
+    if (!token) return alert("❌ Token inválido ou expirado!");
+    if (newPassword.length < 6) return alert("❌ Mínimo 6 caracteres");
+    if (newPassword !== confirm) return alert("❌ As senhas não conferem!");
+
+    try {
+        const res = await fetch(API_URL + "/reset-password", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ token, newPassword })
+        });
+        
+        const data = await res.json();
+        
+        if (res.ok) {
+            // REDIRECIONA COM SUCESSO
+            window.location.href = "index.html?reset=success"; 
+        } else { 
+            alert("⚠️ " + (data.error || "Erro ao salvar senha")); 
+        }
+    } catch (e) { 
+        console.error(e);
+        alert("❌ Erro de conexão com o servidor."); 
+    }
+}
 
 
 // VER SENHA
@@ -595,25 +630,23 @@ function atualizarBotaoConta() {
 
 // Chamar a função sempre que a página carregar
 
-// Substitua o seu bloco final por este:
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Atualiza o botão da conta
     atualizarBotaoConta();
 
-    // Pega os avisos na URL (link)
     const urlParams = new URLSearchParams(window.location.search);
 
-    // CASO 1: VEIO DA VERIFICAÇÃO DE E-MAIL
-    if (urlParams.get('verified') === 'true') {
-        alert("✅ Conta ativada com sucesso! Faça login agora.");
-        document.getElementById('accountModal').style.display = 'block'; // ABRE A JANELA DE LOGIN
+    // Se detectar o reset=success, abre o login na hora!
+    if (urlParams.get('reset') === 'success') {
+        // Abre o modal de login automaticamente
+        document.getElementById('accountModal').style.display = 'block';
+        
+        // Limpa a URL para não ficar aparecendo o aviso se ele der F5
         window.history.replaceState({}, document.title, window.location.pathname);
     }
-
-    // CASO 2: VEIO DA REDEFINIÇÃO DE SENHA
-    if (urlParams.get('reset') === 'success') {
-        alert("✅ Senha alterada com sucesso! Faça login com sua nova senha.");
-        document.getElementById('accountModal').style.display = 'block'; // ABRE A JANELA DE LOGIN
+    
+    // Verificação de e-mail (que você já tinha)
+    if (urlParams.get('verified') === 'true') {
+        document.getElementById('accountModal').style.display = 'block';
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
