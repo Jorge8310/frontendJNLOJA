@@ -376,15 +376,26 @@ nav a:hover {
 }
 
 
-   
-/* ==========================================
-   6. RESPONSIVIDADE MOBILE (COMPLETA E ORDENADA)
-   ========================================== */
 
-/* 1. CONFIGURAÇÃO GERAL PARA CELULARES (ATÉ 1100px) */
+/* ==========================================
+   6. RESPONSIVIDADE MOBILE (CENTRALIZAÇÃO TOTAL)
+   ========================================== */
 @media (max-width: 1100px) {
-    header { padding: 10px 0 !important; }
-    .container-header { flex-direction: column !important; align-items: center !important; gap: 12px !important; }
+    header {
+        padding: 10px 0 !important;
+    }
+
+    .container-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 5px 10px !important;
+    }
+
+    .logo {
+        margin: 0 !important;
+        font-size: 24px !important;
+    }
 
     /* BOTÕES EM UMA LINHA SÓ */
     nav {
@@ -394,49 +405,92 @@ nav a:hover {
         justify-content: center !important;
         gap: 4px !important;
         width: 100% !important;
+        padding: 5px 0;
     }
+
     nav a, .btn-account {
         background: transparent !important;
         border: 1px solid rgba(255, 255, 255, 0.3) !important;
         padding: 6px 4px !important;
-        font-size: 10px !important;
+        font-size: 9px !important;
         border-radius: 4px !important;
         white-space: nowrap !important;
         flex: 1;
         justify-content: center;
+        color: #fff !important;
     }
 
-    /* --- ORGANIZAÇÃO: LOJA NO TOPO, ANÚNCIOS EMBAIXO --- */
+    /* --- ORGANIZAÇÃO E CENTRALIZAÇÃO DO CONTEÚDO --- */
     .main-wrapper { 
         display: flex !important;
         flex-direction: column !important; 
-    }
-    .main-content { 
-        order: 1 !important; /* LOJA PRIMEIRO */
+        align-items: center !important; /* CENTRALIZA OS BLOCOS PRINCIPAIS */
         width: 100% !important;
-    }
-    .sidebar-promo { 
-        order: 2 !important; /* ANÚNCIOS DEPOIS */
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important; 
-        gap: 10px !important;
+        padding: 0 15px !important;
     }
 
-    /* Cards de Diamantes em 2 colunas */
+    .main-content { 
+        order: 1 !important; 
+        width: 100% !important;
+        margin-bottom: 40px !important;
+    }
+
+    /* CENTRALIZA AS LATERAIS (AMAZON, ML, ETC) */
+    .sidebar-promo { 
+        order: 2 !important; 
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important; /* CENTRALIZA OS CARDS INDIVIDUAIS */
+        gap: 20px !important;
+        margin-bottom: 30px !important;
+    }
+
+    .side-title {
+        width: 100% !important;
+        text-align: center !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* AJUSTE DOS CARDS PARA FICAREM BONITOS E CENTRALIZADOS */
+    .glass-mini-card {
+        width: 100% !important;
+        max-width: 340px !important; /* Impede que fiquem largos demais */
+        margin: 0 auto !important; /* Garante centralização extra */
+        padding: 20px !important;
+        background: rgba(15, 15, 15, 0.95) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .glass-mini-card img {
+        width: auto !important;
+        height: 100px !important;
+        max-width: 100% !important;
+        object-fit: contain !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* Grids de Diamantes e Produtos */
     .ff-grid, .money-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
+        gap: 12px !important;
     }
 }
 
-/* 2. AJUSTE PARA TELAS MÉDIAS/PEQUENAS (ATÉ 500px) */
+/* AJUSTE PARA TELAS PEQUENAS (CARDS EM 1 COLUNA) */
 @media (max-width: 500px) {
-    /* Transforma diamantes e anúncios em 1 coluna para não esmagar */
-    .ff-grid, .money-grid, .sidebar-promo {
+    .ff-grid, .money-grid {
         grid-template-columns: 1fr !important;
     }
+    
+    .logo { font-size: 22px !important; }
+    
     nav a, .btn-account {
-        font-size: 9px !important; /* Diminui um pouco a letra */
+        font-size: 8.5px !important;
+        padding: 5px 2px !important;
     }
 }
 
