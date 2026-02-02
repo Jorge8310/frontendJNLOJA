@@ -109,6 +109,7 @@ async function enviarEmailRecuperacao() {
     }
 }
 
+/*
 // Salvar a nova senha (usada na página resetar-senha.html)
 async function salvarNovaSenha() {
     const newPassword = document.getElementById('newPass').value;
@@ -134,6 +135,32 @@ async function salvarNovaSenha() {
         } else { alert(data.error); }
     } catch (e) { alert("Erro ao salvar."); }
 }
+*/
+
+// Procure por esta parte no seu script.js e deixe assim:
+async function salvarNovaSenha() {
+    // ... (seu código de validação de senha)
+
+    try {
+        const res = await fetch(API_URL + "/reset-password", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ token, newPassword })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+            // MUDANÇA AQUI: Redireciona com o parâmetro ?reset=success
+            window.location.href = "index.html?reset=success"; 
+        } else { 
+            alert(data.error); 
+        }
+    } catch (e) { 
+        alert("Erro ao salvar."); 
+    }
+}
+
+
 
 // VER SENHA
 function verSenha(idInput, icone) {
@@ -567,18 +594,28 @@ function atualizarBotaoConta() {
 }
 
 // Chamar a função sempre que a página carregar
-// Isso executa assim que o site abre
+
+// Substitua o seu bloco final por este:
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Atualiza o botão da conta (você já tem isso)
+    // 1. Atualiza o botão da conta
     atualizarBotaoConta();
-    // 2. VERIFICAÇÃO DE E-MAIL (O código que você perguntou)
+
+    // Pega os avisos na URL (link)
     const urlParams = new URLSearchParams(window.location.search);
+
+    // CASO 1: VEIO DA VERIFICAÇÃO DE E-MAIL
     if (urlParams.get('verified') === 'true') {
-        alert("✅ Conta ativada com sucesso! Você já pode fazer login.");
-        // Isso limpa o "?verified=true" da barra de endereço para não repetir o alerta se ele atualizar a página
+        alert("✅ Conta ativada com sucesso! Faça login agora.");
+        document.getElementById('accountModal').style.display = 'block'; // ABRE A JANELA DE LOGIN
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // CASO 2: VEIO DA REDEFINIÇÃO DE SENHA
+    if (urlParams.get('reset') === 'success') {
+        alert("✅ Senha alterada com sucesso! Faça login com sua nova senha.");
+        document.getElementById('accountModal').style.display = 'block'; // ABRE A JANELA DE LOGIN
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
-
 
 console.log("✅ Script JNLOJA v3.0 carregado com sucesso!");
