@@ -1,4 +1,3 @@
-
 const API_URL = "https://jnloja.onrender.com/api";
 let userLogado = JSON.parse(localStorage.getItem('jnloja_user')) || null;
 
@@ -34,9 +33,10 @@ function mostrarAba(nomeAba, event) {
     if (nomeAba === 'clientes') carregarClientes();
     if (nomeAba === 'codigos') carregarCodigos();
     if (nomeAba === 'pagamentos') carregarPagamentos();
-    if (nomeAba === 'livros') carregarLivrosAdmin(); // <-- ADICIONE ESTA LINHA
+    if (nomeAba === 'livros') carregarLivrosAdmin();
 }
-// --- FUNÇÕES DE CARREGAMENTO (AJUSTADAS) ---
+
+// --- FUNÇÕES DE CARREGAMENTO ---
 async function carregarStats() {
     try {
         const [clientes, codigos] = await Promise.all([
@@ -49,20 +49,28 @@ async function carregarStats() {
     } catch (e) { console.error(e); }
 }
 
-
-// ATUALIZE A FUNÇÃO DE CARREGAR CLIENTES
+// CARREGAR CLIENTES COM COLUNA ID FREE FIRE
 async function carregarClientes() {
     const container = document.getElementById('lista-clientes');
     try {
         const res = await fetch(`${API_URL}/admin/customers?adminEmail=${userLogado.email}`);
         const clientes = await res.json();
+        
         let html = `<table class="admin-table">
-            <thead><tr><th>Nome</th><th>E-mail</th><th>Ação</th></tr></thead><tbody>`;
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>ID Free Fire</th>
+                    <th>Ação</th>
+                </tr>
+            </thead><tbody>`;
         
         clientes.forEach(c => {
             html += `<tr>
                 <td>${c.name}</td>
                 <td>${c.email}</td>
+                <td style="color: #00f2ff; font-weight: bold;">${c.freeFireId || '—'}</td>
                 <td>
                     <button onclick="deletarCliente('${c._id}')" class="btn-delete">
                         <i class="fas fa-trash"></i>
@@ -70,18 +78,20 @@ async function carregarClientes() {
                 </td>
             </tr>`;
         });
+        
         container.innerHTML = html + `</tbody></table>`;
-    } catch (e) { container.innerHTML = "Erro ao carregar clientes."; }
+    } catch (e) { 
+        container.innerHTML = "Erro ao carregar clientes."; 
+    }
 }
 
-// ATUALIZE A FUNÇÃO DE CARREGAR CÓDIGOS
+// CARREGAR CÓDIGOS
 async function carregarCodigos() {
     const container = document.getElementById('lista-codigos');
     try {
         const res = await fetch(`${API_URL}/admin/pins?adminEmail=${userLogado.email}`);
         const pins = await res.json();
         
-        // Filtra para mostrar apenas os códigos disponíveis no estoque
         const disponiveis = pins.filter(p => !p.isUsed);
 
         let html = `<table class="admin-table">
@@ -111,70 +121,15 @@ async function carregarCodigos() {
     }
 }
 
-
-/*
-// ATUALIZE A FUNÇÃO DE CARREGAR CÓDIGOS
-async function carregarCodigos() {
-    const container = document.getElementById('lista-codigos');
-    try {
-        const res = await fetch(`${API_URL}/admin/pins?adminEmail=${userLogado.email}`);
-        const pins = await res.json();
-        
-        // FILTRO: Pega apenas os que NÃO foram usados
-        const disponiveis = pins.filter(p => !p.isUsed);
-
-        let html = `<table class="admin-table">
-            <thead><tr><th>Código</th><th>Valor</th><th>Ação</th></tr></thead><tbody>`;
-        
-        disponiveis.forEach(p => {
-            html += `<tr>
-                <td>${p.code}</td>
-                <td>R$ ${p.amount}</td>
-                <td>
-                    <button onclick="deletarPin('${p._id}')" class="btn-delete"><i class="fas fa-trash"></i></button>
-                </td>
-            </tr>`;
-        });
-        container.innerHTML = html + `</tbody></table>`;
-    } catch (e) { container.innerHTML = "Erro ao carregar estoque."; }
-}
-*/
-
-/*
-// Adicionar código
+// ADICIONAR CÓDIGO
 async function adicionarCodigo() {
-    const code = document.getElementById('newCode').value;
-    const amount = document.getElementById('newAmount').value;
-    if(!code || !amount) return alert("Preencha tudo!");
-
-    try {
-        const res = await fetch(`${API_URL}/admin/add-pin`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ adminEmail: userLogado.email, code, amount })
-        });
-        const data = await res.json();
-        if(data.success) {
-            alert("✅ Adicionado!");
-            document.getElementById('newCode').value = "";
-            carregarStats();
-        }
-    } catch (e) { alert("Erro ao salvar."); }
-}
-*/
-
-// Adicionar código
-async function adicionarCodigo() {
-    // 1. Pega os valores dos campos
     const category = document.getElementById('newCategory').value;
     const code = document.getElementById('newCode').value;
     const amount = document.getElementById('newAmount').value;
 
-    // 2. Validação simples
     if(!code || !amount) return alert("Por favor, preencha o código e o valor!");
 
     try {
-        // 3. Envia para a API (URL que você já configurou)
         const res = await fetch(`${API_URL}/admin/add-pin`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -182,7 +137,7 @@ async function adicionarCodigo() {
                 adminEmail: userLogado.email, 
                 code, 
                 amount,
-                category // 👈 Enviando a categoria selecionada
+                category
             })
         });
 
@@ -190,9 +145,8 @@ async function adicionarCodigo() {
 
         if(data.success) {
             alert(`✅ Sucesso: PIN de ${category.toUpperCase()} salvo!`);
-            // Limpa o campo de código para o próximo
             document.getElementById('newCode').value = "";
-            carregarStats(); // Atualiza os números no topo do painel
+            carregarStats();
         } else {
             alert("Erro ao salvar: " + data.error);
         }
@@ -201,8 +155,7 @@ async function adicionarCodigo() {
     }
 }
 
-// --- NOVAS FUNÇÕES DE EXCLUSÃO ---
-
+// DELETAR CLIENTE
 async function deletarCliente(id) {
     if (!confirm("⚠️ ATENÇÃO: Deseja realmente excluir este cliente do banco de dados?")) return;
     try {
@@ -212,12 +165,13 @@ async function deletarCliente(id) {
         const data = await res.json();
         if (data.success) {
             alert("✅ Cliente excluído!");
-            carregarClientes(); // Recarrega a lista
-            carregarStats();    // Atualiza os números no topo
+            carregarClientes();
+            carregarStats();
         }
     } catch (e) { alert("Erro ao excluir."); }
 }
 
+// DELETAR PIN
 async function deletarPin(id) {
     if (!confirm("⚠️ Deseja remover este código do estoque?")) return;
     try {
@@ -227,12 +181,13 @@ async function deletarPin(id) {
         const data = await res.json();
         if (data.success) {
             alert("✅ PIN removido!");
-            carregarCodigos(); // Recarrega a lista
-            carregarStats();   // Atualiza os números no topo
+            carregarCodigos();
+            carregarStats();
         }
     } catch (e) { alert("Erro ao excluir."); }
 }
 
+// CARREGAR PAGAMENTOS
 async function carregarPagamentos() {
     const container = document.getElementById('lista-pagamentos');
     try {
@@ -244,6 +199,7 @@ async function carregarPagamentos() {
                 <tr>
                     <th>Data</th>
                     <th>Cliente</th>
+                    <th>Produto</th>
                     <th>Valor</th>
                     <th>Código Entregue</th>
                 </tr>
@@ -251,9 +207,12 @@ async function carregarPagamentos() {
         
         vendas.forEach(v => {
             const dataBr = new Date(v.createdAt).toLocaleString('pt-BR');
+            const produto = v.category ? v.category.toUpperCase() : 'FREEFIRE';
+            
             html += `<tr>
                 <td>${dataBr}</td>
                 <td>${v.customerEmail}</td>
+                <td style="color: var(--secondary); font-weight: bold;">${produto}</td>
                 <td>R$ ${v.amount}</td>
                 <td style="color: #00f2ff; font-weight: bold;">${v.codigoEntregue}</td>
             </tr>`;
@@ -318,12 +277,11 @@ async function adicionarLivro() {
         const data = await res.json();
         if(data.success) {
             alert("📚 Livro adicionado com sucesso!");
-            // Limpa os campos
             document.getElementById('bookTitle').value = "";
             document.getElementById('bookAuthor').value = "";
             document.getElementById('bookCover').value = "";
             document.getElementById('bookMega').value = "";
-            carregarLivrosAdmin(); // Recarrega a tabela
+            carregarLivrosAdmin();
         } else {
             alert("Erro: " + data.error);
         }
@@ -347,6 +305,3 @@ async function deletarLivro(id) {
 // Iniciar
 carregarStats();
 carregarClientes();
-
-
-

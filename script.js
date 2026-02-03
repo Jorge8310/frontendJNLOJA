@@ -11,7 +11,6 @@ let checkInterval;
 // 1. FUNDO DINÂMICO (SLIDER)
 // ==========================================
 
-// LISTA DE IMAGENS (JNLOJA ELITE)
 const imagens = [
     'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1600&auto=format&fit=crop', 
     'view-soccer-ball-field.jpg',
@@ -25,10 +24,7 @@ let idx = 0;
 function mudarFundo() {
     const bg = document.querySelector('.game-wallpaper');
     if (bg) {
-        // Aplica a imagem IMEDIATAMENTE
         bg.style.backgroundImage = "url('" + imagens[idx] + "')";
-        
-        // Prepara o próximo índice
         idx = (idx + 1) % imagens.length;
         console.log("Fundo trocado para imagem: " + idx);
     } else {
@@ -36,24 +32,18 @@ function mudarFundo() {
     }
 }
 
-// Rodar assim que o script carregar
 mudarFundo();
-
-// Iniciar o cronômetro de 7 segundos
 setInterval(mudarFundo, 7000);
 
 // ==========================================
 // RECUPERAÇÃO DE SENHA
 // ==========================================
 
-// Abre o modal de esqueci senha
 function abrirEsqueciSenha() {
     closeModal('accountModal');
     document.getElementById('forgotModal').style.display = 'block';
 }
 
-// Enviar e-mail de recuperação
- //Envia o pedido para o servidor Node.js
 async function enviarEmailRecuperacao() {
     const emailInput = document.getElementById('forgotEmail');
     const email = emailInput.value.trim().toLowerCase();
@@ -109,68 +99,13 @@ async function enviarEmailRecuperacao() {
     }
 }
 
-/*
-// Salvar a nova senha (usada na página resetar-senha.html)
 async function salvarNovaSenha() {
     const newPassword = document.getElementById('newPass').value;
     const confirm = document.getElementById('confirmPass').value;
     
-    // Pega o token que está no link da barra de endereços
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
 
-    if (newPassword.length < 6) return alert("Mínimo 6 caracteres");
-    if (newPassword !== confirm) return alert("Senhas não conferem!");
-
-    try {
-        const res = await fetch(API_URL + "/reset-password", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ token, newPassword })
-        });
-        const data = await res.json();
-        if (res.ok) {
-            alert("✅ Senha alterada! Faça login agora.");
-            window.location.href = "index.html";
-        } else { alert(data.error); }
-    } catch (e) { alert("Erro ao salvar."); }
-}
-*/
-
-/*
-// Procure por esta parte no seu script.js e deixe assim:
-async function salvarNovaSenha() {
-    // ... (seu código de validação de senha)
-
-    try {
-        const res = await fetch(API_URL + "/reset-password", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ token, newPassword })
-        });
-        const data = await res.json();
-        
-        if (res.ok) {
-            // MUDANÇA AQUI: Redireciona com o parâmetro ?reset=success
-            window.location.href = "index.html?reset=success"; 
-        } else { 
-            alert(data.error); 
-        }
-    } catch (e) { 
-        alert("Erro ao salvar."); 
-    }
-}
-*/
-
-async function salvarNovaSenha() {
-    const newPassword = document.getElementById('newPass').value;
-    const confirm = document.getElementById('confirmPass').value;
-    
-    // CAPTURA O TOKEN DO LINK (Importante!)
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-
-    // Validações básicas
     if (!token) return alert("❌ Token inválido ou expirado!");
     if (newPassword.length < 6) return alert("❌ Mínimo 6 caracteres");
     if (newPassword !== confirm) return alert("❌ As senhas não conferem!");
@@ -185,7 +120,6 @@ async function salvarNovaSenha() {
         const data = await res.json();
         
         if (res.ok) {
-            // REDIRECIONA COM SUCESSO
             window.location.href = "index.html?reset=success"; 
         } else { 
             alert("⚠️ " + (data.error || "Erro ao salvar senha")); 
@@ -196,8 +130,6 @@ async function salvarNovaSenha() {
     }
 }
 
-
-// VER SENHA
 function verSenha(idInput, icone) {
     const input = document.getElementById(idInput);
     
@@ -220,12 +152,10 @@ function verSenha(idInput, icone) {
 // VALIDAÇÃO EM TEMPO REAL DOS CAMPOS
 // ==========================================
 
-// Validar NOME: apenas letras e espaços
 function validarNome(input) {
     input.value = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '');
 }
 
-// Validar WHATSAPP: apenas números com formatação
 function validarWhatsApp(input) {
     let valor = input.value.replace(/\D/g, '');
     
@@ -245,6 +175,7 @@ function validarWhatsApp(input) {
 // ==========================================
 // 2. CONTROLE DE INTERFACE (MODAIS E UI)
 // ==========================================
+
 function closeModal(id) {
     const modal = document.getElementById(id);
     if (modal) modal.style.display = 'none';
@@ -259,11 +190,9 @@ function toggleForm() {
     }
 }
 
-// Atualiza o ano no footer
 const elAno = document.getElementById('ano');
 if (elAno) elAno.textContent = new Date().getFullYear();
 
-// Timer de Ofertas
 let tempoTotal = 86400;
 const elCountdown = document.getElementById('countdown');
 if (elCountdown) {
@@ -274,26 +203,22 @@ if (elCountdown) {
     }, 1000);
 }
 
-
 // ==========================================
 // 3. SISTEMA DE USUÁRIO (CADASTRO / LOGIN)
 // ==========================================
+
 async function registrarCliente() {
     const name = document.getElementById('regName').value.trim();
     const email = document.getElementById('regEmail').value.trim().toLowerCase();
     const whatsapp = document.getElementById('regWhatsapp').value.trim();
     const password = document.getElementById('regPass').value;
 
-    // --- VALIDAÇÕES ---
-    // 1. Validar Nome: Apenas letras e espaços
     const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
     if (name.length < 3 || !regexNome.test(name)) return alert("❌ Digite um nome válido (apenas letras).");
 
-    // 2. Validar E-mail: Formato padrão
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regexEmail.test(email)) return alert("❌ Digite um e-mail válido (exemplo@email.com).");
 
-    // 3. Validar WhatsApp (OPCIONAL)
     let zapLimpo = "";
     if (whatsapp !== "") {
         zapLimpo = whatsapp.replace(/\D/g, ''); 
@@ -302,7 +227,6 @@ async function registrarCliente() {
         }
     }
 
-    // 4. Validar Senha
     if (password.length < 6) return alert("❌ A senha deve ter pelo menos 6 caracteres.");
 
     try {
@@ -313,24 +237,19 @@ async function registrarCliente() {
         });
         const data = await res.json();
         
-       if (data.success) {
-    // Alerta principal informando sobre o e-mail
-    alert("📧 REGISTRO QUASE PRONTO!\n\nEnviamos um link de confirmação para o seu e-mail. Você precisa clicar nele para ativar sua conta antes de fazer login.");
-    
-    closeModal('accountModal'); // Fecha o modal de registro
-    
-    // Opcional: Limpar os campos do formulário
-    document.getElementById('regName').value = "";
-    document.getElementById('regEmail').value = "";
-    document.getElementById('regPass').value = "";
-     } else {
-      alert("⚠️ " + (data.error || "Este e-mail já está sendo usado!"));
+        if (data.success) {
+            alert("📧 REGISTRO QUASE PRONTO!\n\nEnviamos um link de confirmação para o seu e-mail. Você precisa clicar nele para ativar sua conta antes de fazer login.");
+            closeModal('accountModal');
+            document.getElementById('regName').value = "";
+            document.getElementById('regEmail').value = "";
+            document.getElementById('regPass').value = "";
+        } else {
+            alert("⚠️ " + (data.error || "Este e-mail já está sendo usado!"));
+        }
+    } catch (e) { 
+        alert("❌ Erro de conexão com o servidor."); 
     }
-   } catch (e) { alert("❌ Erro de conexão com o servidor."); }
 }
-
-
-
 
 // ==========================================
 // SISTEMA ADMIN
@@ -349,12 +268,13 @@ async function loginCliente() {
         const data = await res.json();
         if (data.error) return alert(data.error);
 
-        // Verifica se é admin
-        data.isAdmin = (email === "rivasmendez57@gmail.com"); // COLOQUE SEU EMAIL AQUI
+        data.isAdmin = (email === "rivasmendez57@gmail.com");
 
         localStorage.setItem('jnloja_user', JSON.stringify(data));
         location.reload();
-    } catch (e) { alert("Erro de conexão."); }
+    } catch (e) { 
+        alert("Erro de conexão."); 
+    }
 }
 
 async function abrirAreaCliente() {
@@ -363,13 +283,10 @@ async function abrirAreaCliente() {
         return;
     }
 
-    // Abre o modal de perfil para TODOS (Cliente e Admin)
     document.getElementById('profileModal').style.display = 'block';
     
-    // Se for ADMIN, vamos adicionar um botão especial no topo do modal para ir ao Painel
     const modalContent = document.querySelector('#profileModal .pix-modal-content');
     
-    // Verifica se o botão já existe para não duplicar
     if (userLogado.isAdmin && !document.getElementById('btnIrAdmin')) {
         const btnAdmin = document.createElement('button');
         btnAdmin.id = 'btnIrAdmin';
@@ -379,7 +296,6 @@ async function abrirAreaCliente() {
         btnAdmin.style.marginBottom = '20px';
         btnAdmin.onclick = () => window.location.href = 'admin.html';
         
-        // Insere o botão no início do modal
         modalContent.prepend(btnAdmin);
     }
 
@@ -387,7 +303,6 @@ async function abrirAreaCliente() {
     list.innerHTML = "Carregando seus códigos...";
     
     try {
-        // O admin também pode ter comprado códigos para teste, então buscamos os pedidos dele
         const res = await fetch(`${API_URL}/my-orders/${userLogado.email}`);
         const orders = await res.json();
         list.innerHTML = orders.length > 0 ? orders.map(o => `
@@ -395,56 +310,147 @@ async function abrirAreaCliente() {
                 ${o.amount} Dimas: <b style="color:var(--secondary)">${o.code}</b>
             </div>
         `).join('') : "";
-    } catch (e) { list.innerHTML = "Erro ao carregar histórico."; }
-}
-
-/*
-async function abrirAreaCliente() {
-    if (!userLogado) {
-        document.getElementById('accountModal').style.display = 'block';
-    } else if (userLogado.isAdmin) {
-        // ABRIR PAINEL ADMIN
-        window.location.href = "admin.html";
-    } else {
-        // Cliente normal
-        document.getElementById('profileModal').style.display = 'block';
-        const list = document.getElementById('orderList');
-        list.innerHTML = "Carregando seus códigos...";
-        
-        try {
-            const res = await fetch(`${API_URL}/my-orders/${userLogado.email}`);
-            const orders = await res.json();
-            list.innerHTML = orders.length > 0 ? orders.map(o => `
-                <div style="background:#222; padding:10px; margin-bottom:5px; border-left:4px solid var(--secondary);">
-                    ${o.amount} Dimas: <b style="color:var(--secondary)">${o.code}</b>
-                </div>
-            `).join('') : "Você ainda não possui códigos comprados.";
-        } catch (e) { list.innerHTML = "Erro ao carregar histórico."; }
+    } catch (e) { 
+        list.innerHTML = "Erro ao carregar histórico."; 
     }
 }
-*/
 
 function logout() {
     localStorage.removeItem('jnloja_user');
     location.reload();
 }
 
+// ==========================================
+// 5. SISTEMA DE COMPRAS (FREE FIRE + ROBLOX)
+// ==========================================
+
+async function comprarRecarga(produto, valor) {
+    if (!userLogado) {
+        alert("⚠️ Faça login primeiro!");
+        document.getElementById('accountModal').style.display = 'block';
+        return;
+    }
+
+    // APENAS FREE FIRE precisa de ID
+    if (produto === 'freefire') {
+        await processarCompraFreeFire(valor);
+    } else {
+        // ROBLOX não precisa de ID - vai direto
+        processarCompraNormal(produto, valor);
+    }
+}
+
+// ========================================
+// FUNÇÃO EXCLUSIVA PARA FREE FIRE COM ID
+// ========================================
+async function processarCompraFreeFire(valor) {
+    try {
+        // 1. Verifica se já tem ID salvo no banco
+        const resId = await fetch(`${API_URL}/get-ff-id/${userLogado.email}`);
+        const dataId = await resId.json();
+        
+        let ffId = dataId.ffId;
+        
+        if (!ffId) {
+            // PRIMEIRA COMPRA - Pede o ID
+            ffId = prompt("🎮 Digite seu ID do Free Fire:\n\n(Você encontra em: Perfil > ID do jogador)");
+            
+            if (!ffId || ffId.length < 8) {
+                alert("❌ ID inválido! Deve ter no mínimo 8 dígitos.");
+                return;
+            }
+            
+            // Salva o ID no servidor
+            const resVerify = await fetch(`${API_URL}/verify-ff-id`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ 
+                    customerEmail: userLogado.email, 
+                    ffId 
+                })
+            });
+            
+            const dataVerify = await resVerify.json();
+            
+            if (!dataVerify.success) {
+                alert("❌ Erro ao salvar ID! Tente novamente.");
+                return;
+            }
+            
+            // Confirmação
+            const confirma = confirm(`✅ Jogador: ${dataVerify.playerName}\n\nÉ você mesmo?`);
+            if (!confirma) {
+                alert("❌ Compra cancelada. Verifique seu ID.");
+                return;
+            }
+            
+            alert(`💾 ID salvo com sucesso!\n\nNas próximas compras você não precisará digitar novamente.`);
+        } else {
+            // JÁ TEM ID SALVO - Apenas confirma
+            const confirma = confirm(`🎮 A recarga será enviada para:\n\nID: ${ffId}\n\nConfirmar compra?`);
+            if (!confirma) return;
+        }
+        
+        // Processa a compra normalmente
+        processarCompraNormal('freefire', valor);
+        
+    } catch (e) {
+        alert("❌ Erro ao processar. Tente novamente.");
+        console.error(e);
+    }
+}
+
+// ========================================
+// FUNÇÃO DE COMPRA NORMAL (ROBLOX + FF)
+// ========================================
+async function processarCompraNormal(produto, valor) {
+    try {
+        const res = await fetch(`${API_URL}/payment`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                customerEmail: userLogado.email,
+                amount: valor,
+                category: produto
+            })
+        });
+
+        const data = await res.json();
+        
+        if (data.success) {
+            // Mensagens personalizadas por produto
+            const mensagemProduto = produto === 'freefire' 
+                ? '🎮 Os diamantes serão creditados automaticamente em até 5 minutos no seu ID!' 
+                : '🎁 Use este código no site do Roblox para resgatar seus Robux!';
+            
+            alert(`✅ COMPRA REALIZADA COM SUCESSO!\n\n💎 Código: ${data.codigo}\n📧 Enviado para: ${userLogado.email}\n\n${mensagemProduto}`);
+            
+            // Recarrega histórico se a função existir
+            if (typeof carregarComprasCliente === 'function') {
+                carregarComprasCliente();
+            }
+        } else {
+            alert("❌ " + data.error);
+        }
+    } catch (e) {
+        alert("❌ Erro ao processar pagamento.");
+        console.error(e);
+    }
+}
 
 // ==========================================
-// 5. COMPRA DE PRODUTOS E PIX (ATUALIZADO)
+// SISTEMA DE CHECKOUT COM PIX (MERCADO PAGO)
 // ==========================================
 
 async function iniciarCompra(preco, nome, categoria) {
     console.log(`🛒 Iniciando compra: ${nome} | Categoria: ${categoria} | Valor: R$ ${preco}`);
 
-    // 1. Verifica se o usuário está logado
     if (!userLogado) {
         document.getElementById('avisoModal').style.display = 'block';
         return;
     }
 
     try {
-        // 2. Faz a chamada para o checkout enviando a categoria
         const res = await fetch(`${API_URL}/checkout`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -453,30 +459,26 @@ async function iniciarCompra(preco, nome, categoria) {
                 whatsapp: userLogado.whatsapp, 
                 amount: preco, 
                 description: nome,
-                category: categoria // 👈 IMPORTANTE: Enviando a categoria para o servidor
+                category: categoria
             })
         });
 
         const data = await res.json();
 
-        // 3. Verifica se deu erro (como falta de estoque)
         if (!res.ok || data.error === "ESTOQUE_ESGOTADO") {
             alert("⚠️ " + (data.message || "Produto sem estoque no momento!"));
             return;
         }
 
-        // 4. Se o Pix foi gerado com sucesso, abre o modal
         if (data.qr_code) {
             document.getElementById('pixCodeDisplay').value = data.qr_code;
             document.getElementById('pixModal').style.display = 'block';
             
-            // Configura o botão do WhatsApp dentro do modal do Pix
             document.querySelector('.btn-whatsapp-send').onclick = () => {
                 const msg = encodeURIComponent(`🔥 *JNSHOP* 🔥\n\nAqui está meu código Pix para *${nome}*:\n\n${data.qr_code}\n\n_Vou pagar agora!_`);
                 window.open(`https://wa.me/5554996689157?text=${msg}`, '_blank');
             };
 
-            // Inicia a verificação automática de pagamento
             if (checkInterval) clearInterval(checkInterval);
             checkInterval = setInterval(() => verificarStatus(data.id), 5000);
         }
@@ -486,13 +488,11 @@ async function iniciarCompra(preco, nome, categoria) {
     }
 }
 
-// Função para o botão do modal de aviso
 function irParaLogin() {
     closeModal('avisoModal');
     document.getElementById('accountModal').style.display = 'block';
 }
 
-// Verifica se o pagamento foi aprovado pelo Mercado Pago
 async function verificarStatus(id) {
     try {
         const res = await fetch(`${API_URL}/status/${id}`);
@@ -516,83 +516,14 @@ async function verificarStatus(id) {
                     <button onclick="location.reload()" class="btn-close" style="background:#333; margin-top:20px;">FECHAR</button>
                 `;
             }
-        }
-    } catch (e) { console.log("Aguardando aprovação..."); }
-}
-
-/*
-async function comprarDima(preco, nome) {
-    if (!userLogado) {
-        document.getElementById('avisoModal').style.display = 'block';
-        return;
-    }
-
-    try {
-        const res = await fetch(`${API_URL}/checkout`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ 
-                email: userLogado.email, 
-                whatsapp: userLogado.whatsapp, 
-                amount: preco, 
-                description: nome 
-            })
-        });
-        const data = await res.json();
-
-        if (data.qr_code) {
-            document.getElementById('pixCodeDisplay').value = data.qr_code;
-            document.getElementById('pixModal').style.display = 'block';
-            
-            document.querySelector('.btn-whatsapp-send').onclick = () => {
-                const msg = encodeURIComponent(`🔥 *JNLOJA* 🔥\n\nAqui está meu código Pix para os Diamantes:\n\n${data.qr_code}\n\n_Vou pagar agora!_`);
-                window.open(`https://wa.me/5554996689157?text=${msg}`, '_blank');
-            };
-
-            if (checkInterval) clearInterval(checkInterval);
-            checkInterval = setInterval(() => verificarStatus(data.id), 5000);
         }
     } catch (e) { 
-        console.error("Erro no checkout:", e);
-        alert("Erro de conexão com o servidor de pagamentos."); 
+        console.log("Aguardando aprovação..."); 
     }
-}
-    */
-
-function irParaLogin() {
-    closeModal('avisoModal');
-    document.getElementById('accountModal').style.display = 'block';
-}
-
-async function verificarStatus(id) {
-    try {
-        const res = await fetch(`${API_URL}/status/${id}`);
-        const data = await res.json();
-        
-        if (data.status === 'approved' && data.pin) {
-            clearInterval(checkInterval);
-            const modalContent = document.querySelector('.pix-modal-content');
-            if (modalContent) {
-                modalContent.innerHTML = `
-                    <h2 style="color:#00ff88;">💎 PAGAMENTO APROVADO!</h2>
-                    <p style="margin-top:15px;">Obrigado pela compra! Seu código é:</p>
-                    <div style="background:#000; padding:20px; color:#00f2ff; font-size:24px; font-weight:bold; margin:20px 0; border:2px solid #00f2ff; border-radius:10px; box-shadow: 0 0 15px rgba(0,242,255,0.3);">
-                        ${data.pin}
-                    </div>
-                    <button onclick="copyPin('${data.pin}')" class="btn-copy">📋 COPIAR CÓDIGO</button>
-                    <button onclick="enviarPinWhats('${data.pin}')" class="btn-whatsapp-send" style="margin-top:10px;">
-                        <i class="fab fa-whatsapp"></i> ENVIAR PARA MEU WHATSAPP
-                    </button>
-                    <p style="font-size:12px; color:#888; margin-top:15px;">O código também foi enviado para seu e-mail e salvo na aba MINHA CONTA.</p>
-                    <button onclick="location.reload()" class="btn-close" style="background:#333; margin-top:20px;">FECHAR</button>
-                `;
-            }
-        }
-    } catch (e) { console.log("Aguardando aprovação..."); }
 }
 
 function enviarPinWhats(pin) {
-    const msg = encodeURIComponent("💎 *JNLOJA* 💎\n\nMeu código de Diamante é: *" + pin + "*\n\n_Vou resgatar agora no site Recarga Jogo!_");
+    const msg = encodeURIComponent("💎 *JNLOJA* 💎\n\nMeu código de Diamante é: *" + pin + "*\n\n_Vou resgatar agora!_");
     window.open("https://wa.me/5554996689157?text=" + msg, "_blank");
 }
 
@@ -608,47 +539,40 @@ function copyToClipboard() {
     alert("✅ Código Pix Copiado!");
 }
 
+// ==========================================
+// ATUALIZAÇÃO DE INTERFACE
+// ==========================================
 
-// Função para atualizar o nome no botão do Header
 function atualizarBotaoConta() {
     const display = document.getElementById('user-display');
     if (!display) return;
 
     if (userLogado) {
-        // Se estiver logado, mostra o nome
         const primeiroNome = userLogado.name.split(' ')[0].toUpperCase();
         display.innerHTML = `<i class="fas fa-user-check"></i> OLÁ, ${primeiroNome}`;
-        display.style.color = "var(--secondary)"; // Fica azul neon
+        display.style.color = "var(--secondary)";
         display.style.borderColor = "var(--secondary)";
     } else {
-        // Se não estiver logado, volta ao padrão
         display.innerHTML = `<i class="fas fa-user"></i> MINHA CONTA`;
         display.style.color = "#fff";
         display.style.borderColor = "rgba(255, 255, 255, 0.3)";
     }
 }
 
-// Chamar a função sempre que a página carregar
-
 document.addEventListener('DOMContentLoaded', () => {
     atualizarBotaoConta();
 
     const urlParams = new URLSearchParams(window.location.search);
 
-    // Se detectar o reset=success, abre o login na hora!
     if (urlParams.get('reset') === 'success') {
-        // Abre o modal de login automaticamente
         document.getElementById('accountModal').style.display = 'block';
-        
-        // Limpa a URL para não ficar aparecendo o aviso se ele der F5
         window.history.replaceState({}, document.title, window.location.pathname);
     }
     
-    // Verificação de e-mail (que você já tinha)
     if (urlParams.get('verified') === 'true') {
         document.getElementById('accountModal').style.display = 'block';
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
 
-console.log("✅ Script JNLOJA v3.0 carregado com sucesso!");
+console.log("✅ Script JNLOJA v3.2 - Sistema Free Fire ID Ativo!");
