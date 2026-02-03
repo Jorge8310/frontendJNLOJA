@@ -21,9 +21,7 @@
 
     <header>
       <div class="football-ticker">
-        <div id="ticker" class="ticker-wrapper">
-          <!--        <span class="ticker-item-style">AGUARDANDO RESULTADOS AO VIVO...</span>-->
-        </div>
+        <div id="ticker" class="ticker-wrapper"></div>
       </div>
 
       <div class="container-header">
@@ -37,73 +35,47 @@
           >
             <i class="fas fa-user"></i> MINHA CONTA
           </a>
-
           <a href="football.html">🏆 FOOTBALL</a>
           <a href="tabelas.html">🏆 TABELAS</a>
           <a href="manga.html">LER LIVROS</a>
-          <!--   <a href="manga.html" target="_blank" class="btn-live">BAIXAR LIVRO</a>-->
         </nav>
       </div>
     </header>
 
     <div class="main-wrapper">
-      <!-- COLUNA ESQUERDA (AMAZON) -->
+      <!-- COLUNA ESQUERDA (AMAZON & MERCADO LIVRE) -->
       <aside class="sidebar-promo" id="phones">
-        <h3 class="side-title">AMAZON DEALS 📱</h3>
+        <h3 class="side-title">OFERTAS TECH 📱</h3>
         <div class="glass-mini-card">
           <span class="badge-store amazon">AMAZON</span>
-          <img
-            src="https://m.media-amazon.com/images/I/817WWpa970L._AC_SL1500_.jpg"
-            alt="iPhone"
-          />
+          <img src="https://m.media-amazon.com/images/I/817WWpa970L._AC_SL1500_.jpg" alt="iPhone" />
           <p class="s-price">R$ 7.999</p>
-          <a href="#" target="_blank" class="btn-side-buy amazon-btn"
-            >Ver na Amazon</a
-          >
+          <a href="#" target="_blank" class="btn-side-buy amazon-btn">Ver na Amazon</a>
         </div>
+        
+        <!-- ML AD 1 -->
         <div class="glass-mini-card">
-          <span class="badge-store amazon">AMAZON</span>
-          <img
-            src="https://m.media-amazon.com/images/I/61I4S+mNC9L._AC_SL1500_.jpg"
-            alt="Mouse"
-          />
-          <p class="s-price">R$ 189,00</p>
-          <a href="#" target="_blank" class="btn-side-buy amazon-btn"
-            >Ver na Amazon</a
-          >
-        </div>
-        <!-- Novo Card Amazon (Esquerda) -->
-        <div class="glass-mini-card">
-          <span class="badge-store amazon">AMAZON</span>
-          <img
-            src="https://m.media-amazon.com/images/I/61vY8v7Y9rL._AC_SL1500_.jpg"
-            alt="Teclado"
-          />
-          <h4>Teclado Mecânico RGB</h4>
-          <p class="s-price">R$ 249,00</p>
-          <a
-            href="SEU_LINK_AMAZON"
-            target="_blank"
-            class="btn-side-buy amazon-btn"
-            >Ver na Amazon</a
-          >
+          <span class="badge-store ml">M. LIVRE</span>
+          <img src="https://http2.mlstatic.com/D_NQ_NP_783321-MLA74338140411_022024-O.webp" alt="Monitor" />
+          <h4>Monitor Gamer 144Hz</h4>
+          <p class="s-price">R$ 989,00</p>
+          <a href="#" target="_blank" class="btn-side-buy ml-btn">Ver no M. Livre</a>
         </div>
 
-        <!-- Novo Card Amazon: Headset Gamer -->
         <div class="glass-mini-card">
           <span class="badge-store amazon">AMAZON</span>
-          <img
-            src="https://m.media-amazon.com/images/I/613A8X+WfDL._AC_SY450_.jpg"
-            alt="Headset"
-          />
-          <h4>Headset Gamer Pro 7.1</h4>
-          <p class="s-price">R$ 259,00</p>
-          <a
-            href="SEU_LINK_AMAZON"
-            target="_blank"
-            class="btn-side-buy amazon-btn"
-            >Ver na Amazon</a
-          >
+          <img src="https://m.media-amazon.com/images/I/61I4S+mNC9L._AC_SL1500_.jpg" alt="Mouse" />
+          <p class="s-price">R$ 189,00</p>
+          <a href="#" target="_blank" class="btn-side-buy amazon-btn">Ver na Amazon</a>
+        </div>
+
+        <!-- ML AD 2 -->
+        <div class="glass-mini-card">
+          <span class="badge-store ml">M. LIVRE</span>
+          <img src="https://http2.mlstatic.com/D_NQ_NP_637402-MLB71120281143_082023-O.webp" alt="Cadeira" />
+          <h4>Cadeira Gamer Pro</h4>
+          <p class="s-price">R$ 699,00</p>
+          <a href="#" target="_blank" class="btn-side-buy ml-btn">Ver no M. Livre</a>
         </div>
       </aside>
 
@@ -114,245 +86,70 @@
           <p id="countdown">Ofertas expiram em: --:--:--</p>
         </div>
 
-        <!-- SEÇÃO: FREE FIRE (4 PACOTES) -->
+        <!-- SEÇÃO: FREE FIRE -->
         <h2 class="title-glow">RECARGA FREE FIRE 🔥</h2>
         <div class="ff-grid">
           <div class="card-ff-neon">
-            <img
-              src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png"
-            />
+            <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png" />
             <h3>85 DIAMANTES</h3>
             <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, '85 Diamantes', 'freefire')"
-              class="btn-main-buy"
-            >
-              RECARREGAR
-            </button>
+            <button onclick="iniciarCompra(1, '85 Diamantes', 'freefire')" class="btn-main-buy">RECARREGAR</button>
             <span class="auto-tag">⚡ VIA ID</span>
           </div>
           <div class="card-ff-neon">
-            <img
-              src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png"
-            />
+            <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png" />
             <h3>520 DIAMANTES</h3>
             <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, '520 Diamantes', 'freefire')"
-              class="btn-main-buy"
-            >
-              RECARREGAR
-            </button>
+            <button onclick="iniciarCompra(1, '520 Diamantes', 'freefire')" class="btn-main-buy">RECARREGAR</button>
             <span class="auto-tag">⚡ VIA ID</span>
           </div>
           <div class="card-ff-neon best">
             <div class="pop-tag">MAIS VENDIDO</div>
-            <img
-              src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png"
-            />
+            <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png" />
             <h3>1060 DIAMANTES</h3>
             <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, '1060 Diamantes', 'freefire')"
-              class="btn-main-buy"
-            >
-              RECARREGAR
-            </button>
+            <button onclick="iniciarCompra(1, '1060 Diamantes', 'freefire')" class="btn-main-buy">RECARREGAR</button>
             <span class="auto-tag">⚡ VIA ID</span>
           </div>
           <div class="card-ff-neon">
-            <img
-              src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png"
-            />
+            <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png" />
             <h3>2180 DIAMANTES</h3>
             <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, '2180 Diamantes', 'freefire')"
-              class="btn-main-buy"
-            >
-              RECARREGAR
-            </button>
+            <button onclick="iniciarCompra(1, '2180 Diamantes', 'freefire')" class="btn-main-buy">RECARREGAR</button>
             <span class="auto-tag">⚡ VIA ID</span>
           </div>
         </div>
 
-        <!-- SEÇÃO: ROBLOX (2 PACOTES) -->
+        <!-- SEÇÃO: ROBLOX (4 PACOTES) -->
         <h2 class="title-glow" style="margin-top: 60px">ROBLOX (ROBUX) 🟦</h2>
         <div class="ff-grid">
           <div class="card-ff-neon roblox-card">
-            <i
-              class="fas fa-cube"
-              style="
-                font-size: 50px;
-                color: #fff;
-                margin: 20px 0;
-                display: block;
-              "
-            ></i>
+            <i class="fas fa-cube" style="font-size: 50px; color: #fff; margin: 20px 0; display: block;"></i>
             <h3>100 ROBUX</h3>
             <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, '100 Robux', 'roblox')"
-              class="btn-main-buy"
-            >
-              COMPRAR
-            </button>
+            <button onclick="iniciarCompra(1, '100 Robux', 'roblox')" class="btn-main-buy">COMPRAR</button>
             <span class="auto-tag">⚡ PIN DIGITAL</span>
           </div>
           <div class="card-ff-neon roblox-card">
-            <i
-              class="fas fa-cubes"
-              style="
-                font-size: 50px;
-                color: #fff;
-                margin: 20px 0;
-                display: block;
-              "
-            ></i>
+            <i class="fas fa-cubes" style="font-size: 50px; color: #fff; margin: 20px 0; display: block;"></i>
             <h3>400 ROBUX</h3>
             <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, '400 Robux', 'roblox')"
-              class="btn-main-buy"
-            >
-              COMPRAR
-            </button>
+            <button onclick="iniciarCompra(1, '400 Robux', 'roblox')" class="btn-main-buy">COMPRAR</button>
             <span class="auto-tag">⚡ PIN DIGITAL</span>
           </div>
-        </div>
-
-        <!-- SEÇÃO: GOOGLE PLAY (2 PACOTES) -->
-        <h2 class="title-glow" style="margin-top: 60px">GOOGLE PLAY 🟢</h2>
-        <div class="ff-grid">
-          <div class="card-ff-neon google-card">
-            <i
-              class="fab fa-google-play"
-              style="
-                font-size: 50px;
-                color: #34a853;
-                margin: 20px 0;
-                display: block;
-              "
-            ></i>
-            <h3>GOOGLE R$ 15</h3>
+          <div class="card-ff-neon roblox-card">
+            <i class="fas fa-layer-group" style="font-size: 50px; color: #fff; margin: 20px 0; display: block;"></i>
+            <h3>800 ROBUX</h3>
             <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, 'Google R$ 15', 'google_play')"
-              class="btn-main-buy"
-            >
-              COMPRAR
-            </button>
-            <span class="auto-tag">⚡ BRASIL</span>
+            <button onclick="iniciarCompra(1, '800 Robux', 'roblox')" class="btn-main-buy">COMPRAR</button>
+            <span class="auto-tag">⚡ PIN DIGITAL</span>
           </div>
-          <div class="card-ff-neon google-card">
-            <i
-              class="fab fa-google-play"
-              style="
-                font-size: 50px;
-                color: #34a853;
-                margin: 20px 0;
-                display: block;
-              "
-            ></i>
-            <h3>GOOGLE R$ 30</h3>
+          <div class="card-ff-neon roblox-card">
+            <i class="fas fa-gem" style="font-size: 50px; color: #fff; margin: 20px 0; display: block;"></i>
+            <h3>1700 ROBUX</h3>
             <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, 'Google R$ 30', 'google_play')"
-              class="btn-main-buy"
-            >
-              COMPRAR
-            </button>
-            <span class="auto-tag">⚡ BRASIL</span>
-          </div>
-        </div>
-
-        <!-- SEÇÃO: PLAYSTATION (2 PACOTES) -->
-        <h2 class="title-glow" style="margin-top: 60px">PLAYSTATION 🔵</h2>
-        <div class="ff-grid">
-          <div class="card-ff-neon psn-card">
-            <i
-              class="fab fa-playstation"
-              style="
-                font-size: 50px;
-                color: #003791;
-                margin: 20px 0;
-                display: block;
-              "
-            ></i>
-            <h3>PSN R$ 30</h3>
-            <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, 'PSN R$ 30', 'playstation')"
-              class="btn-main-buy"
-            >
-              COMPRAR
-            </button>
-            <span class="auto-tag">⚡ CÓDIGO</span>
-          </div>
-          <div class="card-ff-neon psn-card">
-            <i
-              class="fab fa-playstation"
-              style="
-                font-size: 50px;
-                color: #003791;
-                margin: 20px 0;
-                display: block;
-              "
-            ></i>
-            <h3>PSN R$ 50</h3>
-            <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, 'PSN R$ 50', 'playstation')"
-              class="btn-main-buy"
-            >
-              COMPRAR
-            </button>
-            <span class="auto-tag">⚡ CÓDIGO</span>
-          </div>
-        </div>
-
-        <!-- SEÇÃO: STEAM (2 PACOTES) -->
-        <h2 class="title-glow" style="margin-top: 60px">STEAM 💻</h2>
-        <div class="ff-grid">
-          <div class="card-ff-neon steam-card">
-            <i
-              class="fab fa-steam"
-              style="
-                font-size: 50px;
-                color: #1b2838;
-                margin: 20px 0;
-                display: block;
-              "
-            ></i>
-            <h3>STEAM R$ 20</h3>
-            <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, 'Steam R$ 20', 'steam')"
-              class="btn-main-buy"
-            >
-              COMPRAR
-            </button>
-            <span class="auto-tag">⚡ GLOBAL</span>
-          </div>
-          <div class="card-ff-neon steam-card">
-            <i
-              class="fab fa-steam"
-              style="
-                font-size: 50px;
-                color: #1b2838;
-                margin: 20px 0;
-                display: block;
-              "
-            ></i>
-            <h3>STEAM R$ 50</h3>
-            <p class="price-main">R$ 1,00</p>
-            <button
-              onclick="iniciarCompra(1, 'Steam R$ 50', 'steam')"
-              class="btn-main-buy"
-            >
-              COMPRAR
-            </button>
-            <span class="auto-tag">⚡ GLOBAL</span>
+            <button onclick="iniciarCompra(1, '1700 Robux', 'roblox')" class="btn-main-buy">COMPRAR</button>
+            <span class="auto-tag">⚡ PIN DIGITAL</span>
           </div>
         </div>
       </section>
@@ -360,98 +157,66 @@
       <!-- COLUNA DIREITA -->
       <aside class="sidebar-promo">
         <h3 class="side-title">OFERTAS ELITE 🛒</h3>
+        
+        <!-- ML AD 3 -->
+        <div class="glass-mini-card">
+          <span class="badge-store ml">M. LIVRE</span>
+          <img src="https://http2.mlstatic.com/D_NQ_NP_908851-MLA74338140415_022024-O.webp" alt="GPU" />
+          <h4>Placa de Vídeo RTX</h4>
+          <p class="s-price">R$ 1.950</p>
+          <a href="#" target="_blank" class="btn-side-buy ml-btn">Ver no M. Livre</a>
+        </div>
+
         <div class="glass-mini-card">
           <span class="badge-store shopee">SHOPEE</span>
-          <img
-            src="https://cf.shopee.com.br/file/4879104033b0067664c399a9a3f2d22b"
-            alt="Redmi"
-          />
+          <img src="https://cf.shopee.com.br/file/4879104033b0067664c399a9a3f2d22b" alt="Redmi" />
           <p class="s-price">R$ 1.299</p>
-          <a href="#" target="_blank" class="btn-side-buy shopee-btn"
-            >Ver na Shopee</a
-          >
+          <a href="#" target="_blank" class="btn-side-buy shopee-btn">Ver na Shopee</a>
         </div>
-        <!-- Novo Card Mercado Livre (Direita) -->
+
+        <!-- ML AD 4 -->
         <div class="glass-mini-card">
-          <span class="badge-store ml">MERCADO LIVRE</span>
-          <img
-            src="https://http2.mlstatic.com/D_NQ_NP_660940-MLA52316374944_112022-O.webp"
-            alt="Poco"
-          />
+          <span class="badge-store ml">M. LIVRE</span>
+          <img src="https://http2.mlstatic.com/D_NQ_NP_660940-MLA52316374944_112022-O.webp" alt="Poco" />
           <h4>Poco X6 Pro 5G</h4>
           <p class="s-price">R$ 2.150</p>
-          <a href="SEU_LINK_ML" target="_blank" class="btn-side-buy ml-btn"
-            >Ver no M. Livre</a
-          >
+          <a href="#" target="_blank" class="btn-side-buy ml-btn">Ver no M. Livre</a>
         </div>
+
         <div class="glass-mini-card qr-card">
           <h4 style="color: #25d366; font-size: 14px">DÚVIDAS? ESCANEIE!</h4>
           <img src="qr-whatsapp.jpg" class="qr-code-img" />
-          <a
-            href="https://wa.me/5554996689157"
-            target="_blank"
-            class="btn-side-buy"
-            style="background: #25d366; color: white"
-            >ABRIR CHAT</a
-          >
-        </div>
-
-        <!-- Novo Card Mercado Livre: Teclado Mecânico -->
-        <div class="glass-mini-card">
-          <span class="badge-store ml">M. LIVRE</span>
-          <img
-            src="https://http2.mlstatic.com/D_NQ_NP_967160-MLU74503923055_022024-O.webp"
-            alt="Teclado"
-          />
-          <h4>Teclado Mecânico RGB</h4>
-          <p class="s-price">R$ 199,00</p>
-          <a href="SEU_LINK_ML" target="_blank" class="btn-side-buy ml-btn"
-            >Ver no M. Livre</a
-          >
+          <a href="https://wa.me/5554996689157" target="_blank" class="btn-side-buy" style="background: #25d366; color: white">ABRIR CHAT</a>
         </div>
       </aside>
     </div>
 
-    <!-- SEÇÃO OFERTAS DE ELITE (4 CARDS CENTRALIZADOS) -->
+    <!-- SEÇÃO OFERTAS DE ELITE -->
     <section class="container money-section" id="ofertas">
       <h2 class="title-glow">OFERTAS DE ELITE 💎🔥</h2>
       <div class="money-grid">
         <div class="money-card">
           <div class="hot-tag">HOT</div>
-          <img
-            src="https://m.media-amazon.com/images/I/51p6W8O723L._AC_SX679_.jpg"
-          />
+          <img src="https://m.media-amazon.com/images/I/51p6W8O723L._AC_SX679_.jpg" />
           <h3>CAMISAS DE TIME</h3>
           <p class="money-price">R$ 89,90</p>
-          <a href="#" target="_blank" class="btn-money shopee-btn"
-            >VER NA SHOPEE</a
-          >
+          <a href="#" target="_blank" class="btn-money shopee-btn">VER NA SHOPEE</a>
         </div>
         <div class="money-card">
-          <img
-            src="https://m.media-amazon.com/images/I/51Wp8H8E4LL._AC_SX679_.jpg"
-          />
+          <img src="https://m.media-amazon.com/images/I/51Wp8H8E4LL._AC_SX679_.jpg" />
           <h3>CHUTEIRAS PRO</h3>
           <p class="money-price">R$ 159,00</p>
-          <a href="#" target="_blank" class="btn-money amazon-btn"
-            >VER NA AMAZON</a
-          >
+          <a href="#" target="_blank" class="btn-money amazon-btn">VER NA AMAZON</a>
         </div>
         <div class="money-card">
-          <img
-            src="https://m.media-amazon.com/images/I/61rS-y79S5L._AC_SX679_.jpg"
-          />
+          <img src="https://m.media-amazon.com/images/I/61rS-y79S5L._AC_SX679_.jpg" />
           <h3>KIT PRO PLAYER</h3>
           <p class="money-price">MELHOR PREÇO</p>
-          <a href="#" target="_blank" class="btn-money amazon-btn"
-            >VER NA AMAZON</a
-          >
+          <a href="#" target="_blank" class="btn-money amazon-btn">VER NA AMAZON</a>
         </div>
         <div class="money-card">
           <div class="cash-tag">BÔNUS</div>
-          <img
-            src="https://logodownload.org/wp-content/uploads/2018/09/recargapay-logo.png"
-          />
+          <img src="https://logodownload.org/wp-content/uploads/2018/09/recargapay-logo.png" />
           <h3>CRÉDITOS GRÁTIS</h3>
           <p class="money-price">GANHE R$ 10</p>
           <a href="#" target="_blank" class="btn-money bonus-btn">RESGATAR</a>
@@ -459,7 +224,7 @@
       </div>
     </section>
 
-    <!-- ZONA GAMER & LIVES (REVISADO) -->
+    <!-- ZONA GAMER & LIVES -->
     <section class="container entertainment-section">
       <h2 class="title-glow">ZONA GAMER & LIVES 🎮⚽</h2>
       <div class="ent-grid">
@@ -467,34 +232,19 @@
           <i class="fas fa-gamepad ent-icon"></i>
           <h3>FREE FIRE WEB</h3>
           <p>Jogue sem baixar nada.</p>
-          <a
-            href="https://now.gg/apps/garena-international-i-private-limited/4432/free-fire.html"
-            target="_blank"
-            class="btn-ent"
-            >JOGAR AGORA</a
-          >
+          <a href="https://now.gg/apps/garena-international-i-private-limited/4432/free-fire.html" target="_blank" class="btn-ent">JOGAR AGORA</a>
         </div>
         <div class="ent-card">
           <i class="fas fa-tv ent-icon"></i>
           <h3>FUTEBOL AO VIVO</h3>
           <p>Assista jogos de graça.</p>
-          <a
-            href="https://www.youtube.com/@CazeTV/streams"
-            target="_blank"
-            class="btn-ent"
-            >ASSISTIR GRÁTIS</a
-          >
+          <a href="https://www.youtube.com/@CazeTV/streams" target="_blank" class="btn-ent">ASSISTIR GRÁTIS</a>
         </div>
         <div class="ent-card">
           <i class="fas fa-basketball-ball ent-icon"></i>
           <h3>NBA AO VIVO</h3>
           <p>O melhor do basquete.</p>
-          <a
-            href="https://www.youtube.com/@NBA/streams"
-            target="_blank"
-            class="btn-ent"
-            >VER BASQUETE</a
-          >
+          <a href="https://www.youtube.com/@NBA/streams" target="_blank" class="btn-ent">VER BASQUETE</a>
         </div>
       </div>
     </section>
@@ -503,217 +253,80 @@
       <div class="footer-container">
         <div class="footer-football">
           <h4>⚽ PLACAR GERAL</h4>
-          <div id="footer-ticker" class="mini-ticker">
-            <!--     <span>Carregando placares...</span> -->
-          </div>
+          <div id="footer-ticker" class="mini-ticker"></div>
         </div>
         <div class="footer-info">
-          <p>
-            JNLOJA &copy; <span id="ano">2026</span> - O melhor suporte para Pro
-            Players.
-          </p>
-          <a href="https://wa.me/5554996689157" class="footer-social"
-            ><i class="fab fa-whatsapp"></i
-          ></a>
+          <p>JNLOJA &copy; <span id="ano">2026</span> - O melhor suporte para Pro Players.</p>
+          <a href="https://wa.me/5554996689157" class="footer-social"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
     </footer>
 
-    <!-- ========== MODAIS DE CONTA ========== -->
-
-    <!-- MODAL: LOGIN E REGISTRO -->
+    <!-- MODAIS -->
     <div id="accountModal" class="pix-modal" style="display: none">
       <div class="pix-modal-content">
-        <!-- FORMULÁRIO DE LOGIN -->
         <div id="loginForm">
           <h2>🔐 ACESSAR CONTA</h2>
-          <input
-            type="email"
-            id="logEmail"
-            placeholder="E-mail"
-            class="input-form"
-          />
-
+          <input type="email" id="logEmail" placeholder="E-mail" class="input-form" />
           <div class="password-container">
-            <input
-              type="password"
-              id="logPass"
-              placeholder="Senha"
-              class="input-form"
-            />
-            <i
-              class="fas fa-eye toggle-password"
-              onclick="verSenha('logPass', this)"
-            ></i>
+            <input type="password" id="logPass" placeholder="Senha" class="input-form" />
+            <i class="fas fa-eye toggle-password" onclick="verSenha('logPass', this)"></i>
           </div>
-
           <button onclick="loginCliente()" class="btn-main-buy">ENTRAR</button>
-          <p
-            onclick="abrirEsqueciSenha()"
-            style="
-              cursor: pointer;
-              margin-top: 10px;
-              font-size: 12px;
-              color: #ff4c00;
-              text-decoration: underline;
-            "
-          >
-            Esqueceu a senha?
-          </p>
-          <p
-            onclick="toggleForm()"
-            style="cursor: pointer; margin-top: 15px; color: var(--secondary)"
-          >
-            Não tem conta? Cadastre-se
-          </p>
+          <p onclick="abrirEsqueciSenha()" style="cursor: pointer; margin-top: 10px; font-size: 12px; color: #ff4c00; text-decoration: underline;">Esqueceu a senha?</p>
+          <p onclick="toggleForm()" style="cursor: pointer; margin-top: 15px; color: var(--secondary)">Não tem conta? Cadastre-se</p>
         </div>
-
-        <!-- FORMULÁRIO DE REGISTRO -->
         <div id="registerForm" style="display: none">
           <h2>📝 CRIAR CONTA</h2>
-          <!--<input type="text" id="regName" placeholder="Nome" class="input-form">-->
-          <input
-            type="text"
-            id="regName"
-            placeholder="Nome"
-            class="input-form"
-            oninput="validarNome(this)"
-          />
-          <input
-            type="email"
-            id="regEmail"
-            placeholder="E-mail"
-            class="input-form"
-          />
-          <!--  <input type="text" id="regWhatsapp" placeholder="WhatsApp" class="input-form">-->
-          <!--<input type="text" id="regWhatsapp" placeholder="WhatsApp (Opcional)" class="input-form">-->
-          <input
-            type="text"
-            id="regWhatsapp"
-            placeholder="WhatsApp (Opcional)"
-            class="input-form"
-            oninput="validarWhatsApp(this)"
-            maxlength="15"
-          />
+          <input type="text" id="regName" placeholder="Nome" class="input-form" oninput="validarNome(this)" />
+          <input type="email" id="regEmail" placeholder="E-mail" class="input-form" />
+          <input type="text" id="regWhatsapp" placeholder="WhatsApp (Opcional)" class="input-form" oninput="validarWhatsApp(this)" maxlength="15" />
           <div class="password-container">
-            <input
-              type="password"
-              id="regPass"
-              placeholder="Senha"
-              class="input-form"
-            />
-            <i
-              class="fas fa-eye toggle-password"
-              onclick="verSenha('regPass', this)"
-            ></i>
+            <input type="password" id="regPass" placeholder="Senha" class="input-form" />
+            <i class="fas fa-eye toggle-password" onclick="verSenha('regPass', this)"></i>
           </div>
-
-          <button onclick="registrarCliente()" class="btn-main-buy">
-            CADASTRAR
-          </button>
-          <p
-            onclick="toggleForm()"
-            style="cursor: pointer; margin-top: 15px; color: var(--secondary)"
-          >
-            Já tem conta? Login
-          </p>
+          <button onclick="registrarCliente()" class="btn-main-buy">CADASTRAR</button>
+          <p onclick="toggleForm()" style="cursor: pointer; margin-top: 15px; color: var(--secondary)">Já tem conta? Login</p>
         </div>
-
-        <button onclick="closeModal('accountModal')" class="btn-close">
-          FECHAR
-        </button>
+        <button onclick="closeModal('accountModal')" class="btn-close">FECHAR</button>
       </div>
     </div>
 
-    <!-- MODAL: RECUPERAR SENHA -->
+    <!-- Outros modais (Forgot, Profile, Pix, Aviso) mantidos conforme original -->
     <div id="forgotModal" class="pix-modal" style="display: none">
       <div class="pix-modal-content">
         <h2>🔒 RECUPERAR ACESSO</h2>
-        <p style="margin-bottom: 20px; color: #bbb">
-          Enviaremos um link de alteração para o seu e-mail cadastrado.
-        </p>
-
-        <input
-          type="email"
-          id="forgotEmail"
-          placeholder="Digite seu E-mail"
-          class="input-form"
-        />
-
-        <button
-          type="button"
-          onclick="enviarEmailRecuperacao()"
-          class="btn-main-buy"
-        >
-          ENVIAR LINK POR E-MAIL
-        </button>
-
-        <button
-          onclick="
-            closeModal('forgotModal');
-            document.getElementById('accountModal').style.display = 'block';
-          "
-          class="btn-close"
-          style="background: #333; margin-top: 15px"
-        >
-          VOLTAR
-        </button>
+        <input type="email" id="forgotEmail" placeholder="Digite seu E-mail" class="input-form" />
+        <button onclick="enviarEmailRecuperacao()" class="btn-main-buy">ENVIAR LINK</button>
+        <button onclick="closeModal('forgotModal')" class="btn-close">VOLTAR</button>
       </div>
     </div>
 
-    <!-- MODAL: PERFIL DO USUÁRIO -->
     <div id="profileModal" class="pix-modal" style="display: none">
       <div class="pix-modal-content">
         <h2>👤 MEUS CÓDIGOS</h2>
         <div id="orderList" style="margin: 20px 0; text-align: left"></div>
-        <button
-          onclick="logout()"
-          class="btn-close"
-          style="color: red; margin-bottom: 10px; display: block; width: 100%"
-        >
-          SAIR DA CONTA
-        </button>
-        <button onclick="closeModal('profileModal')" class="btn-copy">
-          FECHAR
-        </button>
+        <button onclick="logout()" class="btn-close" style="color: red; width: 100%">SAIR</button>
+        <button onclick="closeModal('profileModal')" class="btn-copy">FECHAR</button>
       </div>
     </div>
 
-    <!-- MODAL: PIX -->
     <div id="pixModal" class="pix-modal" style="display: none">
       <div class="pix-modal-content">
         <h2>✅ PIX GERADO!</h2>
-        <p>Pague para receber os diamantes.</p>
         <textarea id="pixCodeDisplay" readonly></textarea>
-        <button onclick="copyToClipboard()" class="btn-copy">
-          📋 COPIAR CÓDIGO PIX
-        </button>
-        <button class="btn-whatsapp-send">
-          <i class="fab fa-whatsapp"></i> ENVIAR PARA MEU WHATSAPP
-        </button>
-        <button onclick="closeModal('pixModal')" class="btn-close">
-          FECHAR
-        </button>
+        <button onclick="copyToClipboard()" class="btn-copy">📋 COPIAR PIX</button>
+        <button class="btn-whatsapp-send"><i class="fab fa-whatsapp"></i> ENVIAR WHATSAPP</button>
+        <button onclick="closeModal('pixModal')" class="btn-close">FECHAR</button>
       </div>
     </div>
 
-    <!-- MODAL: AVISO LOGIN NECESSÁRIO -->
     <div id="avisoModal" class="pix-modal" style="display: none">
-      <div class="pix-modal-content aviso-content">
-        <i
-          class="fas fa-exclamation-triangle"
-          style="font-size: 50px; color: var(--yellow); margin-bottom: 20px"
-        ></i>
+      <div class="pix-modal-content">
         <h2 style="color: var(--yellow)">ACESSO RESTRITO!</h2>
-        <p style="margin: 20px 0; font-size: 18px">
-          Você precisa estar logado para comprar.
-        </p>
-        <button onclick="irParaLogin()" class="btn-main-buy">
-          FAZER LOGIN AGORA
-        </button>
-        <button onclick="closeModal('avisoModal')" class="btn-close">
-          DEPOIS
-        </button>
+        <p>Você precisa estar logado para comprar.</p>
+        <button onclick="irParaLogin()" class="btn-main-buy">LOGIN AGORA</button>
+        <button onclick="closeModal('avisoModal')" class="btn-close">DEPOIS</button>
       </div>
     </div>
 

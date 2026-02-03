@@ -375,204 +375,130 @@ nav a:hover {
     filter: brightness(1.5);
 }
 
-
-
 /* ==========================================
-   6. RESPONSIVIDADE MOBILE (LAYOUT COM 2 ANÚNCIOS DE CADA LADO)
+   6. RESPONSIVIDADE MOBILE ULTRA COMPACTA
    ========================================== */
 @media (max-width: 1100px) {
-    header {
-        padding: 10px 0 !important;
-    }
-
-    .container-header {
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 12px !important;
-        padding: 5px 10px !important;
-    }
-
-    .logo {
-        margin: 0 !important;
-        font-size: 24px !important;
-    }
-
-    /* BOTÕES EM UMA LINHA SÓ */
-    nav {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        justify-content: center !important;
-        gap: 4px !important;
-        width: 100% !important;
-        padding: 5px 0;
-    }
-
-    nav a, .btn-account {
-        background: transparent !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        padding: 6px 4px !important;
-        font-size: 9px !important;
-        border-radius: 4px !important;
-        white-space: nowrap !important;
-        flex: 1;
-        justify-content: center;
-        color: #fff !important;
-    }
-
-    /* --- LAYOUT MOBILE: 2 ANÚNCIOS DE CADA LADO + CARDS NO CENTRO --- */
+    
+    /* --- ESTRUTURA DE 3 COLUNAS MAIS MAGRAS --- */
     .main-wrapper { 
         display: grid !important;
-        grid-template-columns: 1fr 1fr 1fr !important; /* 3 colunas iguais */
-        grid-template-rows: auto !important;
-        gap: 8px !important;
+        /* Reduzi de 95px para 80px as laterais */
+        grid-template-columns: 80px 1fr 80px !important; 
+        gap: 4px !important;
+        padding: 10px 2px !important;
         width: 100% !important;
-        padding: 10px 5px !important;
-        align-items: start !important;
     }
 
-    /* Conteúdo principal no centro */
+    /* COLUNA CENTRAL */
     .main-content { 
         grid-column: 2 / 3 !important;
-        grid-row: 1 / 2 !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 15px 8px !important;
+        padding: 0 2px !important;
     }
 
-    /* Sidebar esquerda - 2 anúncios na vertical */
-    .sidebar-promo:first-of-type { 
-        grid-column: 1 / 2 !important;
-        grid-row: 1 / 2 !important;
+    /* AJUSTE DOS ANÚNCIOS LATERAIS (ESQUERDA E DIREITA) */
+    .sidebar-promo { 
         display: flex !important;
         flex-direction: column !important;
-        gap: 8px !important;
-        width: 100% !important;
+        gap: 6px !important;
     }
 
-    /* Sidebar direita - 2 anúncios na vertical */
-    .sidebar-promo:last-of-type { 
-        grid-column: 3 / 4 !important;
-        grid-row: 1 / 2 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 8px !important;
-        width: 100% !important;
-    }
-
-    /* Esconde os títulos das sidebars no mobile */
-    .side-title {
-        display: none !important;
-    }
-
-    /* CARDS LATERAIS - 2 POR COLUNA */
     .glass-mini-card {
+        padding: 4px 2px !important;
+        border-radius: 5px !important;
         width: 100% !important;
-        max-width: 100% !important;
-        padding: 10px 5px !important;
-        margin: 0 !important;
-        background: rgba(15, 15, 15, 0.95) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-sizing: border-box !important;
     }
 
     .glass-mini-card img {
-        width: 100% !important;
-        height: 60px !important;
+        height: 35px !important; /* Imagens menores para não esticar a coluna */
+        max-width: 100% !important;
         object-fit: contain !important;
+    }
+
+    .glass-mini-card h4 {
+        font-size: 7px !important; /* Texto bem pequeno para caber em uma linha */
+        margin: 2px 0 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important; /* Se o nome for grande, ele coloca ... */
+    }
+
+    .glass-mini-card p.s-price {
+        font-size: 8px !important;
+        font-weight: bold !important;
+    }
+
+    .glass-mini-card a.btn-side-buy {
+        font-size: 7px !important;
+        padding: 3px 0 !important;
+    }
+
+    .badge-store {
+        font-size: 6px !important;
+        padding: 1px 3px !important;
+    }
+
+    /* --- GRADE CENTRAL (2x2) --- */
+    .ff-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 5px !important;
+    }
+
+    .card-ff-neon {
+        padding: 10px 4px !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+    }
+
+    .card-ff-neon img {
+        height: 35px !important;
         margin-bottom: 5px !important;
     }
 
-    .glass-mini-card h4 {
-        font-size: 11px !important;
-        margin: 3px 0 !important;
-    }
-
-    .glass-mini-card p {
+    .card-ff-neon h3 {
         font-size: 9px !important;
-        margin: 2px 0 !important;
+        line-height: 1.1 !important;
+        min-height: 20px !important;
     }
 
-    .glass-mini-card a {
+    .price-main {
+        font-size: 1rem !important;
+        margin: 4px 0 !important;
+    }
+
+    .btn-main-buy {
+        padding: 8px 0 !important;
         font-size: 9px !important;
-        padding: 5px !important;
+        border-radius: 4px !important;
     }
 
-    /* Mostra apenas 2 cards por sidebar no mobile */
-    .sidebar-promo .glass-mini-card:nth-child(n+4) {
-        display: none !important;
+    /* Ajuste da etiqueta "Mais Vendido" */
+    .pop-tag {
+        font-size: 7px !important;
+        top: -10px !important;
+        padding: 1px 0 !important;
     }
 
-    /* Grids de Diamantes - 1 coluna no centro */
-    .ff-grid, .money-grid {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
+    /* Ajuste dos botões do topo (Menu) */
+    nav {
+        gap: 2px !important;
     }
-
-    .card-ff-neon, .money-card {
-        padding: 18px 12px !important;
-    }
-}
-
-/* AJUSTE PARA TELAS PEQUENAS */
-@media (max-width: 500px) {
-    .main-wrapper {
-        grid-template-columns: 110px 1fr 110px !important;
-    }
-
-    .glass-mini-card {
-        padding: 8px 4px !important;
-    }
-
-    .glass-mini-card img {
-        height: 50px !important;
-    }
-
-    .glass-mini-card h4 {
-        font-size: 10px !important;
-    }
-
-    .glass-mini-card p, .glass-mini-card a {
-        font-size: 8px !important;
-    }
-    
-    .logo { font-size: 22px !important; }
-    
     nav a, .btn-account {
-        font-size: 8.5px !important;
+        font-size: 7.5px !important;
         padding: 5px 2px !important;
     }
 }
 
-/* AJUSTE FINO PARA TELAS MUITO PEQUENAS (ATÉ 380px) */
-@media (max-width: 380px) {
+/* Para telas muito pequenas (abaixo de 360px) */
+@media (max-width: 360px) {
     .main-wrapper {
-        grid-template-columns: 100px 1fr 100px !important;
+        grid-template-columns: 70px 1fr 70px !important;
     }
-
-    .glass-mini-card {
-        padding: 6px 3px !important;
-    }
-
-    .glass-mini-card img {
-        height: 45px !important;
-    }
-
-    .glass-mini-card h4 {
-        font-size: 9px !important;
-    }
-
-    .glass-mini-card p, .glass-mini-card a {
-        font-size: 7px !important;
-    }
-
-    nav a, .btn-account {
-        font-size: 8.5px !important;
-        padding: 5px 3px !important;
-    }
-    
-    .logo {
-        font-size: 20px !important;
-    }
+    .logo { font-size: 18px !important; }
 }
 
 /* ==========================================
