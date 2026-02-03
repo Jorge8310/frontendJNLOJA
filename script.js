@@ -450,6 +450,66 @@ async function iniciarCompra(preco, nome, categoria) {
         return;
     }
 
+    // ========================================
+    // SE FOR FREE FIRE, VERIFICA O ID PRIMEIRO
+    // ========================================
+    if (categoria === 'freefire') {
+        try {
+            // 1. Verifica se já tem ID salvo
+            const resId = await fetch(`${API_URL}/get-ff-id/${userLogado.email}`);
+            const dataId = await resId.json();
+            
+            let ffId = dataId.ffId;
+            
+            if (!ffId) {
+                // PRIMEIRA COMPRA - Pede o ID
+                ffId = prompt("🎮 Digite seu ID do Free Fire:\n\n(Você encontra em: Perfil > ID do jogador)");
+                
+                if (!ffId || ffId.length < 8) {
+                    alert("❌ ID inválido! Deve ter no mínimo 8 dígitos.");
+                    return;
+                }
+                
+                // Salva o ID no servidor
+                const resVerify = await fetch(`${API_URL}/verify-ff-id`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ 
+                        customerEmail: userLogado.email, 
+                        ffId 
+                    })
+                });
+                
+                const dataVerify = await resVerify.json();
+                
+                if (!dataVerify.success) {
+                    alert("❌ Erro ao salvar ID! Tente novamente.");
+                    return;
+                }
+                
+                // Confirmação
+                const confirma = confirm(`✅ Jogador: ${dataVerify.playerName}\n\nÉ você mesmo?`);
+                if (!confirma) {
+                    alert("❌ Compra cancelada. Verifique seu ID.");
+                    return;
+                }
+                
+                alert(`💾 ID salvo com sucesso!\n\nAgora vamos gerar seu PIX...`);
+            } else {
+                // JÁ TEM ID SALVO - Apenas confirma
+                const confirma = confirm(`🎮 A recarga será enviada para:\n\nID: ${ffId}\n\nConfirmar e gerar PIX?`);
+                if (!confirma) return;
+            }
+        } catch (e) {
+            console.error("❌ Erro ao verificar ID:", e);
+            alert("❌ Erro ao verificar ID. Tente novamente.");
+            return;
+        }
+    }
+
+    // ========================================
+    // AGORA GERA O PIX (PARA TODOS OS PRODUTOS)
+    // ========================================
     try {
         const res = await fetch(`${API_URL}/checkout`, {
             method: 'POST',
