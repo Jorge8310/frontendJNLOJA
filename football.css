@@ -284,7 +284,7 @@ nav a i {
     line-height: 1.3;
 }
 
-/* Estilo do Modal */
+/* ========== MODAL ========== */
 .modal {
     display: none; 
     position: fixed; 
@@ -323,6 +323,134 @@ nav a i {
     border: none;
 }
 
+/* ========== 📊 TABELAS DE CLASSIFICAÇÃO ========== */
+.standings-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    margin: 20px 0 40px;
+}
+
+.league-table {
+    background: var(--card-bg);
+    border: 2px solid var(--border-glow);
+    border-radius: 12px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+.league-table:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 212, 255, 0.3);
+    border-color: var(--secondary);
+}
+
+.league-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--primary);
+}
+
+.league-icon {
+    font-size: 28px;
+}
+
+.league-name {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.league-info {
+    font-size: 11px;
+    color: #888;
+    margin-top: 3px;
+}
+
+.matches-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.match-item {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 12px;
+    border-left: 3px solid var(--primary);
+    transition: all 0.3s ease;
+}
+
+.match-item:hover {
+    background: rgba(255, 76, 0, 0.1);
+    border-left-color: var(--secondary);
+    transform: translateX(5px);
+}
+
+.match-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.match-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #888;
+}
+
+.match-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.match-date i {
+    color: var(--secondary);
+}
+
+.view-highlights {
+    background: linear-gradient(135deg, var(--primary), #ff6600);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.view-highlights:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--primary);
+}
+
+.no-matches {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-size: 14px;
+}
+
+.no-matches i {
+    font-size: 40px;
+    margin-bottom: 10px;
+    display: block;
+    color: #444;
+}
+
 /* ========== RESPONSIVO ========== */
 @media (max-width: 1024px) {
     #scorebatFrame {
@@ -331,6 +459,11 @@ nav a i {
     
     .title-glow {
         font-size: 28px;
+    }
+
+    .standings-wrapper {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 15px;
     }
 }
 
@@ -388,6 +521,19 @@ nav a i {
     .feature-card {
         padding: 10px;
     }
+
+    .standings-wrapper {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .league-table {
+        padding: 15px;
+    }
+
+    .league-name {
+        font-size: 16px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -417,6 +563,18 @@ nav a i {
     .scorebat-container {
         padding: 6px;
     }
+
+    .league-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .match-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
 }
 
 /* ========== SCROLL PERSONALIZADO ========== */
@@ -436,7 +594,3 @@ nav a i {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
 }
-
-
-
-

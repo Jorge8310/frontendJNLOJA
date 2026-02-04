@@ -1,3 +1,5 @@
+Football · HTML Copiar
+
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -44,7 +46,6 @@
             <div class="loading-spinner"></div>
             <div class="loading-text">⚽ Carregando placares e vídeos...</div>
           </div>
-          <!-- Procure por isso no seu football.html -->
           <iframe
             id="scorebatFrame"
             style="display: none"
@@ -54,7 +55,8 @@
           ></iframe>
         </div>
       </div>
-      <!-- Título para a nova seção de vídeos -->
+
+      <!-- Título para a seção de vídeos -->
       <h2 class="title-glow" style="margin-top: 50px">
         🎥 ÚLTIMOS GOLS E DESTAQUES
       </h2>
@@ -62,6 +64,21 @@
       <!-- Container onde o JavaScript vai criar os cards de vídeo automaticamente -->
       <div id="custom-matches-grid" class="features-grid">
         <div class="loading-text">Buscando vídeos...</div>
+      </div>
+
+      <!-- 🔥 NOVA SEÇÃO: TABELAS DE CLASSIFICAÇÃO -->
+      <h2 class="title-glow" style="margin-top: 50px">
+        📊 TABELAS DE CLASSIFICAÇÃO
+      </h2>
+
+      <div class="info-banner" style="margin-bottom: 20px">
+        <i class="fas fa-trophy"></i>
+        Confira as principais ligas e competições em andamento
+      </div>
+
+      <!-- Container das tabelas -->
+      <div id="standings-container" class="standings-wrapper">
+        <div class="loading-text">Carregando tabelas...</div>
       </div>
 
       <!-- Estrutura do Modal (Janela que abre o vídeo por cima do site) -->

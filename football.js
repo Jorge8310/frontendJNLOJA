@@ -122,7 +122,8 @@ async function loadScoreBat() {
     const finalUrl = `https://www.scorebat.com/embed/livescore/?token=${serverConfig.token}`;
     
     console.log('🔑 Token recebido do servidor com sucesso');
-   iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-popups allow-popups-to-escape-sandbox');
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-popups allow-popups-to-escape-sandbox');
+    
     // Define a URL do iframe
     iframe.src = finalUrl;
     
@@ -186,6 +187,134 @@ async function loadCustomMatches() {
 }
 
 /**
+ * 🔥 NOVA FUNÇÃO: Carrega as tabelas de classificação
+ */
+async function loadStandings() {
+    const container = document.getElementById('standings-container');
+    if (!container) return;
+
+    try {
+        console.log('📊 Carregando tabelas de classificação...');
+        
+        const matches = await getCachedScoreBatData();
+        
+        if (!matches || matches.length === 0) {
+            container.innerHTML = `
+                <div class="no-matches">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Nenhuma competição disponível no momento
+                </div>
+            `;
+            return;
+        }
+
+        // Agrupa jogos por liga
+        const leagues = {};
+        matches.forEach(match => {
+            if (match.competition) {
+                if (!leagues[match.competition]) {
+                    leagues[match.competition] = [];
+                }
+                leagues[match.competition].push(match);
+            }
+        });
+
+        container.innerHTML = '';
+
+        // Ícones para cada tipo de liga
+        const leagueIcons = {
+            'UEFA Champions League': '⭐',
+            'Premier League': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+            'La Liga': '🇪🇸',
+            'Serie A': '🇮🇹',
+            'Bundesliga': '🇩🇪',
+            'Ligue 1': '🇫🇷',
+            'Copa Libertadores': '🏆',
+            'Copa do Brasil': '🇧🇷',
+            'Brasileirão': '⚽',
+            'Mundial de Clubes': '🌍'
+        };
+
+        // Cria uma tabela para cada liga
+        Object.keys(leagues).forEach(leagueName => {
+            const leagueMatches = leagues[leagueName];
+            const icon = leagueIcons[leagueName] || '⚽';
+            
+            const leagueDiv = document.createElement('div');
+            leagueDiv.className = 'league-table';
+            
+            leagueDiv.innerHTML = `
+                <div class="league-header">
+                    <div class="league-icon">${icon}</div>
+                    <div>
+                        <div class="league-name">${leagueName}</div>
+                        <div class="league-info">${leagueMatches.length} jogo(s) disponível(is)</div>
+                    </div>
+                </div>
+                <div class="matches-list">
+                    ${leagueMatches.slice(0, 5).map(match => `
+                        <div class="match-item">
+                            <div class="match-title">${match.title}</div>
+                            <div class="match-meta">
+                                <div class="match-date">
+                                    <i class="fas fa-calendar"></i>
+                                    ${formatDate(match.date)}
+                                </div>
+                                ${match.embed ? `
+                                    <button class="view-highlights" onclick="openVideoModal(\`${match.embed.replace(/`/g, '\\`')}\`)">
+                                        <i class="fas fa-play"></i> VER MELHORES MOMENTOS
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            container.appendChild(leagueDiv);
+        });
+
+        console.log(`✅ ${Object.keys(leagues).length} tabelas criadas`);
+
+    } catch (error) {
+        console.error('❌ Erro ao carregar tabelas:', error);
+        container.innerHTML = `
+            <div class="no-matches">
+                <i class="fas fa-exclamation-triangle"></i>
+                Erro ao carregar tabelas. Tente novamente.
+            </div>
+        `;
+    }
+}
+
+/**
+ * Formata a data para exibição
+ */
+function formatDate(dateString) {
+    if (!dateString) return 'Data não disponível';
+    
+    try {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffTime = Math.abs(now - date);
+        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+        
+        if (diffHours < 24) {
+            return `Há ${diffHours}h`;
+        } else if (diffHours < 48) {
+            return 'Ontem';
+        } else {
+            return date.toLocaleDateString('pt-BR', { 
+                day: '2-digit', 
+                month: 'short' 
+            });
+        }
+    } catch (e) {
+        return dateString;
+    }
+}
+
+/**
  * Abre o vídeo dentro do Modal do seu próprio site
  */
 function openVideoModal(embedHtml) {
@@ -213,6 +342,15 @@ function setupModalEvents() {
             document.body.style.overflow = 'auto'; // Destrava scroll
         };
     }
+    
+    // Fecha ao clicar fora do conteúdo
+    window.onclick = (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+            document.getElementById('videoPlayerContainer').innerHTML = '';
+            document.body.style.overflow = 'auto';
+        }
+    };
 }
 
 /**
@@ -227,6 +365,7 @@ function adjustIframeHeight() {
     const isMobile = window.innerWidth < 768;
     iframe.style.height = isMobile ? "1200px" : "1500px"; 
 }
+
 /**
  * Recarrega o ScoreBat (útil para atualizar placares)
  */
@@ -254,10 +393,9 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 window.addEventListener('DOMContentLoaded', function() {
-    // ... suas chamadas existentes (loadScoreBat, etc) ...
-    
-    loadCustomMatches(); // CARREGA OS CARDS DE VÍDEO
-    setupModalEvents();  // ATIVA O BOTÃO DE FECHAR MODAL
+    loadCustomMatches();   // CARREGA OS CARDS DE VÍDEO
+    loadStandings();       // 🔥 CARREGA AS TABELAS
+    setupModalEvents();    // ATIVA O BOTÃO DE FECHAR MODAL
 });
 
 // Ajusta altura quando redimensionar a janela
@@ -268,10 +406,13 @@ window.addEventListener('resize', adjustIframeHeight);
 setInterval(function() {
     console.log('🔄 Atualizando placares (30 minutos)...');
     reloadScoreBat();
+    loadCustomMatches();
+    loadStandings(); // 🔥 ATUALIZA AS TABELAS TAMBÉM
 }, 1800000); // 1800000ms = 30 minutos
 
 // Expõe função global para recarregar manualmente se necessário
 window.reloadScoreBat = reloadScoreBat;
+window.openVideoModal = openVideoModal; // 🔥 Expõe função globalmente para os botões
 
 console.log('✅ Script ScoreBat inicializado!');
 console.log('💡 Para recarregar manualmente, use: window.reloadScoreBat()');
