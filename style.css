@@ -8,7 +8,8 @@
     --secondary: #00f2ff;
     --yellow: #ffcc00;
     --success: #00ff88;
-    --glass: rgba(10, 10, 10, 0.9); 
+    --glass: rgba(10, 10, 10, 0.9);
+    --ml-yellow: #fff159;
 }
 
 body { 
@@ -64,19 +65,17 @@ header {
     text-shadow: 2px 2px 4px #000;
 }
 
-/* FORÇAR ALINHAMENTO DO HEADER EM TODAS AS PÁGINAS */
+/* FORÇAR ALINHAMENTO DO HEADER */
 .container-header {
-  /*  max-width: 1400px;*/
     width: 100%;
-    margin-left: 0 auto;
-    display: flex !important;         /* Ativa o modo flexível */
-    justify-content: space-between !important; /* Logo na esquerda <---> Nav na direita */
-    align-items: center !important;    /* Centraliza verticalmente */
+    margin: 0 auto;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
     padding: 15px 20px;
-    flex-wrap: nowrap !important;     /* Impede que os botões pulem para baixo */
+    flex-wrap: nowrap !important;
 }
 
-/* AJUSTE DO LOGO PARA NÃO ENCOLHER */
 .logo {
     flex-shrink: 0;
     font-family: 'Black Ops One', cursive;
@@ -85,48 +84,41 @@ header {
 }
 
 .logo span { color: var(--primary); }
-/* ESTILO DOS BOTÕES DO MENU (TRANSPARENTES) */
+
 nav a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
-    font-size: 13px; /* Tamanho levemente menor para caber tudo */
+    font-size: 13px;
     white-space: nowrap;
     text-transform: uppercase;
-    
-    /* Transformando em botão transparente */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda fina e discreta */
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 8px 15px;
     border-radius: 5px;
     transition: all 0.3s ease;
     display: flex !important;
     align-items: center !important;
     gap: 5px;
-    margin-left: auto; 
 }
 
-
-/* Garante que o menu (nav) também seja uma linha só */
 nav {
     display: flex;
     align-items: center;
-    gap: 10px; /* Espaço entre cada botão */
-    flex-direction: row; /* Garante que seja horizontal */
+    gap: 10px;
+    flex-direction: row;
 }
 
-/* EFEITO AO PASSAR O MOUSE */
 nav a:hover {
-    border-color: var(--primary); /* A borda acende com a cor laranja */
-    background: rgba(255, 76, 0, 0.1); /* Um fundo laranja bem clarinho */
+    border-color: var(--primary);
+    background: rgba(255, 76, 0, 0.1);
     color: var(--primary) !important;
     box-shadow: 0 0 10px rgba(255, 76, 0, 0.2);
     transform: translateY(-2px);
 }
 
-/* AJUSTE PARA O BOTÃO "MINHA CONTA" NÃO FICAR DIFERENTE */
 .btn-account {
-    background: transparent !important; /* Força ficar transparente */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda discreta */
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: #fff;
     padding: 8px 15px;
     border-radius: 5px;
@@ -145,24 +137,6 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-.btn-live {
-    background: linear-gradient(to right, #ff4c00, #ffcc00) !important;
-    color: #000 !important;
-    padding: 10px 20px !important;
-    border-radius: 5px !important;
-    text-decoration: none !important;
-    font-weight: 900 !important;
-    font-size: 13px !important;
-    white-space: nowrap !important;
-    box-shadow: 0 0 15px rgba(255, 76, 0, 0.4) !important;
-    transition: 0.3s;
-}
-
-.btn-live:hover {
-    transform: scale(1.05);
-    filter: brightness(1.2);
-}
-
 /* ==========================================
    3. LAYOUT PRINCIPAL (3 COLUNAS)
    ========================================== */
@@ -179,31 +153,125 @@ nav a:hover {
 .sidebar-promo {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px; /* Reduzido de 20px para 15px */
 }
 
 .side-title { 
     font-family: 'Black Ops One'; 
     text-align: center; 
     color: var(--yellow); 
-    font-size: 1.1rem; 
+    font-size: 1rem; 
+    margin-bottom: 5px;
 }
 
+/* ==========================================
+   CARDS MERCADO LIVRE - OTIMIZADOS
+   ========================================== */
 .glass-mini-card {
     background: var(--glass); 
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 15px; 
-    padding: 20px; 
+    border: 2px solid var(--ml-yellow);
+    border-radius: 12px; 
+    padding: 12px; /* Reduzido de 20px para 12px */
     text-align: center; 
     transition: 0.3s;
     max-width: 280px;
+    position: relative;
+}
+
+.glass-mini-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 241, 89, 0.4);
+    border-color: #fff;
 }
 
 .glass-mini-card img { 
     width: 100%; 
-    height: 80px; 
+    height: 110px; /* Aumentado de 80px para 110px */
     object-fit: contain; 
-    margin-bottom: 10px; 
+    margin: 8px 0; /* Reduzido de 10px */
+}
+
+.glass-mini-card h4 {
+    font-size: 13px; /* Reduzido de 14px */
+    margin: 6px 0; /* Reduzido de 10px */
+    color: #fff;
+    font-weight: 700;
+    min-height: 32px; /* Para manter altura consistente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.s-price {
+    font-size: 18px; /* Reduzido de 20px */
+    font-weight: 900;
+    color: var(--ml-yellow);
+    margin: 6px 0; /* Reduzido de 10px */
+}
+
+/* BADGE MERCADO LIVRE */
+.badge-store {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+    z-index: 10;
+}
+
+.badge-store.ml { 
+    background: var(--ml-yellow); 
+    color: #000; 
+}
+
+/* BOTÕES MERCADO LIVRE */
+.btn-side-buy {
+    display: block;
+    width: 100%;
+    padding: 10px; /* Reduzido de 12px */
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 11px; /* Reduzido de 12px */
+    text-transform: uppercase;
+    text-align: center;
+    transition: 0.3s;
+    margin-top: 8px;
+}
+
+.ml-btn { 
+    background: var(--ml-yellow); 
+    color: #000; 
+    border: 2px solid var(--ml-yellow);
+}
+
+.ml-btn:hover {
+    background: #fff;
+    border-color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 241, 89, 0.5);
+}
+
+/* CARD QR CODE (WHATSAPP) - OTIMIZADO */
+.qr-card {
+    border-color: #25d366 !important;
+}
+
+.qr-card h4 {
+    font-size: 12px !important;
+    margin-bottom: 8px !important;
+}
+
+.qr-code-img {
+    width: 100%;
+    max-width: 150px;
+    height: auto !important;
+    border-radius: 10px;
+    margin: 8px auto !important;
+    display: block;
 }
 
 .title-glow {
@@ -237,6 +305,7 @@ nav a:hover {
     border-radius: 20px; 
     padding: 25px 15px; 
     width: 100%;
+    position: relative;
 }
 
 .card-ff-neon:hover, .money-card:hover, .ent-card:hover { 
@@ -264,9 +333,10 @@ nav a:hover {
 }
 
 .money-card img {
-    height: 110px;
+    height: 150px;
     width: 100%;
     object-fit: contain;
+    margin: 10px 0;
 }
 
 .price-main { 
@@ -351,103 +421,184 @@ nav a:hover {
 }
 
 /* ==========================================
-   nova disenho de cards
+   6. SEÇÃO OFERTAS ELITE
    ========================================== */
+.money-section {
+    margin: 50px auto;
+    max-width: 1400px;
+    padding: 30px 20px;
+}
+
+.money-card h3 {
+    font-size: 16px;
+    margin: 10px 0;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.money-price {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--ml-yellow);
+}
+
+/* TAGS */
+.hot-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff4757;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 900;
+    z-index: 10;
+}
+
+.cash-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--success);
+    color: #000;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 900;
+    z-index: 10;
+}
+
+.pop-tag {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 900;
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(255, 76, 0, 0.5);
+}
+
+.auto-tag {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--success);
+    color: #000;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 9px;
+    font-weight: 900;
+}
+
 /* EFEITOS ESPECÍFICOS PARA CADA MARCA */
 .roblox-card { border-color: #ffffff !important; }
 .roblox-card:hover { box-shadow: 0 0 30px rgba(255, 255, 255, 0.4); }
 
-.google-card { border-color: #34a853 !important; }
-.google-card:hover { box-shadow: 0 0 30px rgba(52, 168, 83, 0.4); }
-
-.psn-card { border-color: #003791 !important; }
-.psn-card:hover { box-shadow: 0 0 30px rgba(0, 55, 145, 0.4); }
-
-.steam-card { border-color: #1b2838 !important; }
-.steam-card:hover { box-shadow: 0 0 30px rgba(27, 40, 56, 0.6); }
-
-/* Ajuste para ícones brilharem no hover */
-.card-ff-neon i {
-    transition: 0.3s;
-}
-.card-ff-neon:hover i {
-    transform: scale(1.1);
-    filter: brightness(1.5);
-}
-
 /* ==========================================
-   6. RESPONSIVIDADE MOBILE ULTRA COMPACTA
+   7. RESPONSIVIDADE MOBILE ULTRA COMPACTA
    ========================================== */
 @media (max-width: 1100px) {
     
-    /* --- ESTRUTURA DE 3 COLUNAS MAIS MAGRAS --- */
+    /* ESTRUTURA 3 COLUNAS OTIMIZADA */
     .main-wrapper { 
         display: grid !important;
-        /* Reduzi de 95px para 80px as laterais */
-        grid-template-columns: 80px 1fr 80px !important; 
-        gap: 4px !important;
-        padding: 10px 2px !important;
+        grid-template-columns: 85px 1fr 85px !important; 
+        gap: 5px !important;
+        padding: 10px 3px !important;
         width: 100% !important;
     }
 
     /* COLUNA CENTRAL */
     .main-content { 
         grid-column: 2 / 3 !important;
-        padding: 0 2px !important;
+        padding: 5px !important;
     }
 
-    /* AJUSTE DOS ANÚNCIOS LATERAIS (ESQUERDA E DIREITA) */
+    /* ANÚNCIOS LATERAIS MERCADO LIVRE */
     .sidebar-promo { 
         display: flex !important;
         flex-direction: column !important;
-        gap: 6px !important;
+        gap: 5px !important;
+    }
+
+    .side-title {
+        font-size: 8px !important;
+        margin-bottom: 3px !important;
     }
 
     .glass-mini-card {
-        padding: 4px 2px !important;
-        border-radius: 5px !important;
+        padding: 5px 3px !important;
+        border-radius: 6px !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        border-width: 1px !important;
     }
 
     .glass-mini-card img {
-        height: 35px !important; /* Imagens menores para não esticar a coluna */
+        height: 40px !important;
         max-width: 100% !important;
         object-fit: contain !important;
+        margin: 3px 0 !important;
     }
 
     .glass-mini-card h4 {
-        font-size: 7px !important; /* Texto bem pequeno para caber em uma linha */
+        font-size: 7.5px !important;
         margin: 2px 0 !important;
         white-space: nowrap !important;
         overflow: hidden !important;
-        text-overflow: ellipsis !important; /* Se o nome for grande, ele coloca ... */
+        text-overflow: ellipsis !important;
+        min-height: 16px !important;
+        line-height: 1.2 !important;
     }
 
     .glass-mini-card p.s-price {
-        font-size: 8px !important;
+        font-size: 9px !important;
         font-weight: bold !important;
+        margin: 2px 0 !important;
     }
 
     .glass-mini-card a.btn-side-buy {
         font-size: 7px !important;
-        padding: 3px 0 !important;
+        padding: 4px 2px !important;
+        margin-top: 3px !important;
     }
 
     .badge-store {
         font-size: 6px !important;
-        padding: 1px 3px !important;
+        padding: 2px 4px !important;
+        top: 3px !important;
+        left: 3px !important;
     }
 
-    /* --- GRADE CENTRAL (2x2) --- */
+    /* QR CODE WHATSAPP */
+    .qr-card h4 {
+        font-size: 7px !important;
+        margin: 2px 0 !important;
+    }
+
+    .qr-code-img {
+        max-width: 60px !important;
+        margin: 3px auto !important;
+    }
+
+    /* GRADE CENTRAL (2x2) */
     .ff-grid {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
-        gap: 5px !important;
+        gap: 6px !important;
     }
 
     .card-ff-neon {
-        padding: 10px 4px !important;
+        padding: 10px 5px !important;
         height: 100% !important;
         display: flex !important;
         flex-direction: column !important;
@@ -476,33 +627,66 @@ nav a:hover {
         border-radius: 4px !important;
     }
 
-    /* Ajuste da etiqueta "Mais Vendido" */
     .pop-tag {
         font-size: 7px !important;
         top: -10px !important;
-        padding: 1px 0 !important;
+        padding: 2px 8px !important;
     }
 
-    /* Ajuste dos botões do topo (Menu) */
+    .auto-tag {
+        font-size: 6px !important;
+        padding: 2px 6px !important;
+    }
+
+    /* OFERTAS ELITE */
+    .money-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+    }
+
+    .money-card img {
+        height: 80px !important;
+    }
+
+    .money-card h3 {
+        font-size: 11px !important;
+        min-height: 30px !important;
+    }
+
+    .money-price {
+        font-size: 14px !important;
+    }
+
+    .btn-money {
+        font-size: 9px !important;
+        padding: 8px !important;
+    }
+
+    .hot-tag, .cash-tag {
+        font-size: 7px !important;
+        padding: 3px 8px !important;
+    }
+
+    /* MENU */
     nav {
-        gap: 2px !important;
+        gap: 3px !important;
     }
     nav a, .btn-account {
         font-size: 7.5px !important;
-        padding: 5px 2px !important;
+        padding: 5px 3px !important;
     }
 }
 
-/* Para telas muito pequenas (abaixo de 360px) */
+/* Para telas muito pequenas */
 @media (max-width: 360px) {
     .main-wrapper {
-        grid-template-columns: 70px 1fr 70px !important;
+        grid-template-columns: 75px 1fr 75px !important;
     }
     .logo { font-size: 18px !important; }
 }
 
 /* ==========================================
-   7. FOOTER E MODAIS
+   8. FOOTER E MODAIS
    ========================================== */
 footer { 
     background: #000; 
@@ -541,17 +725,6 @@ footer {
     width: 90%; 
     max-width: 450px; 
     text-align: center; 
-}
-
-.ml { 
-    background: #fff159; 
-    color: #000; 
-}
-
-.ml-btn { 
-    background: #fff159; 
-    color: #000; 
-    border: none; 
 }
 
 #pixCodeDisplay {
