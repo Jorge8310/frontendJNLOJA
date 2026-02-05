@@ -1,13 +1,16 @@
 /* ==========================================
-   ESTILO JN SHOP - ARENA TABELAS
+   ESTILO JN SHOP - PLACAR AO VIVO & VÍDEOS
    ========================================== */
 
 :root {
-    --primary: #ff4c00;    /* Laranja JN SHOP */
-    --secondary: #00f2ff;  /* Ciano Neon */
+    --primary: #ff4c00;
+    --secondary: #00f2ff;
     --dark-bg: #0a0a0a;
     --glass: rgba(10, 10, 10, 0.9);
     --yellow: #ffcc00;
+    --success: #00ff88;
+    --danger: #ff4444;
+    --live: #ff0000;
 }
 
 * {
@@ -101,37 +104,74 @@ nav a:hover {
     box-shadow: 0 0 10px var(--primary);
     background: rgba(255, 76, 0, 0.1);
 }
-/* Isso garante que a caixa branca da tabela comece DEPOIS dos botões */
-.main-player-container {
-    clear: both;
-    margin-top: 20px;
-    display: block;
-    width: 100%;
-}
 
-.channel-selector {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px; /* Espaço entre botões e tabela */
-}
 /* TÍTULO GLOW */
 .title-glow {
     font-size: 40px;
     margin: 30px 0;
     letter-spacing: 2px;
     text-shadow: 0 0 20px var(--primary);
+    text-align: center;
+    color: var(--yellow);
+    font-family: 'Black Ops One';
 }
 
-/* BOTÕES DE LIGAS */
+/* SELETOR DE MODO */
+.mode-selector {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px auto 30px;
+    max-width: 600px;
+}
+
+.mode-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #222, #444);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 900;
+    border: 2px solid #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.3s;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.mode-btn:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 76, 0, 0.3);
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, var(--primary), #ff6b00);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(255, 76, 0, 0.5);
+}
+
+/* SEÇÕES DE CONTEÚDO */
+.secao-conteudo {
+    display: none;
+}
+
+.secao-conteudo.active {
+    display: block;
+}
+
+/* SELETOR DE LIGAS/FILTROS */
 .channel-selector {
     display: flex;
-    justify-content: center; /* Centraliza os botões */
+    justify-content: center;
     align-items: center;
     gap: 10px;
     margin: 20px auto 40px;
-    flex-wrap: wrap; /* Faz os botões quebrarem a linha no celular */
+    flex-wrap: wrap;
     max-width: 1200px;
 }
 
@@ -148,23 +188,27 @@ nav a:hover {
     gap: 10px;
     transition: 0.3s;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
-
-.btn-fifa {
-    min-width: 180px; /* Garante que os botões tenham tamanhos parecidos */
+    min-width: 180px;
     justify-content: center;
 }
 
-
-.main-player-container {
-    margin-top: 20px;
-    /* Remova qualquer padding exagerado que possa estar empurrando a tabela */
+.btn-fifa:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 76, 0, 0.4);
+    border-color: var(--secondary);
 }
 
+.btn-fifa.active {
+    border-color: var(--secondary);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+}
 
-/* CONTAINER DA TABELA (ESTILO BRANCO PARA LEITURA) */
+/* ==========================================
+   ESTILOS PARA PLACAR AO VIVO
+   ========================================== */
+
 .main-player-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto 50px;
     background: #fff !important;
     border-radius: 20px;
@@ -174,53 +218,360 @@ nav a:hover {
 }
 
 .live-header {
-    background: #f4f4f4;
-    padding: 15px;
+    background: linear-gradient(135deg, #222, #444);
+    padding: 20px;
     font-weight: 900;
-    font-size: 18px;
+    font-size: 20px;
     text-transform: uppercase;
     text-align: center;
+    color: #fff;
+    border-bottom: 3px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-#table-wrapper {
+.live-indicator {
+    color: var(--live);
+    animation: blink 1.5s infinite;
+    font-size: 16px;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.3; }
+}
+
+#livescore-wrapper {
     width: 100%;
-    min-height: 800px;
     background: #fff;
+    min-height: 800px;
 }
 
-
-@media (max-width: 768px) {
-    
-
-  header {
-    padding: 10px 0;  /* MUDE de 15px para 10px */
+#livescore-iframe {
+    display: block;
 }
 
-.container-header {
-    gap: 10px;  /* MUDE de 15px para 10px */
+/* INFO BOX */
+.info-box {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 20px;
+    border: 3px solid var(--primary);
+    color: #333;
 }
 
-.logo {
-    font-size: 24px;  /* MUDE de 28px ou 32px para 24px */
+.info-box p {
+    margin: 10px 0;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.title-glow {
-    font-size: 20px;  /* MUDE de 28px para 20px */
-    margin: 10px 0 8px;  /* MUDE de 30px 0 para 10px 0 8px */
+.info-box i {
+    color: var(--primary);
+    font-size: 18px;
 }
 
-nav {
-    gap: 8px;  /* MUDE de 15px para 8px */
+/* LOADING SPINNER */
+.loading-spinner {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 24px;
+    color: var(--primary);
 }
 
-nav a {
-    font-size: 11px;  /* MUDE de 12px para 11px */
-    padding: 6px 10px;  /* MUDE de 5px 10px para 6px 10px */
-}
+.loading-spinner i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    animation: spin 1s linear infinite;
 }
 
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   ESTILOS PARA VÍDEOS
+   ========================================== */
+
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.video-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    transition: all 0.3s;
+    cursor: pointer;
+    border: 3px solid transparent;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 76, 0, 0.4);
+    border-color: var(--primary);
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    background: #000;
+    overflow: hidden;
+}
+
+.video-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    color: white;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+    opacity: 0.9;
+    transition: 0.3s;
+}
+
+.video-card:hover .video-play-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-info {
+    padding: 15px;
+    color: #000;
+}
+
+.video-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.video-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.video-competition {
+    background: var(--primary);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 11px;
+}
+
+.video-date {
+    font-weight: 600;
+}
+
+/* Modal de Vídeo */
+.video-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 9999;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.video-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-modal-content {
+    max-width: 900px;
+    width: 100%;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.video-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: white;
+    background: rgba(0,0,0,0.7);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: 0.3s;
+}
+
+.video-modal-close:hover {
+    background: var(--danger);
+    transform: scale(1.1);
+}
+
+.video-player {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+}
+
+.video-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-modal-info {
+    padding: 20px;
+    color: #000;
+}
+
+.video-modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.video-modal-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+    color: #666;
+    flex-wrap: wrap;
+}
+
+/* Mensagem Vazia */
+.empty-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 18px;
+}
+
+.empty-message i {
+    font-size: 60px;
+    margin-bottom: 20px;
+    color: #ddd;
+}
 
 /* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    header {
+        padding: 10px 0;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .title-glow {
+        font-size: 24px;
+        margin: 15px 0;
+    }
+
+    nav {
+        gap: 8px;
+    }
+
+    nav a {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+
+    .mode-selector {
+        flex-direction: column;
+        max-width: 90%;
+        gap: 10px;
+    }
+
+    .mode-btn {
+        font-size: 14px;
+        padding: 12px 20px;
+    }
+
+    .btn-fifa {
+        min-width: 140px;
+        font-size: 12px;
+        padding: 10px 15px;
+    }
+
+    .live-header {
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    #livescore-wrapper {
+        min-height: 600px;
+    }
+
+    #livescore-iframe {
+        height: 600px !important;
+    }
+
+    .videos-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .video-modal-content {
+        margin: 20px;
+    }
+
+    .info-box {
+        padding: 15px;
+        margin: 15px;
+    }
+
+    .info-box p {
+        font-size: 13px;
+    }
+}
+
 @media (max-width: 480px) {
     .container-header {
         flex-direction: column;
@@ -228,23 +579,30 @@ nav a {
     }
 
     .logo {
-    font-size: 20px;  /* MUDE para 20px */
-}
+        font-size: 20px;
+    }
 
-nav a {
-    font-size: 10px;  /* MUDE para 10px */
-    padding: 5px 8px;  /* MUDE para 5px 8px */
-}
+    .title-glow {
+        font-size: 20px;
+    }
 
-.title-glow {
-    font-size: 18px;  /* MUDE para 18px */
-    margin: 8px 0 6px;  /* MUDE para 8px 0 6px */
-}
-   
-   
+    nav a {
+        font-size: 10px;
+        padding: 5px 8px;
+    }
+
     .main-player-container {
         width: 95%;
+        border-width: 3px;
+    }
+
+    .live-header {
+        font-size: 14px;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    #livescore-iframe {
+        height: 500px !important;
     }
 }
-
-
