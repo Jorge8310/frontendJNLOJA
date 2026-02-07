@@ -357,6 +357,7 @@ nav a:hover {
     color: #000; 
     cursor: pointer; 
     text-transform: uppercase;
+    margin-top: 20px;
 }
 
 .btn-close {
