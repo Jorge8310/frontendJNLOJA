@@ -623,7 +623,7 @@ nav a:hover {
     }
 
     .btn-main-buy {
-        padding: 8px 0 !important;
+        padding: 12px 0 !important;
         font-size: 9px !important;
         border-radius: 4px !important;
     }
@@ -660,7 +660,7 @@ nav a:hover {
 
     .btn-money {
         font-size: 9px !important;
-        padding: 8px !important;
+        padding: 12px !important;
     }
 
     .hot-tag, .cash-tag {
