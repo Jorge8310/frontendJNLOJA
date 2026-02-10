@@ -584,16 +584,73 @@
     <div id="profileModal" class="pix-modal" style="display: none">
       <div class="pix-modal-content">
         <h2>👤 MEUS CÓDIGOS</h2>
-        <div id="orderList" style="margin: 20px 0; text-align: left"></div>
-        <button
-          onclick="logout()"
-          class="btn-close"
-          style="color: red; width: 100%"
+
+        <!-- Campo de ID Free Fire (Somente Visualização) -->
+        <div
+          style="
+            margin: 20px 0;
+            text-align: left;
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+          "
         >
-          SAIR
-        </button>
+          <label
+            style="
+              color: #00ff88;
+              font-size: 14px;
+              display: block;
+              margin-bottom: 8px;
+            "
+          >
+            <i class="fas fa-gamepad"></i> MEU ID FREE FIRE
+          </label>
+          <div
+            style="
+              background: #0a0a0a;
+              padding: 15px;
+              border-radius: 8px;
+              border: 2px solid #00ff88;
+            "
+          >
+            <p
+              id="ffIdDisplay"
+              style="
+                font-size: 20px;
+                font-weight: bold;
+                color: var(--secondary);
+                margin: 0;
+                text-align: center;
+                letter-spacing: 2px;
+              "
+            >
+              <!-- ID será exibido aqui -->
+            </p>
+          </div>
+          <p
+            style="
+              font-size: 11px;
+              color: #666;
+              margin-top: 8px;
+              text-align: center;
+            "
+          >
+            <i class="fas fa-shield-alt"></i> ID verificado e protegido
+          </p>
+        </div>
+
+        <div id="orderList" style="margin: 20px 0; text-align: left"></div>
+
         <button onclick="closeModal('profileModal')" class="btn-copy">
-          FECHAR
+          VOLTAR
+        </button>
+        <button
+          onclick="confirmarSaida()"
+          class="btn-close"
+          style="color: red; width: 100%; margin-top: 10px"
+        >
+          SAIR DA CONTA
         </button>
       </div>
     </div>

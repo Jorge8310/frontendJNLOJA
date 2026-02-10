@@ -299,6 +299,9 @@ async function abrirAreaCliente() {
         modalContent.prepend(btnAdmin);
     }
 
+    // Carregar ID do Free Fire
+    await carregarIdFreeFire();
+
     const list = document.getElementById('orderList');
     list.innerHTML = "Carregando seus códigos...";
     
@@ -312,6 +315,41 @@ async function abrirAreaCliente() {
         `).join('') : "";
     } catch (e) { 
         list.innerHTML = "Erro ao carregar histórico."; 
+    }
+}
+
+// Função para carregar e exibir ID do Free Fire
+async function carregarIdFreeFire() {
+    const idDisplay = document.getElementById('ffIdDisplay');
+    
+    if (!idDisplay) return;
+    
+    try {
+        const res = await fetch(`${API_URL}/get-ff-id/${userLogado.email}`);
+        const data = await res.json();
+        
+        if (data.ffId) {
+            idDisplay.innerHTML = `${data.ffId}`;
+        } else {
+            idDisplay.innerHTML = '<span style="color: #888; font-size: 14px;">Nenhum ID cadastrado</span>';
+        }
+    } catch (e) {
+        console.error("Erro ao carregar ID:", e);
+        idDisplay.innerHTML = '<span style="color: #ff4444; font-size: 14px;">Erro ao carregar</span>';
+    }
+}
+
+// Função para confirmar saída com console.log
+function confirmarSaida() {
+    console.log("Tem certeza que deseja sair da conta?");
+    
+    const confirmaSaida = confirm("⚠️ Tem certeza que deseja sair da conta?");
+    
+    if (confirmaSaida) {
+        console.log("Usuário confirmou a saída da conta");
+        logout();
+    } else {
+        console.log("Usuário cancelou a saída da conta");
     }
 }
 
@@ -470,7 +508,9 @@ async function iniciarCompra(preco, nome, categoria) {
                     return;
                 }
                 
-                // Salva o ID no servidor
+                // ============================================
+                // VERIFICAÇÃO CRÍTICA: ID EXISTE NO FREE FIRE?
+                // ============================================
                 const resVerify = await fetch(`${API_URL}/verify-ff-id`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
@@ -482,27 +522,31 @@ async function iniciarCompra(preco, nome, categoria) {
                 
                 const dataVerify = await resVerify.json();
                 
+                // NÃO SALVA SE O ID NÃO EXISTIR!
                 if (!dataVerify.success) {
-                    alert("❌ Erro ao salvar ID! Tente novamente.");
+                    alert("❌ Este ID não existe no Free Fire!\n\nVerifique seu ID e tente novamente.\n\nNão salvamos IDs inválidos na base de dados.");
                     return;
                 }
                 
                 // Confirmação
-                const confirma = confirm(`✅ Jogador: ${dataVerify.playerName}\n\nÉ você mesmo?`);
+                const confirma = confirm(`✅ Jogador encontrado: ${dataVerify.playerName}\n\nÉ você mesmo?\n\nSe confirmar, este ID será salvo e usado nas próximas compras.`);
                 if (!confirma) {
-                    alert("❌ Compra cancelada. Verifique seu ID.");
+                    alert("❌ Compra cancelada. Verifique seu ID e tente novamente.");
                     return;
                 }
                 
-                alert(`💾 ID salvo com sucesso!\n\nAgora vamos gerar seu PIX...`);
+                alert(`💾 ID verificado e salvo com sucesso!\n\nJogador: ${dataVerify.playerName}\nID: ${ffId}\n\nAgora vamos gerar seu PIX...`);
             } else {
                 // JÁ TEM ID SALVO - Apenas confirma
-                const confirma = confirm(`🎮 A recarga será enviada para:\n\nID: ${ffId}\n\nConfirmar e gerar PIX?`);
-                if (!confirma) return;
+                const confirma = confirm(`🎮 A recarga será enviada para:\n\nID: ${ffId}\n\nDeseja continuar e gerar o PIX?`);
+                if (!confirma) {
+                    alert("❌ Compra cancelada.");
+                    return;
+                }
             }
         } catch (e) {
             console.error("❌ Erro ao verificar ID:", e);
-            alert("❌ Erro ao verificar ID. Tente novamente.");
+            alert("❌ Erro ao verificar ID. Verifique sua conexão e tente novamente.");
             return;
         }
     }
@@ -635,4 +679,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-console.log("✅ Script JNLOJA v3.2 - Sistema Free Fire ID Ativo!");
+console.log("✅ Script JNLOJA v3.3 - Sistema Free Fire ID Verificado + Campo Editável Ativo!");
