@@ -781,3 +781,24 @@ footer {
     cursor: pointer;
     margin-bottom: 10px;
 }
+
+/* Estilo para a lista de códigos com Scroll */
+.scrollable-list {
+    max-height: 250px; /* Altura máxima antes de aparecer o scroll */
+    overflow-y: auto;  /* Habilita o scroll vertical */
+    margin: 20px 0;
+    text-align: left;
+    padding-right: 5px;
+}
+
+/* Deixar o scroll bonitinho no tema escuro */
+.scrollable-list::-webkit-scrollbar {
+    width: 6px;
+}
+.scrollable-list::-webkit-scrollbar-track {
+    background: #111;
+}
+.scrollable-list::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}

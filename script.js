@@ -319,25 +319,26 @@ async function abrirAreaCliente() {
 }
 
 // Função para carregar e exibir ID do Free Fire
+// Atualize a função de carregar para preencher o input
 async function carregarIdFreeFire() {
-    const idDisplay = document.getElementById('ffIdDisplay');
-    
-    if (!idDisplay) return;
+    const idInput = document.getElementById('ffIdInput');
+    if (!idInput) return;
     
     try {
         const res = await fetch(`${API_URL}/get-ff-id/${userLogado.email}`);
         const data = await res.json();
         
         if (data.ffId) {
-            idDisplay.innerHTML = `${data.ffId}`;
+            idInput.value = data.ffId;
         } else {
-            idDisplay.innerHTML = '<span style="color: #888; font-size: 14px;">Nenhum ID cadastrado</span>';
+            idInput.value = "";
+            idInput.placeholder = "Nenhum ID salvo";
         }
     } catch (e) {
         console.error("Erro ao carregar ID:", e);
-        idDisplay.innerHTML = '<span style="color: #ff4444; font-size: 14px;">Erro ao carregar</span>';
     }
 }
+
 
 // Função para confirmar saída com console.log
 function confirmarSaida() {
@@ -678,5 +679,38 @@ document.addEventListener('DOMContentLoaded', () => {
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
+
+// NOVA FUNÇÃO: Para salvar a edição do ID
+async function salvarIdFreeFire() {
+    const novoId = document.getElementById('ffIdInput').value.trim();
+    
+    if (novoId.length < 8) {
+        alert("❌ ID inválido! O ID deve ter pelo menos 8 dígitos.");
+        return;
+    }
+
+    try {
+        // Usamos o endpoint de verificação que você já tem para salvar
+        const res = await fetch(`${API_URL}/verify-ff-id`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ 
+                customerEmail: userLogado.email, 
+                ffId: novoId 
+            })
+        });
+        
+        const data = await res.json();
+        
+        if (data.success) {
+            alert(`✅ ID ATUALIZADO!\nJogador: ${data.playerName}`);
+        } else {
+            alert("❌ Erro ao atualizar o ID. Verifique se o número está correto.");
+        }
+    } catch (e) {
+        console.error(e);
+        alert("❌ Erro de conexão ao tentar salvar.");
+    }
+}
 
 console.log("✅ Script JNLOJA v3.3 - Sistema Free Fire ID Verificado + Campo Editável Ativo!");

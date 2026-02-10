@@ -586,6 +586,7 @@
         <h2>👤 MEUS CÓDIGOS</h2>
 
         <!-- Campo de ID Free Fire (Somente Visualização) -->
+        <!-- Campo de ID Free Fire (Editável) -->
         <div
           style="
             margin: 20px 0;
@@ -604,29 +605,49 @@
               margin-bottom: 8px;
             "
           >
-            <i class="fas fa-gamepad"></i> MEU ID FREE FIRE
+            <i class="fas fa-gamepad"></i> MEU ID FREE FIRE (Clique para editar)
           </label>
           <div
             style="
               background: #0a0a0a;
-              padding: 15px;
+              padding: 10px;
               border-radius: 8px;
               border: 2px solid #00ff88;
+              display: flex;
+              gap: 10px;
+              align-items: center;
             "
           >
-            <p
-              id="ffIdDisplay"
+            <input
+              type="text"
+              id="ffIdInput"
+              placeholder="Digite seu ID"
               style="
+                flex: 1;
+                background: transparent;
+                border: none;
+                color: var(--secondary);
                 font-size: 20px;
                 font-weight: bold;
-                color: var(--secondary);
-                margin: 0;
                 text-align: center;
                 letter-spacing: 2px;
+                outline: none;
+              "
+            />
+            <button
+              onclick="salvarIdFreeFire()"
+              title="Salvar Alteração"
+              style="
+                background: #00ff88;
+                border: none;
+                color: #000;
+                padding: 8px 12px;
+                border-radius: 5px;
+                cursor: pointer;
               "
             >
-              <!-- ID será exibido aqui -->
-            </p>
+              <i class="fas fa-save"></i>
+            </button>
           </div>
           <p
             style="
@@ -640,7 +661,8 @@
           </p>
         </div>
 
-        <div id="orderList" style="margin: 20px 0; text-align: left"></div>
+        <!-- Container da lista com scroll configurado via CSS abaixo -->
+        <div id="orderList" class="scrollable-list"></div>
 
         <button onclick="closeModal('profileModal')" class="btn-copy">
           VOLTAR
