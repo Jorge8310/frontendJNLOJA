@@ -718,13 +718,15 @@ footer {
 
 .pix-modal-content { 
     background: #111; 
-    margin: 10% auto; 
+    margin: 5% auto;    /* ← MUDE AQUI para subir/descer */
     padding: 35px; 
     border: 2px solid var(--primary); 
     border-radius: 20px; 
     box-shadow: 0 0 40px rgba(255, 76, 0, 0.4); 
     width: 90%; 
     max-width: 450px; 
+    max-height: 90vh;   /* ← OU MUDE AQUI para altura */
+    overflow-y: auto;
     text-align: center; 
 }
 
