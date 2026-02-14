@@ -252,6 +252,24 @@ select option {
     padding: 10px;
 }
 
+.status-pago {
+    background: rgba(76,175,80,0.2);
+    color: #4caf50;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.status-pendente {
+    background: rgba(255,193,7,0.2);
+    color: #ffc107;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
 /* Responsividade: em celulares as colunas do formulário ficam uma embaixo da outra */
 @media (max-width: 600px) {
     #aba-livros .grid-form {

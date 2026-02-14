@@ -3,60 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADMIN - JNSHOP</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body { background: #0a0a0a; padding: 20px; }
-        .admin-container { max-width: 1400px; margin: 0 auto; }
-        .admin-header { background: linear-gradient(135deg, #ff4c00, #ffcc00); padding: 20px; border-radius: 15px; margin-bottom: 30px; }
-        .admin-section { background: rgba(255,255,255,0.05); border: 2px solid var(--secondary); border-radius: 15px; padding: 20px; margin-bottom: 20px; }
-        .admin-tabs { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
-        .admin-tab { background: rgba(0,0,0,0.8); color: #fff; padding: 15px 25px; border: 2px solid #333; border-radius: 10px; cursor: pointer; font-weight: 900; transition: 0.3s; }
-        .admin-tab.active { background: linear-gradient(135deg, var(--primary), var(--yellow)); border-color: var(--primary); color: #000; }
-        .admin-table { width: 100%; border-collapse: collapse; }
-        .admin-table th { background: rgba(255,76,0,0.3); padding: 15px; text-align: left; }
-        .admin-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .btn-aprovar { background: #00ff88; color: #000; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: 900; }
-        .btn-recusar { background: #ff4757; color: #fff; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: 900; }
-    </style>
+    <title>Painel Admin - JNSHOP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
     <div class="admin-container">
-        <div class="admin-header">
-            <h1 style="margin:0; color:#000;">🔐 PAINEL ADMIN - JNSHOP</h1>
-            <p style="margin:5px 0 0 0; color:#000;">Bem-vindo, <b id="adminName"></b></p>
-            <button onclick="location.href='index.html'" style="background:#000; color:#fff; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; margin-top:10px;">VOLTAR PARA O SITE</button>
+        <!-- HEADER DO ADMIN -->
+        <header class="admin-header">
+            <div class="header-info">
+                <h1><i class="fas fa-user-shield"></i> PAINEL ADMIN</h1>
+                <p>Bem-vindo, <span id="adminName">Admin</span></p>
+            </div>
+            <div class="header-actions">
+                <button onclick="voltarAoSite()" class="btn-secondary">
+                    <i class="fas fa-shopping-cart"></i> VOLTAR AO SITE
+                </button>
+                <button onclick="sairAdmin()" class="btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> SAIR
+                </button>
+            </div>
+        </header>
+
+        <!-- CARDS DE ESTATÍSTICAS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <div class="stat-info">
+                    <span id="totalClientes">0</span>
+                    <p>Clientes</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-gem"></i>
+                <div class="stat-info">
+                    <span id="codigosDisponiveis">0</span>
+                    <p>Pins em Estoque</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-check-circle"></i>
+                <div class="stat-info">
+                    <span id="codigosUsados">0</span>
+                    <p>Pins Vendidos</p>
+                </div>
+            </div>
         </div>
 
-        <div class="admin-tabs">
-            <div class="admin-tab active" onclick="mostrarAba('clientes')">👥 CLIENTES</div>
-            <div class="admin-tab" onclick="mostrarAba('codigos')">💎 CÓDIGOS</div>
-            <div class="admin-tab" onclick="mostrarAba('pagamentos')">💳 PAGAMENTOS</div>
-            <div class="admin-tab" onclick="mostrarAba('adicionar')">➕ ADICIONAR CÓDIGO</div>
+        <!-- ABAS DE NAVEGAÇÃO -->
+        <nav class="admin-tabs">
+            <button class="admin-tab active" onclick="mostrarAba('clientes', event)">👥 CLIENTES</button>
+            <button class="admin-tab" onclick="mostrarAba('codigos', event)">💎 ESTOQUE</button>
+            
+            <!-- ABA DE VENDAS ATUALIZADA -->
+            <button class="admin-tab" onclick="mostrarAba('pagamentos', event)">
+                <i class="fas fa-qrcode"></i> VENDAS PIX
+            </button>
+            
+            <button class="admin-tab" onclick="mostrarAba('adicionar', event)">➕ NOVO PIN</button>
             <button class="admin-tab" onclick="mostrarAba('livros', event)">📚 LIVROS/MANGAS</button>
-        </div>
+        </nav>
 
-        <div id="aba-clientes" class="admin-section">
-            <h2>👥 CLIENTES CADASTRADOS</h2>
-            <div id="lista-clientes">Carregando...</div>
-        </div>
+        <!-- CONTEÚDO DAS ABAS -->
+        <main class="admin-content">
+            
+            <!-- GERENCIAR CLIENTES -->
+            <section id="aba-clientes" class="admin-section">
+                <h2>Gerenciar Clientes</h2>
+                <div id="lista-clientes" class="table-container">Carregando...</div>
+            </section>
 
-        <div id="aba-codigos" class="admin-section" style="display:none;">
-            <h2>💎 TODOS OS CÓDIGOS</h2>
-            <div id="lista-codigos">Carregando...</div>
-        </div>
+            <!-- ESTOQUE DE PINS -->
+            <section id="aba-codigos" class="admin-section" style="display:none;">
+                <h2>Códigos no Sistema</h2>
+                <div id="lista-codigos" class="table-container">Carregando...</div>
+            </section>
 
-        <div id="aba-pagamentos" class="admin-section" style="display:none;">
-            <h2>💳 PAGAMENTOS PENDENTES</h2>
-            <div id="lista-pagamentos">Carregando...</div>
-        </div>
+            <!-- HISTÓRICO DE VENDAS (EFI BANK) -->
+            <section id="aba-pagamentos" class="admin-section" style="display:none;">
+                <h2><i class="fas fa-file-invoice-dollar"></i> Relatório de Vendas EFI Bank</h2>
+                <!-- ID AJUSTADO PARA A SUA FUNÇÃO carregarPagamentos -->
+                <div id="lista-vendas-pix" class="table-container">Carregando vendas...</div>
+            </section>
 
-        <div id="aba-adicionar" class="admin-section" style="display:none;">
-            <h2>➕ ADICIONAR NOVO CÓDIGO</h2>
-            <input type="text" id="newCode" placeholder="Código" style="width:300px; padding:10px; margin-right:10px; border-radius:5px; border:1px solid #333; background:#000; color:#fff;">
-            <input type="number" id="newAmount" placeholder="Valor (R$)" style="width:150px; padding:10px; margin-right:10px; border-radius:5px; border:1px solid #333; background:#000; color:#fff;">
-            <button onclick="adicionarCodigo()" class="btn-aprovar">ADICIONAR</button>
+            <!-- FORMULÁRIO NOVO PIN -->
+            <section id="aba-adicionar" class="admin-section" style="display:none;">
+                <div class="form-container">
+                    <h2><i class="fas fa-plus-circle"></i> Novo PIN de Estoque</h2>
+                    
+                    <div class="form-group">
+                        <label>Tipo de Produto</label>
+                        <select id="newCategory" class="input-form">
+                            <option value="freefire">💎 Free Fire (Diamantes)</option>
+                            <option value="roblox">🟦 Roblox (Robux)</option>
+                            <option value="google_play">🟢 Google Play</option>
+                            <option value="playstation">🔵 PlayStation (PSN)</option>
+                            <option value="steam">💻 Steam</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Código do Pin</label>
+                        <input type="text" id="newCode" placeholder="Ex: ABCD-1234-EFGH">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Valor em R$</label>
+                        <input type="number" id="newAmount" placeholder="Ex: 10">
+                    </div>
+
+                    <button onclick="adicionarCodigo()" class="btn-success">
+                        <i class="fas fa-save"></i> CADASTRAR CÓDIGO
+                    </button>
+                </div>
+            </section>
+            
+
+            <!-- GERENCIAR LIVROS -->
+              <section id="aba-livros" class="admin-section" style="display:none;">
+    <div class="form-container">
+        <h2><i class="fas fa-plus-circle"></i> Adicionar Novo Livro/Manga</h2>
+        
+        <!-- Esta div "grid-form" é o que o CSS usa para organizar -->
+        <div class="grid-form">
+            <div class="form-group">
+                <label>Título</label>
+                <input type="text" id="bookTitle" placeholder="Ex: Solo Leveling Vol 1">
+            </div>
+            <div class="form-group">
+                <label>Autor</label>
+                <input type="text" id="bookAuthor" placeholder="Ex: Chugong">
+            </div>
+            <div class="form-group">
+                <label>Categoria</label>
+                <input type="text" id="bookCategory" placeholder="Ex: Manga">
+            </div>
+            <div class="form-group">
+                <label>Link da Capa (JPG/PNG)</label>
+                <input type="text" id="bookCover" placeholder="https://...">
+            </div>
+            <div class="form-group full-width"> <!-- full-width faz o link do Mega ser grandão -->
+                <label>Link do Armazenamento MEGA</label>
+                <input type="text" id="bookMega" placeholder="https://mega.nz/file/...">
+            </div>
         </div>
+        
+        <button onclick="adicionarLivro()" class="btn-save-book">
+            <i class="fas fa-save"></i> CADASTRAR NA BIBLIOTECA
+        </button>
+    </div>
+
+    <h2 style="margin-top: 40px;">Livros Ativos</h2>
+    <div id="lista-livros" class="table-container">Carregando...</div>
+</section>
+
+        </main>
     </div>
 
     <script src="admin.js"></script>

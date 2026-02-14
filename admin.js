@@ -23,6 +23,10 @@ function sairAdmin() {
 }
 
 // CONTROLE DE ABAS
+// ============================================================================
+// 2️⃣ ATUALIZAR FUNÇÃO mostrarAba()
+// ============================================================================
+
 function mostrarAba(nomeAba, event) {
     document.querySelectorAll('.admin-section').forEach(sec => sec.style.display = 'none');
     document.querySelectorAll('.admin-tab').forEach(tab => tab.classList.remove('active'));
@@ -32,7 +36,11 @@ function mostrarAba(nomeAba, event) {
     
     if (nomeAba === 'clientes') carregarClientes();
     if (nomeAba === 'codigos') carregarCodigos();
-    if (nomeAba === 'pagamentos') carregarPagamentos();
+    
+    // AQUI: Deve chamar o nome da função que você definiu
+    if (nomeAba === 'pagamentos') carregarPagamentos(); 
+    
+    if (nomeAba === 'adicionar') { /* não precisa carregar nada */ }
     if (nomeAba === 'livros') carregarLivrosAdmin();
 }
 
@@ -187,38 +195,82 @@ async function deletarPin(id) {
     } catch (e) { alert("Erro ao excluir."); }
 }
 
-// CARREGAR PAGAMENTOS
+// ============================================================================
+// 3️⃣ FUNÇÃO: CARREGAR VENDAS PIX
+// ============================================================================
+
 async function carregarPagamentos() {
-    const container = document.getElementById('lista-pagamentos');
+    const container = document.getElementById('lista-vendas-pix');
+    
     try {
-        const res = await fetch(`${API_URL}/admin/payments?adminEmail=${userLogado.email}`);
+        const res = await fetch(`${API_URL}/admin/vendas-pix?adminEmail=${userLogado.email}`);
         const vendas = await res.json();
 
-        let html = `<table class="admin-table">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Cliente</th>
-                    <th>Produto</th>
-                    <th>Valor</th>
-                    <th>Código Entregue</th>
-                </tr>
-            </thead><tbody>`;
-        
+        if (vendas.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #888;">
+                    Nenhuma venda PIX ainda.
+                </div>
+            `;
+            return;
+        }
+
+        let html = `
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Cliente</th>
+                        <th>IP</th>
+                        <th>Produto</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                        <th>Código</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
         vendas.forEach(v => {
-            const dataBr = new Date(v.createdAt).toLocaleString('pt-BR');
-            const produto = v.category ? v.category.toUpperCase() : 'FREEFIRE';
-            
-            html += `<tr>
-                <td>${dataBr}</td>
-                <td>${v.customerEmail}</td>
-                <td style="color: var(--secondary); font-weight: bold;">${produto}</td>
-                <td>R$ ${v.amount}</td>
-                <td style="color: #00f2ff; font-weight: bold;">${v.codigoEntregue}</td>
-            </tr>`;
+            const data = new Date(v.createdAt).toLocaleString('pt-BR');
+            const statusClass = v.status === 'PAGO' ? 'status-pago' : 'status-pendente';
+            const statusIcon = v.status === 'PAGO' ? '✅' : '⏳';
+
+            html += `
+                <tr>
+                    <td>${data}</td>
+                    <td>
+                        <div style="font-weight: bold;">${v.customerName}</div>
+                        <div style="font-size: 11px; color: #888;">${v.customerEmail}</div>
+                    </td>
+                    <td style="color: #888; font-size: 11px;">${v.customerIp || '—'}</td>
+                    <td style="color: var(--secondary); font-weight: bold;">
+                        ${(v.category || 'freefire').toUpperCase()}
+                    </td>
+                    <td style="font-weight: bold;">R$ ${v.amount.toFixed(2)}</td>
+                    <td>
+                        <span class="${statusClass}">
+                            ${statusIcon} ${v.status}
+                        </span>
+                    </td>
+                    <td style="color: #00f2ff; font-weight: bold;">
+                        ${v.codigoEntregue || '—'}
+                    </td>
+                </tr>
+            `;
         });
-        container.innerHTML = html + `</tbody></table>`;
-    } catch (e) { container.innerHTML = "Erro ao carregar vendas."; }
+
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+
+    } catch (error) {
+        console.error('Erro:', error);
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #f44336;">
+                ❌ Erro ao carregar vendas PIX
+            </div>
+        `;
+    }
 }
 
 // --- FUNÇÕES DE LIVROS ---

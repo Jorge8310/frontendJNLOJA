@@ -680,6 +680,9 @@
     <div id="pixModal" class="pix-modal" style="display: none">
       <div class="pix-modal-content">
         <h2>✅ PIX GERADO!</h2>
+        <!-- LINHA ADICIONADA ABAIXO PARA MOSTRAR O QR CODE VISUAL -->
+        <img id="qrCodeImg" src="" style="width: 200px; background: white; padding: 10px; margin: 10px auto; display: block; border-radius: 10px;">
+        
         <textarea id="pixCodeDisplay" readonly></textarea>
         <button onclick="copyToClipboard()" class="btn-copy">
           📋 COPIAR PIX
@@ -692,6 +695,7 @@
         </button>
       </div>
     </div>
+
 
     <div id="avisoModal" class="pix-modal" style="display: none">
       <div class="pix-modal-content">
