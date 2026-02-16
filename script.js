@@ -388,8 +388,9 @@ async function comprarRecarga(produto, valor) {
         return;
     }
 
-    // ⬇️⬇️⬇️ ADICIONAR VERIFICAÇÃO DE ESTOQUE AQUI ⬇️⬇️⬇️
+        // ⬇️⬇️⬇️ ADICIONAR VERIFICAÇÃO DE ESTOQUE AQUI ⬇️⬇️⬇️
     
+    /*
     // VERIFICAR SE TEM CÓDIGO DISPONÍVEL NO ESTOQUE
     try {
         const resEstoque = await fetch(`${API_URL}/check-stock?category=${produto}`);
@@ -418,13 +419,13 @@ async function comprarRecarga(produto, valor) {
         alert("❌ Erro ao verificar disponibilidade. Tente novamente.");
         return;
     }
-    
-    // ⬆️⬆️⬆️ FIM DA VERIFICAÇÃO ⬆️⬆️⬆️
+    */
 
-    // TEM ESTOQUE? Continua normal
+    // APENAS FREE FIRE precisa de ID
     if (produto === 'freefire') {
         await processarCompraFreeFire(valor);
     } else {
+        // ROBLOX não precisa de ID - vai direto
         processarCompraNormal(produto, valor);
     }
 }
@@ -536,6 +537,7 @@ async function iniciarCompra(preco, nome, categoria) {
         document.getElementById('avisoModal').style.display = 'block';
         return;
     }
+/*
 try {
         const resEstoque = await fetch(`${API_URL}/check-stock?category=${categoria}`);
         const dataEstoque = await resEstoque.json();
@@ -549,6 +551,8 @@ try {
         alert("❌ Erro ao verificar disponibilidade. Tente novamente.");
         return;
     }
+    */
+   
     // --- Feedback visual no botão que foi clicado ---
     const btnOriginal = event.target;
     const textoOriginal = btnOriginal.innerHTML;
