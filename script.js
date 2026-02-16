@@ -388,11 +388,43 @@ async function comprarRecarga(produto, valor) {
         return;
     }
 
-    // APENAS FREE FIRE precisa de ID
+    // ⬇️⬇️⬇️ ADICIONAR VERIFICAÇÃO DE ESTOQUE AQUI ⬇️⬇️⬇️
+    
+    // VERIFICAR SE TEM CÓDIGO DISPONÍVEL NO ESTOQUE
+    try {
+        const resEstoque = await fetch(`${API_URL}/check-stock?category=${produto}`);
+        const dataEstoque = await resEstoque.json();
+        
+        if (!dataEstoque.available || dataEstoque.quantity === 0) {
+            let mensagem = `❌ PRODUTO INDISPONÍVEL!\n\n`;
+            
+            if (dataEstoque.mode === 'MANUAL') {
+                mensagem += `Não temos ${produto.toUpperCase()} em estoque no momento.\n\n`;
+            } else if (dataEstoque.mode === 'API_ERRO') {
+                mensagem += `Nosso fornecedor está temporariamente indisponível.\n\n`;
+            } else {
+                mensagem += `${dataEstoque.message || 'Produto em falta no momento.'}\n\n`;
+            }
+            
+            mensagem += `Tente novamente mais tarde ou escolha outro produto.`;
+            alert(mensagem);
+            return; // PARA AQUI, NÃO PROCESSA A COMPRA
+        }
+        
+        console.log(`✅ Estoque OK: ${dataEstoque.quantity} código(s) de ${produto}`);
+        
+    } catch (e) {
+        console.error("❌ Erro ao verificar estoque:", e);
+        alert("❌ Erro ao verificar disponibilidade. Tente novamente.");
+        return;
+    }
+    
+    // ⬆️⬆️⬆️ FIM DA VERIFICAÇÃO ⬆️⬆️⬆️
+
+    // TEM ESTOQUE? Continua normal
     if (produto === 'freefire') {
         await processarCompraFreeFire(valor);
     } else {
-        // ROBLOX não precisa de ID - vai direto
         processarCompraNormal(produto, valor);
     }
 }
@@ -504,7 +536,19 @@ async function iniciarCompra(preco, nome, categoria) {
         document.getElementById('avisoModal').style.display = 'block';
         return;
     }
-
+try {
+        const resEstoque = await fetch(`${API_URL}/check-stock?category=${categoria}`);
+        const dataEstoque = await resEstoque.json();
+        
+        if (!dataEstoque.available || dataEstoque.quantity === 0) {
+            alert(`❌ PRODUTO INDISPONÍVEL!\n\nNão temos ${categoria.toUpperCase()} em estoque no momento.\n\nTente novamente mais tarde ou escolha outro produto.`);
+            return; // PARA AQUI, não gera o PIX
+        }
+    } catch (e) {
+        console.error("Erro ao verificar estoque:", e);
+        alert("❌ Erro ao verificar disponibilidade. Tente novamente.");
+        return;
+    }
     // --- Feedback visual no botão que foi clicado ---
     const btnOriginal = event.target;
     const textoOriginal = btnOriginal.innerHTML;
