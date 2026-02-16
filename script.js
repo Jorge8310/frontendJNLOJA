@@ -388,9 +388,8 @@ async function comprarRecarga(produto, valor) {
         return;
     }
 
-        // ⬇️⬇️⬇️ ADICIONAR VERIFICAÇÃO DE ESTOQUE AQUI ⬇️⬇️⬇️
+    // ⬇️⬇️⬇️ ADICIONAR VERIFICAÇÃO DE ESTOQUE AQUI ⬇️⬇️⬇️
     
-    /*
     // VERIFICAR SE TEM CÓDIGO DISPONÍVEL NO ESTOQUE
     try {
         const resEstoque = await fetch(`${API_URL}/check-stock?category=${produto}`);
@@ -419,13 +418,13 @@ async function comprarRecarga(produto, valor) {
         alert("❌ Erro ao verificar disponibilidade. Tente novamente.");
         return;
     }
-    */
+    
+    // ⬆️⬆️⬆️ FIM DA VERIFICAÇÃO ⬆️⬆️⬆️
 
-    // APENAS FREE FIRE precisa de ID
+    // TEM ESTOQUE? Continua normal
     if (produto === 'freefire') {
         await processarCompraFreeFire(valor);
     } else {
-        // ROBLOX não precisa de ID - vai direto
         processarCompraNormal(produto, valor);
     }
 }
@@ -531,14 +530,15 @@ async function processarCompraNormal(produto, valor) {
 // ==========================================
 // SISTEMA DE CHECKOUT EFI BANK (PIX DINÂMICO + VERIFICAÇÃO DE PAGAMENTO)
 // ==========================================
-
 async function iniciarCompra(preco, nome, categoria) {
     if (!userLogado) {
         document.getElementById('avisoModal').style.display = 'block';
         return;
     }
-/*
-try {
+    // ⬇️⬇️⬇️ ADICIONAR ESTA VERIFICAÇÃO DE ESTOQUE AQUI ⬇️⬇️⬇️
+    
+    // VERIFICAR SE TEM CÓDIGO DISPONÍVEL NO ESTOQUE
+    try {
         const resEstoque = await fetch(`${API_URL}/check-stock?category=${categoria}`);
         const dataEstoque = await resEstoque.json();
         
@@ -551,8 +551,10 @@ try {
         alert("❌ Erro ao verificar disponibilidade. Tente novamente.");
         return;
     }
-    */
-   
+    
+    // ⬆️⬆️⬆️ FIM DA VERIFICAÇÃO DE ESTOQUE ⬆️⬆️⬆️
+
+    // ... resto da função continua normal (gerar PIX, etc.)
     // --- Feedback visual no botão que foi clicado ---
     const btnOriginal = event.target;
     const textoOriginal = btnOriginal.innerHTML;
@@ -653,6 +655,7 @@ try {
         resetBtn(btnOriginal, textoOriginal);
     }
 }
+
 
 // Função auxiliar para resetar o botão
 function resetBtn(btn, texto) {
@@ -810,5 +813,7 @@ async function salvarIdFreeFire() {
         alert("❌ Erro de conexão ao tentar salvar.");
     }
 }
+
+
 
 console.log("✅ Script JNLOJA v3.3 - Sistema Free Fire ID Verificado + Campo Editável Ativo!");
