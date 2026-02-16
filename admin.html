@@ -16,11 +16,9 @@
                 <p>Bem-vindo, <span id="adminName">Admin</span></p>
             </div>
             <div class="header-actions">
-                <!-- BOTÃO PARA VOLTAR AO SITE COMO CLIENTE -->
                 <button onclick="voltarAoSite()" class="btn-secondary">
                     <i class="fas fa-shopping-cart"></i> VOLTAR AO SITE
                 </button>
-                <!-- BOTÃO PARA SAIR DA CONTA -->
                 <button onclick="sairAdmin()" class="btn-danger">
                     <i class="fas fa-sign-out-alt"></i> SAIR
                 </button>
@@ -56,59 +54,73 @@
         <nav class="admin-tabs">
             <button class="admin-tab active" onclick="mostrarAba('clientes', event)">👥 CLIENTES</button>
             <button class="admin-tab" onclick="mostrarAba('codigos', event)">💎 ESTOQUE</button>
-            <button class="admin-tab" onclick="mostrarAba('pagamentos', event)">💳 VENDAS</button>
+            
+            <!-- ABA DE VENDAS ATUALIZADA -->
+            <button class="admin-tab" onclick="mostrarAba('pagamentos', event)">
+                <i class="fas fa-qrcode"></i> VENDAS PIX
+            </button>
+            
             <button class="admin-tab" onclick="mostrarAba('adicionar', event)">➕ NOVO PIN</button>
             <button class="admin-tab" onclick="mostrarAba('livros', event)">📚 LIVROS/MANGAS</button>
         </nav>
 
         <!-- CONTEÚDO DAS ABAS -->
         <main class="admin-content">
+            
+            <!-- GERENCIAR CLIENTES -->
             <section id="aba-clientes" class="admin-section">
                 <h2>Gerenciar Clientes</h2>
                 <div id="lista-clientes" class="table-container">Carregando...</div>
             </section>
 
+            <!-- ESTOQUE DE PINS -->
             <section id="aba-codigos" class="admin-section" style="display:none;">
                 <h2>Códigos no Sistema</h2>
                 <div id="lista-codigos" class="table-container">Carregando...</div>
             </section>
 
+            <!-- HISTÓRICO DE VENDAS (EFI BANK) -->
             <section id="aba-pagamentos" class="admin-section" style="display:none;">
-                <h2>Histórico de Pagamentos</h2>
-                <div id="lista-pagamentos" class="table-container">Carregando...</div>
+                <h2><i class="fas fa-file-invoice-dollar"></i> Relatório de Vendas EFI Bank</h2>
+                <!-- ID AJUSTADO PARA A SUA FUNÇÃO carregarPagamentos -->
+                <div id="lista-vendas-pix" class="table-container">Carregando vendas...</div>
             </section>
 
-   <section id="aba-adicionar" class="admin-section" style="display:none;">
-    <div class="form-container">
-        <h2><i class="fas fa-plus-circle"></i> Novo PIN de Estoque</h2>
-        
-        <div class="form-group">
-            <label>Tipo de Produto</label>
-            <select id="newCategory" class="input-form">
-                <option value="freefire">💎 Free Fire (Diamantes)</option>
-                <option value="roblox">🟦 Roblox (Robux)</option>
-                <option value="google_play">🟢 Google Play</option>
-                <option value="playstation">🔵 PlayStation (PSN)</option>
-                <option value="steam">💻 Steam</option>
-            </select>
-        </div>
+            <!-- FORMULÁRIO NOVO PIN -->
+            <section id="aba-adicionar" class="admin-section" style="display:none;">
+                <div class="form-container">
+                    <h2><i class="fas fa-plus-circle"></i> Novo PIN de Estoque</h2>
+                    
+                    <div class="form-group">
+                        <label>Tipo de Produto</label>
+                        <select id="newCategory" class="input-form">
+                            <option value="freefire">💎 Free Fire (Diamantes)</option>
+                            <option value="roblox">🟦 Roblox (Robux)</option>
+                            <option value="google_play">🟢 Google Play</option>
+                            <option value="playstation">🔵 PlayStation (PSN)</option>
+                            <option value="steam">💻 Steam</option>
+                        </select>
+                    </div>
 
-        <div class="form-group">
-            <label>Código do Pin</label>
-            <input type="text" id="newCode" placeholder="Ex: ABCD-1234-EFGH">
-        </div>
+                    <div class="form-group">
+                        <label>Código do Pin</label>
+                        <input type="text" id="newCode" placeholder="Ex: ABCD-1234-EFGH">
+                    </div>
 
-        <div class="form-group">
-            <label>Valor em R$</label>
-            <input type="number" id="newAmount" placeholder="Ex: 10">
-        </div>
+                    <div class="form-group">
+                        <label>Valor em R$</label>
+                        <input type="number" id="newAmount" placeholder="Ex: 10">
+                    </div>
 
-        <button onclick="adicionarCodigo()" class="btn-success">
-            <i class="fas fa-save"></i> CADASTRAR CÓDIGO
-        </button>
-    </div>
-</section>
-         <section id="aba-livros" class="admin-section" style="display:none;">
+                    <button onclick="adicionarCodigo()" class="btn-success">
+                        <i class="fas fa-save"></i> CADASTRAR CÓDIGO
+                    </button>
+                </div>
+            </section>
+            
+
+            <!-- GERENCIAR LIVROS -->
+              <section id="aba-livros" class="admin-section" style="display:none;">
     <div class="form-container">
         <h2><i class="fas fa-plus-circle"></i> Adicionar Novo Livro/Manga</h2>
         
@@ -144,6 +156,7 @@
     <h2 style="margin-top: 40px;">Livros Ativos</h2>
     <div id="lista-livros" class="table-container">Carregando...</div>
 </section>
+
         </main>
     </div>
 

@@ -3,6 +3,7 @@
 // ==========================================
 
 const API_URL = "https://jnloja.onrender.com/api";
+//const API_URL = "http://localhost:3000/api";
 let userLogado = JSON.parse(localStorage.getItem('jnloja_user')) || null;
 let checkInterval;
 
@@ -42,6 +43,21 @@ setInterval(mudarFundo, 7000);
 function abrirEsqueciSenha() {
     closeModal('accountModal');
     document.getElementById('forgotModal').style.display = 'block';
+}
+
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.style.display = 'none';
+    }
+
+    // Se o usuário fechar o modal do PIX, paramos a verificação automática
+    if (id === 'pixModal' || id === 'modal-pix') {
+        if (checkInterval) {
+            clearInterval(checkInterval);
+            console.log("Cronômetro de verificação parado.");
+        }
+    }
 }
 
 async function enviarEmailRecuperacao() {
@@ -180,6 +196,8 @@ function closeModal(id) {
     const modal = document.getElementById(id);
     if (modal) modal.style.display = 'none';
 }
+
+
 
 function toggleForm() {
     const log = document.getElementById('loginForm');
@@ -478,118 +496,121 @@ async function processarCompraNormal(produto, valor) {
 }
 
 // ==========================================
-// SISTEMA DE CHECKOUT COM PIX (MERCADO PAGO)
+// SISTEMA DE CHECKOUT EFI BANK (PIX DINÂMICO + VERIFICAÇÃO DE PAGAMENTO)
 // ==========================================
 
 async function iniciarCompra(preco, nome, categoria) {
-    console.log(`🛒 Iniciando compra: ${nome} | Categoria: ${categoria} | Valor: R$ ${preco}`);
-
     if (!userLogado) {
         document.getElementById('avisoModal').style.display = 'block';
         return;
     }
 
-    // ========================================
-    // SE FOR FREE FIRE, VERIFICA O ID PRIMEIRO
-    // ========================================
+    // --- Feedback visual no botão que foi clicado ---
+    const btnOriginal = event.target;
+    const textoOriginal = btnOriginal.innerHTML;
+    if (btnOriginal.tagName === 'BUTTON') {
+        btnOriginal.disabled = true;
+        btnOriginal.innerHTML = "PROCESSANDO... ⏳";
+    }
+
     if (categoria === 'freefire') {
         try {
-            // 1. Verifica se já tem ID salvo
             const resId = await fetch(`${API_URL}/get-ff-id/${userLogado.email}`);
             const dataId = await resId.json();
-            
             let ffId = dataId.ffId;
             
             if (!ffId) {
-                // PRIMEIRA COMPRA - Pede o ID
-                ffId = prompt("🎮 Digite seu ID do Free Fire:\n\n(Você encontra em: Perfil > ID do jogador)");
-                
+                ffId = prompt("🎮 Digite seu ID do Free Fire:");
                 if (!ffId || ffId.length < 8) {
-                    alert("❌ ID inválido! Deve ter no mínimo 8 dígitos.");
-                    return;
+                    resetBtn(btnOriginal, textoOriginal);
+                    return alert("❌ ID inválido!");
                 }
-                
-                // ============================================
-                // VERIFICAÇÃO CRÍTICA: ID EXISTE NO FREE FIRE?
-                // ============================================
+
                 const resVerify = await fetch(`${API_URL}/verify-ff-id`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ 
-                        customerEmail: userLogado.email, 
-                        ffId 
-                    })
+                    body: JSON.stringify({ customerEmail: userLogado.email, ffId })
                 });
-                
                 const dataVerify = await resVerify.json();
-                
-                // NÃO SALVA SE O ID NÃO EXISTIR!
                 if (!dataVerify.success) {
-                    alert("❌ Este ID não existe no Free Fire!\n\nVerifique seu ID e tente novamente.\n\nNão salvamos IDs inválidos na base de dados.");
-                    return;
+                    resetBtn(btnOriginal, textoOriginal);
+                    return alert("❌ Este ID não existe!");
                 }
-                
-                // Confirmação
-                const confirma = confirm(`✅ Jogador encontrado: ${dataVerify.playerName}\n\nÉ você mesmo?\n\nSe confirmar, este ID será salvo e usado nas próximas compras.`);
+                const confirma = confirm(`✅ Jogador: ${dataVerify.playerName}\nConfirmar?`);
                 if (!confirma) {
-                    alert("❌ Compra cancelada. Verifique seu ID e tente novamente.");
+                    resetBtn(btnOriginal, textoOriginal);
                     return;
                 }
-                
-                alert(`💾 ID verificado e salvo com sucesso!\n\nJogador: ${dataVerify.playerName}\nID: ${ffId}\n\nAgora vamos gerar seu PIX...`);
             } else {
-                // JÁ TEM ID SALVO - Apenas confirma
-                const confirma = confirm(`🎮 A recarga será enviada para:\n\nID: ${ffId}\n\nDeseja continuar e gerar o PIX?`);
+                const confirma = confirm(`🎮 Enviar para o ID salvo: ${ffId}?`);
                 if (!confirma) {
-                    alert("❌ Compra cancelada.");
+                    resetBtn(btnOriginal, textoOriginal);
                     return;
                 }
             }
         } catch (e) {
-            console.error("❌ Erro ao verificar ID:", e);
-            alert("❌ Erro ao verificar ID. Verifique sua conexão e tente novamente.");
-            return;
+            resetBtn(btnOriginal, textoOriginal);
+            return alert("❌ Erro ao verificar ID.");
         }
     }
 
-    // ========================================
-    // AGORA GERA O PIX (PARA TODOS OS PRODUTOS)
-    // ========================================
     try {
-        const res = await fetch(`${API_URL}/checkout`, {
+        const res = await fetch(`${API_URL}/pix/criar`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ 
-                email: userLogado.email, 
-                whatsapp: userLogado.whatsapp, 
+                customerEmail: userLogado.email, 
+                customerName: userLogado.name, 
                 amount: preco, 
-                description: nome,
                 category: categoria
             })
         });
 
         const data = await res.json();
 
-        if (!res.ok || data.error === "ESTOQUE_ESGOTADO") {
-            alert("⚠️ " + (data.message || "Produto sem estoque no momento!"));
-            return;
-        }
+        if (data.success) {
+            // 1. Preenche o Copia e Cola
+            document.getElementById('pixCodeDisplay').value = data.pixCopiaECola;
+            
+            // 2. Mostra a Imagem do QR Code (Certifique-se que esse ID existe no seu HTML)
+            const qrImg = document.getElementById('qrCodeImg');
+            if (qrImg) {
+                let qrFinal = data.qrCode.trim();
+                
+                // Correção: Se o servidor enviou o prefixo dobrado, nós limpamos
+                if (qrFinal.includes('base64,data:image')) {
+                   qrFinal = qrFinal.replace('data:image/png;base64,', '');
+                }
+                
+                qrImg.src = qrFinal; 
+                qrImg.style.display = 'block'; 
+            }
 
-        if (data.qr_code) {
-            document.getElementById('pixCodeDisplay').value = data.qr_code;
+            // 3. Mostra o modal
             document.getElementById('pixModal').style.display = 'block';
             
             document.querySelector('.btn-whatsapp-send').onclick = () => {
-                const msg = encodeURIComponent(`🔥 *JNSHOP* 🔥\n\nAqui está meu código Pix para *${nome}*:\n\n${data.qr_code}\n\n_Vou pagar agora!_`);
+                const msg = encodeURIComponent(`🔥 *JNSHOP* 🔥\n\nAqui está meu código Pix para *${nome}*:\n\n${data.pixCopiaECola}\n\n_Vou pagar agora!_`);
                 window.open(`https://wa.me/5554996689157?text=${msg}`, '_blank');
             };
 
             if (checkInterval) clearInterval(checkInterval);
-            checkInterval = setInterval(() => verificarStatus(data.id), 5000);
+            checkInterval = setInterval(() => verificarStatus(data.txid), 5000);
+        } else {
+            alert("⚠️ " + (data.error || "Erro ao gerar PIX"));
         }
     } catch (e) { 
-        console.error("❌ Erro no checkout:", e);
-        alert("Erro de conexão com o servidor. Verifique se a API está online."); 
+        alert("Erro de conexão com o servidor."); 
+    } finally {
+        resetBtn(btnOriginal, textoOriginal);
+    }
+}
+
+// Função auxiliar para resetar o botão
+function resetBtn(btn, texto) {
+    if (btn.tagName === 'BUTTON') {
+        btn.disabled = false;
+        btn.innerHTML = texto;
     }
 }
 
@@ -598,32 +619,39 @@ function irParaLogin() {
     document.getElementById('accountModal').style.display = 'block';
 }
 
-async function verificarStatus(id) {
+function irParaCadastro() {
+    closeModal('avisoModal');
+    document.getElementById('accountModal').style.display = 'block';
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('registerForm').style.display = 'block';
+}
+
+async function verificarStatus(txid) {
     try {
-        const res = await fetch(`${API_URL}/status/${id}`);
+        // Vamos criar uma rota no seu server para checar o status pelo txid
+        const res = await fetch(`${API_URL}/pix/status/${txid}`);
         const data = await res.json();
         
-        if (data.status === 'approved' && data.pin) {
+        // Se o status no banco mudou para PAGO
+        if (data.status === 'PAGO' && data.pin) {
             clearInterval(checkInterval);
-            const modalContent = document.querySelector('.pix-modal-content');
+            const modalContent = document.querySelector('#pixModal .pix-modal-content');
+            
             if (modalContent) {
                 modalContent.innerHTML = `
                     <h2 style="color:#00ff88;">💎 PAGAMENTO APROVADO!</h2>
-                    <p style="margin-top:15px;">Obrigado pela compra! Seu código é:</p>
+                    <p style="margin-top:15px;">Seu código foi liberado com sucesso:</p>
                     <div style="background:#000; padding:20px; color:#00f2ff; font-size:24px; font-weight:bold; margin:20px 0; border:2px solid #00f2ff; border-radius:10px; box-shadow: 0 0 15px rgba(0,242,255,0.3);">
                         ${data.pin}
                     </div>
                     <button onclick="copyPin('${data.pin}')" class="btn-copy">📋 COPIAR CÓDIGO</button>
-                    <button onclick="enviarPinWhats('${data.pin}')" class="btn-whatsapp-send" style="margin-top:10px;">
-                        <i class="fab fa-whatsapp"></i> ENVIAR PARA MEU WHATSAPP
-                    </button>
-                    <p style="font-size:12px; color:#888; margin-top:15px;">O código também foi enviado para seu e-mail e salvo na aba MINHA CONTA.</p>
                     <button onclick="location.reload()" class="btn-close" style="background:#333; margin-top:20px;">FECHAR</button>
+                    <p style="font-size:12px; color:#888; margin-top:10px;">O código também foi enviado para seu e-mail.</p>
                 `;
             }
         }
     } catch (e) { 
-        console.log("Aguardando aprovação..."); 
+        console.log("Aguardando confirmação do EFI Bank..."); 
     }
 }
 
@@ -639,10 +667,32 @@ function copyPin(pin) {
 
 function copyToClipboard() {
     const box = document.getElementById("pixCodeDisplay");
+    const btn = document.querySelector('.btn-copy'); // Pega o botão de copiar
+    const textoOriginal = btn.innerHTML;
+
+    // Seleciona o texto (importante para feedback visual no mobile)
     box.select();
-    navigator.clipboard.writeText(box.value);
-    alert("✅ Código Pix Copiado!");
+    box.setSelectionRange(0, 99999); 
+
+    // Copia usando a API moderna
+    navigator.clipboard.writeText(box.value).then(() => {
+        // Feedback visual no botão
+        btn.innerHTML = '✅ COPIADO!';
+        btn.style.background = '#4caf50'; // Muda para verde
+        btn.style.color = '#fff';
+
+        // Volta ao normal depois de 2 segundos
+        setTimeout(() => {
+            btn.innerHTML = textoOriginal;
+            btn.style.background = ''; // Volta ao CSS original
+            btn.style.color = '';
+        }, 2000);
+    }).catch(err => {
+        console.error('Erro ao copiar: ', err);
+        alert("Erro ao copiar. Tente selecionar e copiar manualmente.");
+    });
 }
+
 
 // ==========================================
 // ATUALIZAÇÃO DE INTERFACE

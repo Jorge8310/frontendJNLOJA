@@ -505,9 +505,9 @@
           >
             Esqueceu a senha?
           </p>
-          <p
+            <p
             onclick="toggleForm()"
-            style="cursor: pointer; margin-top: 15px; color: var(--secondary)"
+            style="cursor: pointer; margin-top: 15px; color: var(--secondary); font-weight: bold; text-decoration: underline;"
           >
             Não tem conta? Cadastre-se
           </p>
@@ -667,10 +667,10 @@
         <button onclick="closeModal('profileModal')" class="btn-copy">
           VOLTAR
         </button>
-        <button
+            <button
           onclick="confirmarSaida()"
           class="btn-close"
-          style="color: red; width: 100%; margin-top: 10px"
+          style="color: #fff; width: 100%; margin-top: 10px; background: #d32f2f;"
         >
           SAIR DA CONTA
         </button>
@@ -680,6 +680,9 @@
     <div id="pixModal" class="pix-modal" style="display: none">
       <div class="pix-modal-content">
         <h2>✅ PIX GERADO!</h2>
+        <!-- LINHA ADICIONADA ABAIXO PARA MOSTRAR O QR CODE VISUAL -->
+        <img id="qrCodeImg" src="https://cdn-icons-png.flaticon.com/512/2611/2611139.png" style="width: 180px; background: white; padding: 10px; margin: 10px auto; display: block; border-radius: 10px; border: 3px solid var(--secondary);">
+        
         <textarea id="pixCodeDisplay" readonly></textarea>
         <button onclick="copyToClipboard()" class="btn-copy">
           📋 COPIAR PIX
@@ -700,12 +703,25 @@
         <button onclick="irParaLogin()" class="btn-main-buy">
           LOGIN AGORA
         </button>
+        <p
+          onclick="irParaCadastro()"
+          style="
+            cursor: pointer;
+            margin-top: 15px;
+            color: var(--secondary);
+            font-weight: bold;
+            text-decoration: underline;
+            font-size: 14px;
+          "
+        >
+          Não tem conta? Cadastre-se
+        </p>
         <button onclick="closeModal('avisoModal')" class="btn-close">
           DEPOIS
         </button>
       </div>
     </div>
-
+    
     <script src="football-api.js"></script>
     <script src="script.js"></script>
   </body>
