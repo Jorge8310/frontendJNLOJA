@@ -392,7 +392,7 @@ async function comprarRecarga(produto, valor) {
     
     // VERIFICAR SE TEM CÓDIGO DISPONÍVEL NO ESTOQUE
     try {
-        const resEstoque = await fetch(`${API_URL}/check-stock?category=${produto}`);
+        const resEstoque = await fetch(`${API_URL}/check-stock?category=${produto}&amount=${valor}`);
         const dataEstoque = await resEstoque.json();
         
         if (!dataEstoque.available || dataEstoque.quantity === 0) {
@@ -535,11 +535,12 @@ async function iniciarCompra(preco, nome, categoria) {
         document.getElementById('avisoModal').style.display = 'block';
         return;
     }
+   
     // ⬇️⬇️⬇️ ADICIONAR ESTA VERIFICAÇÃO DE ESTOQUE AQUI ⬇️⬇️⬇️
     
     // VERIFICAR SE TEM CÓDIGO DISPONÍVEL NO ESTOQUE
     try {
-        const resEstoque = await fetch(`${API_URL}/check-stock?category=${categoria}`);
+        const resEstoque = await fetch(`${API_URL}/check-stock?category=${categoria}&amount=${preco}`);
         const dataEstoque = await resEstoque.json();
         
         if (!dataEstoque.available || dataEstoque.quantity === 0) {
@@ -554,13 +555,12 @@ async function iniciarCompra(preco, nome, categoria) {
     
     // ⬆️⬆️⬆️ FIM DA VERIFICAÇÃO DE ESTOQUE ⬆️⬆️⬆️
 
-    // ... resto da função continua normal (gerar PIX, etc.)
     // --- Feedback visual no botão que foi clicado ---
-    const btnOriginal = event.target;
-    const textoOriginal = btnOriginal.innerHTML;
-    if (btnOriginal.tagName === 'BUTTON') {
-        btnOriginal.disabled = true;
-        btnOriginal.innerHTML = "PROCESSANDO... ⏳";
+      const btnOriginal = window.event?.target;
+      const textoOriginal = btnOriginal?.innerHTML || "";
+       if (btnOriginal && btnOriginal.tagName === 'BUTTON') {
+      btnOriginal.disabled = true;
+      btnOriginal.innerHTML = "PROCESSANDO... ⏳";
     }
 
     if (categoria === 'freefire') {
@@ -656,10 +656,9 @@ async function iniciarCompra(preco, nome, categoria) {
     }
 }
 
-
 // Função auxiliar para resetar o botão
 function resetBtn(btn, texto) {
-    if (btn.tagName === 'BUTTON') {
+    if (btn && btn.tagName === 'BUTTON') {
         btn.disabled = false;
         btn.innerHTML = texto;
     }

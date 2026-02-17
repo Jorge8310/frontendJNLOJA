@@ -123,59 +123,114 @@
         </div>
 
         <!-- SEÇÃO: FREE FIRE -->
-        <h2 class="title-glow">RECARGA FREE FIRE 🔥</h2>
+        <!-- SEÇÃO: FREE FIRE -->
+        <h2 class="title-glow" style="margin-top: 20px">
+          RECARGA FREE FIRE 🔥
+        </h2>
         <div class="ff-grid">
+          <!-- CARD 1 -->
           <div class="card-ff-neon">
             <img
-              src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png"
+              src="https://i.pinimg.com/originals/ff/ff/ff/ffffff8e8e8e8e8e8e8e8e8e.png"
+              class="ff-card-image"
+              alt="Free Fire"
             />
             <h3>85 DIAMANTES</h3>
-            <p class="price-main">R$ 1,00</p>
+            <p class="price-main">R$ 5,00</p>
             <button
-              onclick="iniciarCompra(1, '85 Diamantes', 'freefire')"
+              onclick="iniciarCompra(5, '85 Diamantes', 'freefire')"
               class="btn-main-buy"
             >
               RECARREGAR
             </button>
             <span class="auto-tag">⚡ VIA ID</span>
           </div>
+
+          <!-- CARD 2 -->
           <div class="card-ff-neon">
             <img
-              src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png"
+              src="https://i.imgur.com/kL4rXNp.png"
+              class="ff-card-image"
+              alt="Free Fire"
             />
-            <h3>520 DIAMANTES</h3>
-            <p class="price-main">R$ 1,00</p>
+            <h3>210 DIAMANTES</h3>
+            <p class="price-main">R$ 12,00</p>
             <button
-              onclick="iniciarCompra(1, '520 Diamantes', 'freefire')"
+              onclick="iniciarCompra(12, '210 Diamantes', 'freefire')"
               class="btn-main-buy"
             >
               RECARREGAR
             </button>
             <span class="auto-tag">⚡ VIA ID</span>
           </div>
+
+          <!-- CARD 3 - MAIS VENDIDO -->
           <div class="card-ff-neon best">
             <div class="pop-tag">MAIS VENDIDO</div>
             <img
-              src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png"
+              src="https://i.imgur.com/7ZzBXqM.png"
+              class="ff-card-image"
+              alt="Free Fire"
             />
-            <h3>1060 DIAMANTES</h3>
-            <p class="price-main">R$ 1,00</p>
+            <h3>520 DIAMANTES</h3>
+            <p class="price-main">R$ 28,00</p>
             <button
-              onclick="iniciarCompra(1, '1060 Diamantes', 'freefire')"
+              onclick="iniciarCompra(28, '520 Diamantes', 'freefire')"
               class="btn-main-buy"
             >
               RECARREGAR
             </button>
             <span class="auto-tag">⚡ VIA ID</span>
           </div>
+
+          <!-- CARD 4 -->
           <div class="card-ff-neon">
             <img
-              src="https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Free-Fire-Diamante-PNG.png"
+              src="https://i.imgur.com/rY3mZLw.png"
+              class="ff-card-image"
+              alt="Free Fire"
+            />
+            <h3>1060 DIAMANTES</h3>
+            <p class="price-main">R$ 55,00</p>
+            <button
+              onclick="iniciarCompra(55, '1060 Diamantes', 'freefire')"
+              class="btn-main-buy"
+            >
+              RECARREGAR
+            </button>
+            <span class="auto-tag">⚡ VIA ID</span>
+          </div>
+
+          <!-- CARD 5 - NOVO! -->
+          <div class="card-ff-neon">
+            <img
+              src="https://i.imgur.com/VJz9kFH.png"
+              class="ff-card-image"
+              alt="Free Fire"
             />
             <h3>2180 DIAMANTES</h3>
-            <p class="price-main">R$ 1,00</p>
+            <p class="price-main">R$ 110,00</p>
             <button
-              onclick="iniciarCompra(1, '2180 Diamantes', 'freefire')"
+              onclick="iniciarCompra(110, '2180 Diamantes', 'freefire')"
+              class="btn-main-buy"
+            >
+              RECARREGAR
+            </button>
+            <span class="auto-tag">⚡ VIA ID</span>
+          </div>
+
+          <!-- CARD 6 - NOVO! VIP -->
+          <div class="card-ff-neon">
+            <div class="pop-tag" style="background: #ffd700">💎 VIP</div>
+            <img
+              src="https://i.imgur.com/zH8qL5R.png"
+              class="ff-card-image"
+              alt="Free Fire"
+            />
+            <h3>5600 DIAMANTES</h3>
+            <p class="price-main">R$ 280,00</p>
+            <button
+              onclick="iniciarCompra(280, '5600 Diamantes', 'freefire')"
               class="btn-main-buy"
             >
               RECARREGAR
@@ -185,7 +240,7 @@
         </div>
 
         <!-- SEÇÃO: ROBLOX (4 PACOTES) -->
-        <h2 class="title-glow" style="margin-top: 60px">ROBLOX (ROBUX) 🟦</h2>
+        <h2 class="title-glow" style="margin-top: 80px">ROBLOX (ROBUX) 🟦</h2>
         <div class="ff-grid">
           <div class="card-ff-neon roblox-card">
             <i
@@ -505,9 +560,15 @@
           >
             Esqueceu a senha?
           </p>
-            <p
+          <p
             onclick="toggleForm()"
-            style="cursor: pointer; margin-top: 15px; color: var(--secondary); font-weight: bold; text-decoration: underline;"
+            style="
+              cursor: pointer;
+              margin-top: 15px;
+              color: var(--secondary);
+              font-weight: bold;
+              text-decoration: underline;
+            "
           >
             Não tem conta? Cadastre-se
           </p>
@@ -667,10 +728,15 @@
         <button onclick="closeModal('profileModal')" class="btn-copy">
           VOLTAR
         </button>
-            <button
+        <button
           onclick="confirmarSaida()"
           class="btn-close"
-          style="color: #fff; width: 100%; margin-top: 10px; background: #d32f2f;"
+          style="
+            color: #fff;
+            width: 100%;
+            margin-top: 10px;
+            background: #d32f2f;
+          "
         >
           SAIR DA CONTA
         </button>
@@ -681,8 +747,20 @@
       <div class="pix-modal-content">
         <h2>✅ PIX GERADO!</h2>
         <!-- LINHA ADICIONADA ABAIXO PARA MOSTRAR O QR CODE VISUAL -->
-        <img id="qrCodeImg" src="https://cdn-icons-png.flaticon.com/512/2611/2611139.png" style="width: 180px; background: white; padding: 10px; margin: 10px auto; display: block; border-radius: 10px; border: 3px solid var(--secondary);">
-        
+        <img
+          id="qrCodeImg"
+          src="https://cdn-icons-png.flaticon.com/512/2611/2611139.png"
+          style="
+            width: 180px;
+            background: white;
+            padding: 10px;
+            margin: 10px auto;
+            display: block;
+            border-radius: 10px;
+            border: 3px solid var(--secondary);
+          "
+        />
+
         <textarea id="pixCodeDisplay" readonly></textarea>
         <button onclick="copyToClipboard()" class="btn-copy">
           📋 COPIAR PIX
@@ -721,7 +799,7 @@
         </button>
       </div>
     </div>
-    
+
     <script src="football-api.js"></script>
     <script src="script.js"></script>
   </body>
