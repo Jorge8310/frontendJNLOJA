@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minhas Compras - JNSHOP</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Kanit:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      .compras-container {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.85);
+        border-radius: 20px;
+        border: 2px solid var(--secondary);
+      }
+
+      .compra-card {
+        background: #1a1a1a;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 12px;
+        border-left: 4px solid var(--secondary);
+        transition: transform 0.3s ease;
+      }
+
+      .compra-card:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
+      }
+
+      .compra-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .compra-produto {
+        font-size: 18px;
+        font-weight: bold;
+        color: var(--secondary);
+      }
+
+      .compra-data {
+        font-size: 12px;
+        color: #888;
+      }
+
+      .compra-codigo {
+        background: #0a0a0a;
+        padding: 15px;
+        border-radius: 8px;
+        border: 2px solid var(--secondary);
+        font-family: monospace;
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--secondary);
+        text-align: center;
+        letter-spacing: 3px;
+        margin: 10px 0;
+      }
+
+      .compra-valor {
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--yellow);
+      }
+
+      .btn-copiar {
+        background: linear-gradient(to right, var(--primary), var(--yellow));
+        color: #000;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .btn-copiar:hover {
+        transform: scale(1.05);
+      }
+
+      .sem-compras {
+        text-align: center;
+        padding: 60px;
+        color: #888;
+      }
+
+      .sem-compras i {
+        font-size: 80px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .btn-voltar {
+        display: inline-block;
+        background: var(--primary);
+        color: #fff;
+        padding: 12px 30px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        margin: 20px 0;
+        transition: 0.3s;
+      }
+
+      .btn-voltar:hover {
+        background: var(--yellow);
+        color: #000;
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-wallpaper"></div>
+    <div class="color-overlay"></div>
+
+    <header>
+      <div class="container-header">
+        <div class="logo">JN<span>SHOP</span></div>
+        <nav>
+          <a href="index.html">🏠 INÍCIO</a>
+          <a href="tabelas.html">🏆 FOOTBALL</a>
+          <a href="javascript:void(0)" onclick="abrirConta()">👤 MINHA CONTA</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="compras-container">
+      <h1 style="color: var(--secondary); text-align: center; margin-bottom: 30px;">
+        <i class="fas fa-shopping-bag"></i> MINHAS COMPRAS
+      </h1>
+
+      <div id="listaCompras">
+        <div style="text-align: center; padding: 40px;">
+          <i class="fas fa-spinner fa-spin" style="font-size: 50px; color: var(--secondary);"></i>
+          <p style="margin-top: 20px; color: #888;">Carregando suas compras...</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 30px;">
+        <a href="index.html" class="btn-voltar">
+          <i class="fas fa-arrow-left"></i> VOLTAR PARA LOJA
+        </a>
+      </div>
+    </div>
+
+    <script>
+      const API_URL = "https://jnloja.onrender.com/api";
+      let userLogado = JSON.parse(localStorage.getItem('jnloja_user')) || null;
+
+      // Verificar se está logado
+      if (!userLogado) {
+        alert("⚠️ Você precisa estar logado para ver suas compras!");
+        window.location.href = "index.html";
+      }
+
+      function abrirConta() {
+        window.location.href = "index.html#conta";
+      }
+
+      async function carregarCompras() {
+        const container = document.getElementById('listaCompras');
+        
+        try {
+          const res = await fetch(`${API_URL}/my-orders/${userLogado.email}`);
+          const compras = await res.json();
+
+          if (compras.length === 0) {
+            container.innerHTML = `
+              <div class="sem-compras">
+                <i class="fas fa-shopping-cart"></i>
+                <h2 style="color: #666;">Nenhuma compra ainda</h2>
+                <p style="margin-top: 15px;">Faça sua primeira compra na loja!</p>
+                <a href="index.html" class="btn-voltar" style="margin-top: 20px; display: inline-block;">
+                  IR PARA LOJA
+                </a>
+              </div>
+            `;
+            return;
+          }
+
+          let html = '';
+          
+          compras.forEach(compra => {
+            const data = compra.createdAt ? new Date(compra.createdAt).toLocaleString('pt-BR') : 'Data não disponível';
+            const produto = compra.category ? compra.category.toUpperCase() : 'PRODUTO';
+            const valor = compra.amount || 0;
+            const codigo = compra.code || 'N/A';
+
+            html += `
+              <div class="compra-card">
+                <div class="compra-header">
+                  <div>
+                    <div class="compra-produto">
+                      <i class="fas fa-fire"></i> ${produto}
+                    </div>
+                    <div class="compra-data">
+                      <i class="far fa-clock"></i> ${data}
+                    </div>
+                  </div>
+                  <div class="compra-valor">
+                    R$ ${valor.toFixed(2)}
+                  </div>
+                </div>
+                
+                <div class="compra-codigo" id="codigo-${compra._id}">
+                  ${codigo}
+                </div>
+                
+                <button onclick="copiarCodigo('${codigo}', '${compra._id}')" class="btn-copiar" id="btn-${compra._id}">
+                  <i class="fas fa-copy"></i> COPIAR CÓDIGO
+                </button>
+              </div>
+            `;
+          });
+
+          container.innerHTML = html;
+
+        } catch (error) {
+          console.error('Erro ao carregar compras:', error);
+          container.innerHTML = `
+            <div class="sem-compras">
+              <i class="fas fa-exclamation-triangle" style="color: #f44336;"></i>
+              <h2 style="color: #f44336;">Erro ao carregar compras</h2>
+              <p style="margin-top: 15px;">Tente novamente mais tarde.</p>
+            </div>
+          `;
+        }
+      }
+
+      function copiarCodigo(codigo, id) {
+        navigator.clipboard.writeText(codigo).then(() => {
+          const btn = document.getElementById(`btn-${id}`);
+          const textoOriginal = btn.innerHTML;
+          
+          btn.innerHTML = '<i class="fas fa-check"></i> COPIADO!';
+          btn.style.background = '#00ff88';
+          
+          setTimeout(() => {
+            btn.innerHTML = textoOriginal;
+            btn.style.background = '';
+          }, 2000);
+        }).catch(err => {
+          alert('Erro ao copiar. Selecione o código manualmente.');
+        });
+      }
+
+      // Carregar compras ao abrir a página
+      carregarCompras();
+
+      // Background dinâmico (igual ao index)
+      const imagens = [
+        'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1600&auto=format&fit=crop',
+        'Fire.jpg',
+        'free-fire-pictures-igbg9v8vem3du5h4.jpg'
+      ];
+      let idx = 0;
+      function mudarFundo() {
+        const bg = document.querySelector('.game-wallpaper');
+        if (bg) {
+          bg.style.backgroundImage = "url('" + imagens[idx] + "')";
+          idx = (idx + 1) % imagens.length;
+        }
+      }
+      mudarFundo();
+      setInterval(mudarFundo, 7000);
+    </script>
+  </body>
+</html>

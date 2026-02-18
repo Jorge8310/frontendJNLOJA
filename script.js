@@ -320,20 +320,6 @@ async function abrirAreaCliente() {
     // Carregar ID do Free Fire
     await carregarIdFreeFire();
 
-    const list = document.getElementById('orderList');
-    list.innerHTML = "Carregando seus códigos...";
-    
-    try {
-        const res = await fetch(`${API_URL}/my-orders/${userLogado.email}`);
-        const orders = await res.json();
-        list.innerHTML = orders.length > 0 ? orders.map(o => `
-            <div style="background:#222; padding:10px; margin-bottom:5px; border-left:4px solid var(--secondary);">
-                ${o.amount} Dimas: <b style="color:var(--secondary)">${o.code}</b>
-            </div>
-        `).join('') : "";
-    } catch (e) { 
-        list.innerHTML = "Erro ao carregar histórico."; 
-    }
 }
 
 // Função para carregar e exibir ID do Free Fire
