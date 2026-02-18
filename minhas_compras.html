@@ -196,7 +196,7 @@
             const data = compra.createdAt ? new Date(compra.createdAt).toLocaleString('pt-BR') : 'Data não disponível';
             const produto = compra.category ? compra.category.toUpperCase() : 'PRODUTO';
             const valor = compra.amount || 0;
-            const codigo = compra.code || 'N/A';
+            const codigo = compra.code || 'AGUARDANDO...';
 
             html += `
               <div class="compra-card">
