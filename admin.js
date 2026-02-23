@@ -42,6 +42,9 @@ function mostrarAba(nomeAba, event) {
     
     if (nomeAba === 'adicionar') { /* não precisa carregar nada */ }
     if (nomeAba === 'livros') carregarLivrosAdmin();
+
+    if (nomeAba === 'gameflip-dashboard') carregarDashboardGameflip();
+    if (nomeAba === 'gameflip-compras') carregarComprasGameflip();
 }
 
 // --- FUNÇÕES DE CARREGAMENTO ---
@@ -353,6 +356,310 @@ async function deletarLivro(id) {
         }
     } catch (e) { alert("Erro ao excluir livro."); }
 }
+
+// ============================================================================
+// CÓDIGO ADICIONAL PARA O ADMIN.JS
+// Cole este código no FINAL do seu admin.js (antes do carregarStats())
+// ============================================================================
+
+// ========================================================================
+// 1. NOVA FUNÇÃO: Carregar Dashboard Gameflip
+// ========================================================================
+async function carregarDashboardGameflip() {
+    const container = document.getElementById('dashboard-gameflip');
+    
+    try {
+        // Busca saldo e compras
+        const [saldoRes, comprasRes] = await Promise.all([
+            fetch(`${API_URL}/gameflip/balance?adminEmail=${userLogado.email}`),
+            fetch(`${API_URL}/gameflip/purchases?adminEmail=${userLogado.email}`)
+        ]);
+
+        const saldo = await saldoRes.json();
+        const comprasData = await comprasRes.json();
+        const compras = comprasData.purchases || [];
+
+        // Calcula estatísticas
+        const totalComprado = compras
+            .filter(c => c.status === 'PURCHASED')
+            .reduce((sum, c) => sum + (c.gameflipPrice || 0), 0);
+
+        const comprasFalhadas = compras.filter(c => c.status === 'FAILED').length;
+        const comprasSucesso = compras.filter(c => c.status === 'PURCHASED').length;
+
+        // Renderiza dashboard
+        container.innerHTML = `
+            <div class="gameflip-dashboard">
+                <div class="gf-stat-card">
+                    <div class="gf-stat-icon">💰</div>
+                    <div class="gf-stat-info">
+                        <div class="gf-stat-value">$${saldo.balance?.toFixed(2) || '0.00'}</div>
+                        <div class="gf-stat-label">Saldo Disponível</div>
+                    </div>
+                </div>
+
+                <div class="gf-stat-card">
+                    <div class="gf-stat-icon">🛒</div>
+                    <div class="gf-stat-info">
+                        <div class="gf-stat-value">${comprasSucesso}</div>
+                        <div class="gf-stat-label">Compras Realizadas</div>
+                    </div>
+                </div>
+
+                <div class="gf-stat-card">
+                    <div class="gf-stat-icon">💵</div>
+                    <div class="gf-stat-info">
+                        <div class="gf-stat-value">$${totalComprado.toFixed(2)}</div>
+                        <div class="gf-stat-label">Total Gasto</div>
+                    </div>
+                </div>
+
+                <div class="gf-stat-card ${comprasFalhadas > 0 ? 'gf-alert' : ''}">
+                    <div class="gf-stat-icon">⚠️</div>
+                    <div class="gf-stat-info">
+                        <div class="gf-stat-value">${comprasFalhadas}</div>
+                        <div class="gf-stat-label">Compras Falhadas</div>
+                    </div>
+                </div>
+            </div>
+
+            ${saldo.balance < 10 ? `
+                <div class="gf-alert-box">
+                    ⚠️ <strong>ATENÇÃO:</strong> Saldo baixo! Adicione fundos em 
+                    <a href="https://gameflip.com/wallet" target="_blank" style="color: var(--secondary);">
+                        gameflip.com/wallet
+                    </a>
+                </div>
+            ` : ''}
+        `;
+
+    } catch (error) {
+        console.error('Erro ao carregar dashboard:', error);
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #f44336;">
+                ❌ Erro ao carregar dados do Gameflip
+            </div>
+        `;
+    }
+}
+
+// ========================================================================
+// 2. NOVA FUNÇÃO: Carregar Compras Gameflip
+// ========================================================================
+async function carregarComprasGameflip() {
+    const container = document.getElementById('lista-compras-gameflip');
+    
+    try {
+        const res = await fetch(`${API_URL}/gameflip/purchases?adminEmail=${userLogado.email}`);
+        const data = await res.json();
+        const compras = data.purchases || [];
+
+        if (compras.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #888;">
+                    Nenhuma compra no Gameflip ainda.
+                </div>
+            `;
+            return;
+        }
+
+        let html = `
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Cliente</th>
+                        <th>Categoria</th>
+                        <th>Valor Cliente</th>
+                        <th>Preço Gameflip</th>
+                        <th>Lucro</th>
+                        <th>Status</th>
+                        <th>Código</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        compras.forEach(c => {
+            const data = new Date(c.createdAt).toLocaleString('pt-BR');
+            const lucro = (c.amount || 0) - ((c.gameflipPrice || 0) * 5.3); // Conversão aproximada USD -> BRL
+            const statusClass = c.status === 'PURCHASED' ? 'status-pago' : 
+                               c.status === 'FAILED' ? 'status-pendente' : '';
+
+            html += `
+                <tr>
+                    <td style="font-size: 11px;">${data}</td>
+                    <td>
+                        <div style="font-size: 12px; font-weight: bold;">${c.customerEmail.split('@')[0]}</div>
+                        <div style="font-size: 10px; color: #888;">${c.customerEmail}</div>
+                    </td>
+                    <td style="color: var(--secondary); font-weight: bold;">
+                        ${(c.category || 'freefire').toUpperCase()}
+                    </td>
+                    <td style="font-weight: bold;">R$ ${(c.amount || 0).toFixed(2)}</td>
+                    <td style="color: #00ff88;">$${(c.gameflipPrice || 0).toFixed(2)}</td>
+                    <td style="color: ${lucro > 0 ? '#00ff88' : '#ff4757'}; font-weight: bold;">
+                        R$ ${lucro.toFixed(2)}
+                    </td>
+                    <td>
+                        <span class="${statusClass}">
+                            ${c.status === 'PURCHASED' ? '✅' : c.status === 'FAILED' ? '❌' : '⏳'} 
+                            ${c.status}
+                        </span>
+                    </td>
+                    <td style="color: #00f2ff; font-size: 11px; font-weight: bold;">
+                        ${c.code || '—'}
+                    </td>
+                    <td>
+                        ${c.status === 'FAILED' ? `
+                            <button onclick="retentarCompraGameflip('${c._id}')" class="btn-retry">
+                                <i class="fas fa-redo"></i> RETENTAR
+                            </button>
+                        ` : '—'}
+                    </td>
+                </tr>
+            `;
+        });
+
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+
+    } catch (error) {
+        console.error('Erro:', error);
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #f44336;">
+                ❌ Erro ao carregar compras Gameflip
+            </div>
+        `;
+    }
+}
+
+// ========================================================================
+// 3. NOVA FUNÇÃO: Retentar Compra Falhada
+// ========================================================================
+async function retentarCompraGameflip(purchaseId) {
+    if (!confirm('⚠️ Deseja retentar esta compra no Gameflip?')) return;
+
+    const btn = event.target.closest('button');
+    const textoOriginal = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
+    btn.disabled = true;
+
+    try {
+        const res = await fetch(`${API_URL}/gameflip/retry`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                adminEmail: userLogado.email,
+                purchaseId: purchaseId
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            alert(`✅ Compra retentada com sucesso!\n\nCódigo: ${data.code}\n\nO cliente receberá o e-mail automaticamente.`);
+            carregarComprasGameflip();
+            carregarDashboardGameflip();
+        } else {
+            alert('❌ Erro: ' + data.error);
+            btn.innerHTML = textoOriginal;
+            btn.disabled = false;
+        }
+
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('❌ Erro ao processar: ' + error.message);
+        btn.innerHTML = textoOriginal;
+        btn.disabled = false;
+    }
+}
+
+// ========================================================================
+// 4. ATUALIZAR FUNÇÃO mostrarAba() - ADICIONE ESTES CASOS
+// ========================================================================
+// Cole estas linhas dentro da função mostrarAba() existente:
+
+/*
+if (nomeAba === 'gameflip-dashboard') {
+    carregarDashboardGameflip();
+}
+if (nomeAba === 'gameflip-compras') {
+    carregarComprasGameflip();
+}
+*/
+
+// ========================================================================
+// 5. NOVA FUNÇÃO: Atualizar Stats com Gameflip
+// ========================================================================
+async function carregarStatsCompleto() {
+    try {
+        const [clientes, codigos, comprasGF] = await Promise.all([
+            fetch(`${API_URL}/admin/customers?adminEmail=${userLogado.email}`).then(r => r.json()),
+            fetch(`${API_URL}/admin/pins?adminEmail=${userLogado.email}`).then(r => r.json()),
+            fetch(`${API_URL}/gameflip/purchases?adminEmail=${userLogado.email}`).then(r => r.json())
+        ]);
+
+        document.getElementById('totalClientes').textContent = clientes.length;
+        document.getElementById('codigosUsados').textContent = codigos.filter(c => c.isUsed).length;
+        document.getElementById('codigosDisponiveis').textContent = codigos.filter(c => !c.isUsed).length;
+
+        // Adiciona stat de Gameflip se existir o elemento
+        const gfStat = document.getElementById('comprasGameflip');
+        if (gfStat && comprasGF.purchases) {
+            const sucessos = comprasGF.purchases.filter(c => c.status === 'PURCHASED').length;
+            gfStat.textContent = sucessos;
+        }
+
+    } catch (e) { 
+        console.error(e); 
+    }
+}
+
+// ========================================================================
+// 6. FUNÇÃO HELPER: Verificar Status Gameflip
+// ========================================================================
+async function verificarStatusGameflip() {
+    try {
+        const res = await fetch(`${API_URL}/gameflip/balance?adminEmail=${userLogado.email}`);
+        const data = await res.json();
+        
+        if (data.success && data.balance < 10) {
+            mostrarAlertaSaldoBaixo();
+        }
+    } catch (e) {
+        console.log('Gameflip não disponível ou sem credenciais');
+    }
+}
+
+function mostrarAlertaSaldoBaixo() {
+    const alerta = document.createElement('div');
+    alerta.className = 'alerta-flutuante';
+    alerta.innerHTML = `
+        <div style="background: #ff4757; color: white; padding: 15px; border-radius: 8px; position: fixed; top: 80px; right: 20px; z-index: 9999; box-shadow: 0 4px 20px rgba(255,71,87,0.4);">
+            <strong>⚠️ ATENÇÃO!</strong><br>
+            Saldo Gameflip abaixo de $10 USD.<br>
+            <a href="https://gameflip.com/wallet" target="_blank" style="color: #fff; text-decoration: underline;">
+                Adicionar fundos agora →
+            </a>
+        </div>
+    `;
+    document.body.appendChild(alerta);
+    
+    setTimeout(() => alerta.remove(), 10000); // Remove após 10 segundos
+}
+
+// ========================================================================
+// SUBSTITUIR A CHAMADA carregarStats() por carregarStatsCompleto()
+// ========================================================================
+// No final do admin.js, SUBSTITUA:
+// carregarStats();
+// POR:
+// carregarStatsCompleto();
+// verificarStatusGameflip();
+
+console.log('✅ Funções Gameflip carregadas no Admin');
 
 // Iniciar
 carregarStats();

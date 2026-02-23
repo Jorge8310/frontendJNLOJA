@@ -48,6 +48,14 @@
                     <p>Pins Vendidos</p>
                 </div>
             </div>
+            
+<div class="stat-card" style="border-left: 3px solid #00f2ff;">
+    <i class="fas fa-globe"></i>
+    <div class="stat-info">
+        <span id="comprasGameflip">0</span>
+        <p>Compras Gameflip</p>
+    </div>
+</div>
         </div>
 
         <!-- ABAS DE NAVEGAÇÃO -->
@@ -62,6 +70,13 @@
             
             <button class="admin-tab" onclick="mostrarAba('adicionar', event)">➕ NOVO PIN</button>
             <button class="admin-tab" onclick="mostrarAba('livros', event)">📚 LIVROS/MANGAS</button>
+
+            <button class="admin-tab" onclick="mostrarAba('gameflip-dashboard', event)">
+    <i class="fas fa-chart-line"></i> GAMEFLIP DASHBOARD
+</button>
+<button class="admin-tab" onclick="mostrarAba('gameflip-compras', event)">
+    <i class="fas fa-shopping-cart"></i> COMPRAS GAMEFLIP
+</button>
         </nav>
 
         <!-- CONTEÚDO DAS ABAS -->
@@ -157,6 +172,38 @@
     <div id="lista-livros" class="table-container">Carregando...</div>
 </section>
 
+
+<!-- DASHBOARD GAMEFLIP -->
+<section id="aba-gameflip-dashboard" class="admin-section" style="display:none;">
+    <h2><i class="fas fa-chart-line"></i> Dashboard Gameflip</h2>
+    <p style="color: #888; margin-bottom: 20px;">
+        Monitore seu saldo, gastos e estatísticas de compras automáticas via Gameflip API
+    </p>
+    <div id="dashboard-gameflip">
+        <div style="text-align: center; padding: 40px;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--secondary);"></i>
+            <p>Carregando dados...</p>
+        </div>
+    </div>
+</section>
+
+<!-- HISTÓRICO DE COMPRAS GAMEFLIP -->
+<section id="aba-gameflip-compras" class="admin-section" style="display:none;">
+    <h2><i class="fas fa-shopping-cart"></i> Histórico de Compras Gameflip</h2>
+    
+    <div class="info-box" style="background: rgba(0,242,255,0.1); border-left: 4px solid var(--secondary); padding: 15px; margin-bottom: 20px; border-radius: 8px;">
+        <strong>ℹ️ Como funciona:</strong><br>
+        Quando não há código manual disponível, o sistema compra automaticamente no Gameflip e entrega ao cliente.
+        Você pode retentar compras que falharam clicando no botão "RETENTAR".
+    </div>
+    
+    <div id="lista-compras-gameflip" class="table-container">
+        <div style="text-align: center; padding: 40px;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--secondary);"></i>
+            <p>Carregando compras...</p>
+        </div>
+    </div>
+</section>
         </main>
     </div>
 
